@@ -1,10 +1,14 @@
 ---
 title: "Análisis multivariado"
 author: "Emmanuel Alcalá"
+documentclass: apa7
+classoption: [doc,a4paper,donotrepeattitle, 12pt,floatsintext]
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: pdf_document
-header-includes:
-- \usepackage{caption}
+output:
+  pdf_document:
+    includes:
+      in_header: header.tex
+      # before_body: doc_prefix.tex
 ---
 
 ```{r results='hide', message=FALSE, warning=FALSE, include=FALSE}
