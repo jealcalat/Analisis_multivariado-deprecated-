@@ -1,11 +1,11 @@
 Libro:
 - Applied multivariate statistical analysis
-	Händle y Simar
+	Härdle y Simar
 
 *1. Preliminares
 *2. Descriptivos (visualización)
 3. Regresión (ANOVA y ANCOVA)
-4. Selección de variables
+4. Selección de variables, LASSO
 5. PCA
 6. FA
 7. Análisis discriminante
