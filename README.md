@@ -46,10 +46,24 @@
 
 ## Tutoriales
 
-### Data wrangling con `{dplyr}`
+### `R` básico
 
-- tidy data
+Existen muchos tutoriales básicos de R. Estos son algunos de mis favoritos:
+
+- [Data Carpentry: Intro to R](https://datacarpentry.org/R-genomics/01-intro-to-R.html)
+  - Comenzar [aquí](https://datacarpentry.org/R-genomics/00-before-we-start.html).
+- [Data Carpentry: Starting with data](https://datacarpentry.org/R-genomics/02-starting-with-data.html)
+- [Data Carpentry: Data frames](https://datacarpentry.org/R-genomics/03-data-frames.html)
+
+Al ser básicos, no enseñan algunas cosas avanzadas tales como construir nuestras propias funciones, control de flujo (ciclos `for` o `while`, enunciados con `if-else`, etc.).
+
+Para una introducción básica a esto, revisar el tutorial
+
 - 
+
+### Data wrangling con `{dplyr}` y `{tidyr}`
+
+En la [esta](R_tutorials/data_wrangling_dplyr.ipynb) notebook se encuentra un tutorial sencillo de *data wrangling* usando los paquetes de `{dplyr}` y `{tidyr}`. Se cubren aspectos como transformación, enriquecimiento y limpieza de tal forma que tengamos un estándar llamado `tidy data`.
 
 ### Visualización con `{ggplot}`
 
