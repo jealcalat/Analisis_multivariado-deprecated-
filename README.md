@@ -59,7 +59,7 @@ Al ser básicos, no enseñan algunas cosas avanzadas tales como construir nuestr
 
 Para una introducción básica a esto, revisar el tutorial
 
-- 
+- [`R: control de flujo y funciones`](R_tutorials/r_flujo_funciones.ipynb)
 
 ### Data wrangling con `{dplyr}` y `{tidyr}`
 
