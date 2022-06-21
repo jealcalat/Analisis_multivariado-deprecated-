@@ -75,3 +75,6 @@ En la [`esta`](R_tutorials/data_wrangling_dplyr.ipynb) notebook se encuentra un 
     - The MLW way
     - The OLS way
   - ANOVA
+
+
+![imagen](R_tutorials/img/split_apply_combine.png)
