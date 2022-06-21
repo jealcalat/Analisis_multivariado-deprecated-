@@ -59,11 +59,11 @@ Al ser básicos, no enseñan algunas cosas avanzadas tales como construir nuestr
 
 Para una introducción básica a esto, revisar el tutorial
 
-- [`R: control de flujo y funciones`](R_tutorials/r_flujo_funciones.ipynb)
+- [`R: control de flujo y funciones`](R_tutorials/r_flujo_funciones.ipynb). Notar que está en forma de jupyter notebook. El código en las celdas se puede copiar a un script de R.
 
 ### Data wrangling con `{dplyr}` y `{tidyr}`
 
-En la [esta](R_tutorials/data_wrangling_dplyr.ipynb) notebook se encuentra un tutorial sencillo de *data wrangling* usando los paquetes de `{dplyr}` y `{tidyr}`. Se cubren aspectos como transformación, enriquecimiento y limpieza de tal forma que tengamos un estándar llamado `tidy data`.
+En la [`esta`](R_tutorials/data_wrangling_dplyr.ipynb) notebook se encuentra un tutorial sencillo de *data wrangling* usando los paquetes de `{dplyr}` y `{tidyr}`. Se cubren aspectos como transformación, enriquecimiento y limpieza de tal forma que tengamos un estándar llamado `tidy data`.
 
 ### Visualización con `{ggplot}`
 
