@@ -1,8 +1,19 @@
 
 # Análisis Estadístico Multivariable
 
+Curso de la maestría en ciencia de datos (MCD) del ITESO.
 
-## Temas
+- [Análisis Estadístico Multivariable](#análisis-estadístico-multivariable)
+  - [Temas del curso](#temas-del-curso)
+  - [Bibliografía](#bibliografía)
+  - [Datasets](#datasets)
+  - [Tutoriales de `R`](#tutoriales-de-r)
+    - [Fundamentos de `R`](#fundamentos-de-r)
+    - [Data wrangling con `{dplyr}` y `{tidyr}`](#data-wrangling-con-dplyr-y-tidyr)
+    - [Visualización con `{ggplot}`](#visualización-con-ggplot)
+    - [Modelamiento con `{tidymodels}`](#modelamiento-con-tidymodels)
+
+## Temas del curso
 
 1. Variables aleatorias multivariadas
    1. Correlaciónes y covarianzas
@@ -55,6 +66,10 @@ Existen muchos tutoriales básicos de R. Estos son algunos de mis favoritos:
 - [Data Carpentry: Starting with data](https://datacarpentry.org/R-genomics/02-starting-with-data.html)
 - [Data Carpentry: Data frames](https://datacarpentry.org/R-genomics/03-data-frames.html)
 
+Otro recurso:
+
+- [`En este tutorial`](R_tutorials/r_intro.md) se puede consultar una introducción rapidísima, básica, a `R`. Se tratan cosas como operadores, sintaxis, vectores, matrices, listas, data.frames y su indexación, subsetting, etc.
+
 Al ser básicos, no enseñan algunas cosas avanzadas tales como construir nuestras propias funciones, control de flujo (ciclos `for` o `while`, enunciados con `if-else`, etc.).
 
 Para una introducción básica a esto, revisar el tutorial
@@ -79,6 +94,3 @@ En [`esta`](R_tutorials/data_viz_ggplot.ipynb) notebook de jupyter se encuentra 
     - The MLW way
     - The OLS way
   - ANOVA
-
-
-![imagen](R_tutorials/img/split_apply_combine.png)
