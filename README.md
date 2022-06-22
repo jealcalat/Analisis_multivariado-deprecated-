@@ -44,9 +44,9 @@
 - [TidyTuesday](https://github.com/rfordatascience/tidytuesday)
 - [Openpsychometrics](https://openpsychometrics.org/_rawdata/)
 
-## Tutoriales
+## Tutoriales de `R`
 
-### `R` básico
+### Fundamentos de `R`
 
 Existen muchos tutoriales básicos de R. Estos son algunos de mis favoritos:
 
@@ -59,13 +59,17 @@ Al ser básicos, no enseñan algunas cosas avanzadas tales como construir nuestr
 
 Para una introducción básica a esto, revisar el tutorial
 
-- [`R: control de flujo y funciones`](R_tutorials/r_flujo_funciones.ipynb). Notar que está en forma de jupyter notebook. El código en las celdas se puede copiar a un script de R.
+- [`R: control de flujo y funciones`](R_tutorials/r_flujo_funciones.ipynb). Notar que está en forma de jupyter notebook. El código en las celdas se puede copiar a un script de `R` o, si se tiene instalado `IRkernel`, se puede correr directamente en jupyter seleccionando el kernel de `R`.
 
 ### Data wrangling con `{dplyr}` y `{tidyr}`
 
 En la [`esta`](R_tutorials/data_wrangling_dplyr.ipynb) notebook se encuentra un tutorial sencillo de *data wrangling* usando los paquetes de `{dplyr}` y `{tidyr}`. Se cubren aspectos como transformación, enriquecimiento y limpieza de tal forma que tengamos un estándar llamado `tidy data`.
 
 ### Visualización con `{ggplot}`
+
+`{ggplot}` (oficialmente, `{ggplot2}`) es un paquete popular para la visualización de datos que implementa un conjunto de principios de visualización llamado "the grammar of graphics". Ha sido tan influyente que existen implementaciones en Python y Matlab.
+
+En [`esta`](R_tutorials/data_viz_ggplot.ipynb) notebook de jupyter se encuentra un sencillo tutorial con los fundamentos.
 
 ### Modelamiento con `{tidymodels}`
 
