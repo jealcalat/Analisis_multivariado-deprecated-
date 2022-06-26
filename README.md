@@ -16,28 +16,28 @@ Curso de la maestría en ciencia de datos (MCD) del ITESO.
 ## Temas del curso
 
 1. Variables aleatorias multivariadas
-   1. Correlaciónes y covarianzas
+   1. [Correlaciónes y covarianzas](1_variables_aleatorias_multivariadas/1.1_correlaciones_covarianzas.ipynb)
 
 2. Modelos de distribución multivariados
-   1. Funciones de distribución y densidad
-   2. Distribucion multinormal
+   1. [Funciones de distribución y densidad](2_modelos_multivariados/2.1_funciones_distribucion_densidad.ipynb)
+   2. [Distribucion multinormal](2_modelos_multivariados/2.2_distribucion_multinormal.ipynb)
 
 3. Teoría de la estimación
-   1. Función de verosimilitud
-   2. Prueba de verosimilitud
-   3. Prueba de hipótesis lineal (regresión lineal)
-   4. Regresión logística
+   1. [Función de verosimilitud](3_teoria_de_estimacion/3.1_funcion_verosimilitud.ipynb)
+   2. [Prueba de verosimilitud](3_teoria_de_estimacion/3.2_prueba_verosimilitud.ipynb)
+   3. [Prueba de hipótesis lineal (regresión lineal)](3_teoria_de_estimacion/3.3_prueba_hipotesis_lineal.ipynb)
+   4. [Regresión logística](3_teoria_de_estimacion/3.4_regresion_logistica.ipynb)
 
 4. Técnicas multivariadas
-   1. ANOVA, MANOVA, ANCOVA
-   2. Modelos log-lineal
-   3. Selección de variables
+   1. [ANOVA, MANOVA, ANCOVA](4_tecnicas_multivariadas/4.1_anova_manova_ancova.ipynb)
+   2. [Modelos log-lineal](4_tecnicas_multivariadas/4.2_modelos_log-lineal.ipynb)
+   3. [Selección de variables](4_tecnicas_multivariadas/4.3_seleccion_de_variables)
 
 5. Descomposición de datos y técnicas de análisis
-   1. Análisis de componentes principales
-   2. Análisis factorial
-   3. Análisis de clúster
-   4. Análisis discriminante
+   1. [Análisis de componentes principales](5_descomposicion_datos_tecnicas/5.1_analisis_de_componentes_principales.ipynb)
+   2. [Análisis factorial](5_descomposicion_datos_tecnicas/5.2_analisis_factorial.ipynb)
+   3. [Análisis de clúster](5_descomposicion_datos_tecnicas/5.3_analisis_de_cluster.ipynb)
+   4. [Análisis discriminante](5_descomposicion_datos_tecnicas/5.4_analisis_discriminante.ipynb)
 
 6. Aplicaciones
 
