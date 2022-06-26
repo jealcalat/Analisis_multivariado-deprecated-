@@ -1,0 +1,7 @@
+PWD /home/mrrobot/Documentos/GitHub/Analisis_multivariado
+INPUT /usr/share/texmf-dist/web2c/texmf.cnf
+INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
+INPUT /home/mrrobot/Documentos/GitHub/Analisis_multivariado/header.tex
+OUTPUT header.log
+INPUT /usr/share/texmf-dist/fonts/map/fontname/texfonts.map
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmss10.tfm

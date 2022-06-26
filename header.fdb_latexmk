@@ -1,0 +1,12 @@
+# Fdb version 3
+["pdflatex"] 1648164104 "/home/mrrobot/Documentos/GitHub/Analisis_multivariado/header.tex" "header.pdf" "header" 1648164104
+  "/home/mrrobot/Documentos/GitHub/Analisis_multivariado/header.tex" 1648164103 722 80d94baacfead371300be0f72b0cd875 ""
+  "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1640600964 3524 cb3e574dea2d1052e39280babc910dc8 ""
+  "/usr/share/texmf-dist/fonts/tfm/public/cm/cmss10.tfm" 1640600964 1316 b636689f1933f24d1294acdf6041daaa ""
+  "/usr/share/texmf-dist/web2c/texmf.cnf" 1640600964 39911 2da6c67557ec033436fe5418a70a8a61 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1642045139 2920105 381c23199f753617b2df44901bcb19d9 ""
+  "header.aux" 1648164104 32 3985256e7290058c681f74d7a3565a19 ""
+  "header.tex" 1648164103 722 80d94baacfead371300be0f72b0cd875 ""
+  (generated)
+  "header.log"
+  "header.pdf"
