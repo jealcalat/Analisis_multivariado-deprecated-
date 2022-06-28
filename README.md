@@ -3,6 +3,8 @@
 
 Curso de la maestría en ciencia de datos (MCD) del ITESO.
 
+**TOC**
+
 - [Análisis Estadístico Multivariable](#análisis-estadístico-multivariable)
   - [Temas del curso](#temas-del-curso)
   - [Bibliografía](#bibliografía)
@@ -43,7 +45,7 @@ Curso de la maestría en ciencia de datos (MCD) del ITESO.
 
 ## Bibliografía
 
-- *Applied Multivariate Statistical Analysis*. Wolfgang H. and Simar. L. Springer, 2015
+- [*Applied Multivariate Statistical Analysis*](https://link.springer.com/content/pdf/10.1007/978-3-662-45171-7.pdf). Wolfgang H. and Simar. L. Springer, 2015
 - *Applied Multivariate Statistical Concepts*. Hahs-Vaughn, D. Editorial Routledge, 2016.
 - *Applied Multivariate Statistics with R*. Zelterman, D. Editorial Springer, 2015.
 
