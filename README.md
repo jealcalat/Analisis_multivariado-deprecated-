@@ -77,6 +77,8 @@ Al ser básicos, no enseñan algunas cosas avanzadas tales como construir nuestr
 Para una introducción básica a esto, revisar el tutorial
 
 - [`R: control de flujo y funciones`](R_tutorials/r_flujo_funciones.ipynb). Notar que está en forma de jupyter notebook. El código en las celdas se puede copiar a un script de `R` o, si se tiene instalado `IRkernel`, se puede correr directamente en jupyter seleccionando el kernel de `R`.
+- [`R Workflow`](http://hbiostat.org/rflow/) de Frank Harrell es un libro-curso en línea que va desde lo [básico](https://hbiostat.org/rflow/rbasics.html) hasta temas más avanzados como [simulación](https://hbiostat.org/rflow/sim.html) o [cómputo paralelo](https://hbiostat.org/rflow/parallel.html). Tiene una *desventaja*: para los temas avanzados, hay que familiarizarse con la librería del autor, [`rms`](https://cran.r-project.org/web/packages/rms/index.html), que proviene del libro *Regresion Modeling Strategies*. En el apartado 1.1 del libro menciona los repositorios usados.
+
 
 ### Data wrangling con `{dplyr}` y `{tidyr}`
 
