@@ -3,7 +3,14 @@
 
 Curso de la maestría en ciencia de datos (MCD) del ITESO.
 
-**TOC**
+Instructor: Emmanuel Alcalá
+
+Correo: jaime.alcala@iteso.mx
+
+Asesorías: solicitar cita.
+
+---
+**Contenido**
 
 - [Análisis Estadístico Multivariable](#análisis-estadístico-multivariable)
   - [Temas del curso](#temas-del-curso)
