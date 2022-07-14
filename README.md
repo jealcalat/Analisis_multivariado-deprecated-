@@ -56,7 +56,7 @@ Asesorías: solicitar cita.
 
 - [*Applied Multivariate Statistical Analysis*](https://link.springer.com/content/pdf/10.1007/978-3-662-45171-7.pdf). Wolfgang H. and Simar. L. Springer, 2015
 - *Applied Multivariate Statistical Concepts*. Hahs-Vaughn, D. Editorial Routledge, 2016.
-- *Applied Multivariate Statistics with R*. Zelterman, D. Editorial Springer, 2015.
+- [*Applied Multivariate Statistics with R*](https://web.uniroma1.it/memotef/sites/default/files/file%20lezioni/102b_textbook.pdf). Zelterman, D. Editorial Springer, 2015.
 
 
 ## Datasets
