@@ -7,7 +7,7 @@ Curso de la maestría en ciencia de datos (MCD) del ITESO.
 
 Instructor: Emmanuel Alcalá
 
-Correo: [`jaime.alcala@iteso.mx`](jaime.alcala@iteso.mx)
+Correo: <jaime.alcala@iteso.mx>
 
 Asesorías: solicitar cita.
 
