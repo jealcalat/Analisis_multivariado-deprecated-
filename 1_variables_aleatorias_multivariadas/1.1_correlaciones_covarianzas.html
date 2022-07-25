@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>correlaciones_covarianzas</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="1.1_correlaciones_covarianzas_files/libs/clipboard/clipboard.min.js"></script>
+<script src="1.1_correlaciones_covarianzas_files/libs/quarto-html/quarto.js"></script>
+<script src="1.1_correlaciones_covarianzas_files/libs/quarto-html/popper.min.js"></script>
+<script src="1.1_correlaciones_covarianzas_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="1.1_correlaciones_covarianzas_files/libs/quarto-html/anchor.min.js"></script>
+<link href="1.1_correlaciones_covarianzas_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="1.1_correlaciones_covarianzas_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="1.1_correlaciones_covarianzas_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="1.1_correlaciones_covarianzas_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="1.1_correlaciones_covarianzas_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="tema-1.-variables-aleatorias-multivariadas." class="level1">
+<h1>Tema 1. Variables aleatorias multivariadas.</h1>
+<section id="correlaciones-y-covarianzas." class="level2">
+<h2 class="anchored" data-anchor-id="correlaciones-y-covarianzas.">1.1. Correlaciones y covarianzas.</h2>
+<p align="right">
+Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl=en&amp;user=3URusCgAAAAJ&amp;view_op=list_works&amp;sortby=pubdate">Google Scholar</a>
+</p>
+<p align="left">
+<br> <a href="https://jealcalat.github.io/Analisis_multivariado/">Regresar a la página del curso</a>
+</p>
+<hr>
+<section id="preliminares" class="level3">
+<h3 class="anchored" data-anchor-id="preliminares">1.0. Preliminares</h3>
+<p>Referencia: <a href="https://mml-book.github.io/book/mml-book.pdf">Capítulo 2 de Mathematics for Machine Learning</a></p>
+<hr>
+<p>Para las primeras lecciones, los siguientes temas de álgebra lineal son necesarios para comprender algunos conceptos.</p>
+<p><strong>Producto punto (o producto interno)</strong></p>
+<p>Dados dos vectores columna <span class="math inline">\(\mathbf{a} = [a_1, a_2, \dots , a_n]^\top\)</span> y <span class="math inline">\(\mathbf{b} = [b_1, b_2, \dots , b_n]^\top\)</span>, el producto punto de ambos vectores es definido como</p>
+<p><span class="math display">\[
+\mathbf{a}^\top \mathbf{b} =%
+\begin{bmatrix}
+  a_1 &amp; a_2 &amp; \dots &amp; a_n
+\end{bmatrix} \begin{bmatrix}
+  b_1 \\
+  b_2 \\
+  \vdots \\
+  b_n
+\end{bmatrix} =%
+\sum_{i=1}^n a_ib_i = a_1b_1 + a_2b_2 + \dots + a_nb_n
+\]</span></p>
+<p>Por ejemplo, si <span class="math inline">\(\mathbf{a}\)</span> es un vector de probabilidades <span class="math inline">\(p_i = 1/n\)</span> y <span class="math inline">\(\mathbf{b}\)</span> una variable aleatoria <span class="math inline">\(x\)</span>, el producto punto <span class="math inline">\(\mathbf{p}^\top \mathbf{x}\)</span> es el promedio</p>
+<p><span class="math display">\[
+\mathbf{p}^\top \mathbf{x} = \sum_{i=1}^n \frac{1}{n} x_i = \frac{1}{n} \sum_{i=1}^n x_i
+\]</span></p>
+<p><strong>Producto de dos matrices</strong></p>
+<p>Dadas dos matrices <span class="math inline">\(\mathbf{A} \in \mathbb{R}^{m \times n},\ \mathbf{B} \in \mathbb{R}^{n\times k}\)</span></p>
+<p><span class="math display">\[
+  \mathbf{A} = %
+  \begin{bmatrix}
+    a_{11} &amp; a_{12} &amp; \dots &amp; a_{1n}\\
+    a_{21} &amp; a_{22} &amp; \dots &amp; a_{2n}\\
+    \vdots &amp; \vdots &amp;       &amp; \vdots\\
+    a_{m1} &amp; a_{m2} &amp; \dots &amp; a_{mn}
+  \end{bmatrix} \quad
+  \mathbf{B} = %
+  \begin{bmatrix}
+    b_{11} &amp; b_{12} &amp; \dots &amp; b_{1k}\\
+    b_{21} &amp; b_{22} &amp; \dots &amp; b_{2k}\\
+    \vdots &amp; \vdots &amp;       &amp; \vdots\\
+    b_{n1} &amp; b_{n2} &amp; \dots &amp; b_{nk}
+  \end{bmatrix}
+\]</span></p>
+<p>su producto es</p>
+<p><span class="math display">\[
+  \mathbf{A}\mathbf{B} = \mathbf{C} = %
+  \begin{bmatrix}
+    c_{11} &amp; c_{12} &amp; \dots &amp; c_{1k}\\
+    c_{21} &amp; c_{22} &amp; \dots &amp; c_{2k}\\
+    \vdots &amp; \vdots &amp;       &amp; \vdots\\
+    c_{m1} &amp; c_{m2} &amp; \dots &amp; c_{mk}
+  \end{bmatrix}
+\]</span></p>
+<p>En donde cada elemento de <span class="math inline">\(\mathbf{C}\)</span> se denota como <span class="math inline">\(c_{ij}\)</span> con <span class="math inline">\(m\)</span>-filas y <span class="math inline">\(k\)</span>-columnas.</p>
+<p><strong>Nota</strong>: Cuando se escribe <span class="math inline">\(\mathbf{A} \in \mathbb{R}^{m \times n}\)</span>, en notación matricial el primer sobreíndice, en este caso <span class="math inline">\(m\)</span>, hace referencia a las filas, y el segundo, <span class="math inline">\(n\)</span>, hace referencia a las columnas. Lo mismo cuando se indiza. En <span class="math inline">\(c_{ij}\)</span> <span class="math inline">\(i\)</span> indica la <span class="math inline">\(i\)</span>-ésima fila y <span class="math inline">\(j\)</span> la <span class="math inline">\(j\)</span>-ésima columna. Este orden se conserva en <code>R</code> cuando se indizan elementos de objetos. Por ejemplo, <code>m[1, 1]</code> retorna el valor de la primera fila, primera columna.</p>
+<p>Cada entrada <span class="math inline">\(c_{ij}\)</span> se computa como</p>
+<p><span class="math display">\[
+  c_{ij} = \sum_{l=1}^n a_{il}b_{lj},\quad i=1,\dots, m,\quad j=1,\dots,k,\quad l=1,\dots,n
+\]</span></p>
+<p><span class="math inline">\(\mathbf{A}\)</span> tiene <span class="math inline">\(n\)</span> columnas, <span class="math inline">\(\mathbf{B}\)</span> tiene <span class="math inline">\(n\)</span> filas, <span class="math inline">\(l\)</span> indiza las columnas de <span class="math inline">\(\mathbf{A}\)</span> y las filas de <span class="math inline">\(\mathbf{B}\)</span>. Debe notarse que <span class="math inline">\(c_{ij}\)</span> es un producto punto: el de una fila de <span class="math inline">\(\mathbf{A}\)</span> con una columna de <span class="math inline">\(\mathbf{B}\)</span></p>
+<p><span class="math display">\[
+  \begin{bmatrix}
+    \color{red}a_{11} &amp; \color{red}a_{12} &amp; \color{red}a_{13}\\
+    \color{green}a_{21} &amp; \color{green}a_{22} &amp; \color{green}a_{23}
+  \end{bmatrix}
+  \begin{bmatrix}
+    \color{red}b_{11} &amp; \color{green}b_{12}\\
+    \color{red}b_{21} &amp; \color{green}b_{22}\\
+    \color{red}b_{31} &amp; \color{green}b_{32}
+  \end{bmatrix} =  %
+    \begin{bmatrix}
+    \underbrace{{\color{red}a_{11}b_{11} + a_{12}b_{21} + a_{13}b_{31}}}_{c_{11}} &amp; %
+    \underbrace{{\color{red}a_{11}}{\color{green}b_{12}} + {\color{red}a_{12}}{\color{green}b_{22}} + {\color{red}a_{13}}{\color{green}b_{32}}}_{c_{12}}\\
+    \underbrace{{\color{green}a_{21}}{\color{red}b_{11}} + {\color{green}a_{22}}{\color{red}b_{21}} + {\color{green}a_{13}}\color{red}{b_{31}}}_{c_{21}} &amp; %
+    \underbrace{{\color{green}a_{21}b_{12} + a_{22}b_{22} + a_{23}b_{32}}}_{c_{22}}
+  \end{bmatrix} = %
+  \begin{bmatrix}
+    c_{11} &amp; c_{12}\\
+    c_{21} &amp; c_{22}
+  \end{bmatrix} \in \mathbb{R}^{2\times 2}
+\]</span></p>
+<p><span class="math inline">\(c_{11}\)</span> es producto punto de la primera fila de <span class="math inline">\(\mathbf{A}\)</span> (<span class="math inline">\(i=1\)</span>) con la primera columna de <span class="math inline">\(\mathbf{B}\)</span> (<span class="math inline">\(j=1\)</span>), con <span class="math inline">\(j=i=1\)</span> e iterando sobre <span class="math inline">\(l=1, 2, 3\)</span></p>
+<p><span class="math display">\[
+\sum_{l=1}^{n=3}a_{1l}b_{l1} = a_{11}b_{11} + a_{12}b_{21} + a_{13}b_{31}
+\]</span></p>
+<p><strong>Nota</strong>: Las matrices <em>solo</em> pueden ser multiplicadas si sus dimensiones ‘vecinas’ coinciden:</p>
+<p><span class="math display">\[
+  \underbrace{\mathbf{A}}_{m\times n}\underbrace{\mathbf{B}}_{n\times k} = \underbrace{\mathbf{C}}_{m\times k}
+\]</span></p>
+<p>Como se ilustró antes, para poder multiplicar <span class="math inline">\(\mathbf{A}\)</span> con <span class="math inline">\(\mathbf{B}\)</span>, las columnas del primero coinciden con las filas del segundo, 2 y 2 respectivamente. El resultado es una matriz con <span class="math inline">\(m\times k\)</span> filas y columnas.</p>
+<hr>
+<p>En <code>R</code> el producto punto se obtiene con el comando <code>%*%</code>. Por ejemplo, para calcular el producto punto <span class="math inline">\(\mathbf{a}^\top \mathbf{b}\)</span> se obtiene como <code>a %*% b</code>, lo que es equivalente a <code>sum(a * b)</code>.</p>
+<p>La multiplicación de matrices también se obtiene con <code>%*%</code>. Así, <span class="math inline">\(\mathbf{A}\mathbf{B}\)</span> se obtiene <code>A %*% B</code>.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ejemplo de producto punto</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># vector de resultados</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># vector de probabilidades</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> <span class="fu">length</span>(x), <span class="fu">length</span>(x))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># imprimir resultados</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"  mean_dot = "</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%*%</span> px,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"   by def = "</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(px <span class="sc">*</span> x),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"mean_base = "</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(x)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  mean_dot =  7 
+    by def =  7 
+ mean_base =  7</code></pre>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="67">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## producto de matrices</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">10</span>, <span class="dv">8</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span>, <span class="dv">12</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">2</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span>, <span class="dv">3</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="dv">15</span>, <span class="dv">6</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Dadas las anteriores matrices, las siguientes operaciones son equivalentes</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># A %*% B</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> B</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># desarrollada</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    A[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">*</span> B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">+</span> A[<span class="dv">1</span>,<span class="dv">2</span>] <span class="sc">*</span> B[<span class="dv">2</span>,<span class="dv">1</span>], A[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">*</span> B[<span class="dv">1</span>,<span class="dv">2</span>] <span class="sc">+</span> A[<span class="dv">1</span>,<span class="dv">2</span>] <span class="sc">*</span> B[<span class="dv">2</span>,<span class="dv">2</span>],</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    A[<span class="dv">2</span>,<span class="dv">1</span>] <span class="sc">*</span> B[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">+</span> A[<span class="dv">2</span>,<span class="dv">2</span>] <span class="sc">*</span> B[<span class="dv">2</span>,<span class="dv">1</span>], A[<span class="dv">2</span>,<span class="dv">1</span>] <span class="sc">*</span> B[<span class="dv">1</span>,<span class="dv">2</span>] <span class="sc">+</span> A[<span class="dv">2</span>,<span class="dv">2</span>] <span class="sc">*</span> B[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co"># usando producto punto por i,j</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    A[<span class="dv">1</span>, ] <span class="sc">%*%</span> B[ ,<span class="dv">1</span>], A[<span class="dv">1</span>, ] <span class="sc">%*%</span> B[ ,<span class="dv">2</span>],</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    A[<span class="dv">2</span>, ] <span class="sc">%*%</span> B[ ,<span class="dv">1</span>], A[<span class="dv">2</span>, ] <span class="sc">%*%</span> B[ ,<span class="dv">2</span>]</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<tbody>
+    <tr><td>170</td><td>78</td></tr>
+    <tr><td>205</td><td>87</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<tbody>
+    <tr><td>170</td><td>78</td></tr>
+    <tr><td>205</td><td>87</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<tbody>
+    <tr><td>170</td><td>78</td></tr>
+    <tr><td>205</td><td>87</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>1.1.1. Covarianza univariada</strong></p>
+<p>El valor esperado, o media o primer momento, de la variable aleatoria <span class="math inline">\(X\)</span> es</p>
+<p><span class="math display">\[
+\begin{equation*}
+  \mathbb{E}_X{x} = \begin{cases}
+    \sum_x xf(x) &amp;\text{ si $X$ es discreta}\\
+    \int x f(x) \text{d}x &amp;\text{ si $X$ es continua}
+  \end{cases}\tag{1}
+\end{equation*}
+\]</span></p>
+<p>Si el contexto no es ambiguo, se escribe simplemente <span class="math inline">\(\mathbb{E}[x]\)</span>. <span class="math inline">\(f(x)\)</span> es una distribución de probabilidad. Se puede pensar en <span class="math inline">\(\mathbb{E}[x]\)</span> como un promedio de muestras <span class="math inline">\(X_1, ..., X_n\)</span>, con <span class="math inline">\(f(x) = 1/n\)</span></p>
+<p><span class="math display">\[
+\begin{equation*}
+  \mathbb{E}[x] \approx \frac{1}{n}\sum_{i=1}^n X_i \tag{2}
+\end{equation*}
+\]</span></p>
+<p>La covarianza es una medida de dependencia entre dos variables aleatorias. Dadas dos variables univariadas <span class="math inline">\(X, Y \in \mathbb{R}\)</span>, con realizaciones <span class="math inline">\(x, y\)</span>, la covarianza es definida como el producto esperado de sus desviaciones con respecto a sus medias:</p>
+<p><span class="math display">\[
+\begin{equation*}
+\text{Cov}_{X,Y}[x, y] := \mathbb{E}_{X,Y}\left [(x - \mathbb{E}_X[x])(y - \mathbb{E}_Y[y]) \right] \tag{3}
+\end{equation*}
+\]</span></p>
+<p>en donde <span class="math inline">\(\mathbb{E}_X[x], \mathbb{E}_Y[y]\)</span> es la media de <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span> respectivamente. Notar que <span class="math inline">\(\text{Cov}_{X,Y}[x, y]\)</span> se puede escribir como</p>
+<p><span class="math display">\[
+\begin{equation*}
+  \text{Cov}_{X,Y}[x, y] = \sum_{x,y}f(x,y)(x - \mathbb{E}[x])(y - \mathbb{E}[y])
+\end{equation*} \tag{4}
+\]</span></p>
+<p>Si <span class="math inline">\((x, y)\)</span> tienen iguales probabilidades <span class="math inline">\(1/n\)</span>, entonces la covarianza es</p>
+<p><span class="math display">\[
+\begin{equation*}
+  \text{Cov}_{X,Y}[x, y] = \frac{1}{n} \sum_{x,y}(x - \mathbb{E}[x])(y - \mathbb{E}[y])\tag{5}
+\end{equation*}
+\]</span></p>
+<p>Si denotamos <span class="math inline">\(x_0 = (x - \mathbb{E}[x])\)</span> y <span class="math inline">\(y_0 = (y - \mathbb{E}[y])\)</span> como como <span class="math inline">\(x\)</span> centrada y <span class="math inline">\(y\)</span> centradas con respecto a su media, la covarianza es</p>
+<p><span class="math display">\[
+\begin{equation*}
+  \text{Cov}_{X,Y}[x, y] = \frac{1}{n} \mathbf{x}_0^\top \mathbf{y}_0\tag{6}
+\end{equation*}
+\]</span></p>
+<p>En donde <span class="math inline">\(\mathbf{x}_0^\top \mathbf{y}_0\)</span> es el producto punto de los vectores centrados.</p>
+</section>
+<section id="correlación-univariada" class="level3">
+<h3 class="anchored" data-anchor-id="correlación-univariada">1.1.2. Correlación univariada</h3>
+<p>Comenzamos por encontrar el ángulo <span class="math inline">\(\theta\)</span> entre los vectores centrados <span class="math inline">\(\mathbf{x}_0, \mathbf{y}_0\)</span>, para lo cual usamos la definición</p>
+<p><span class="math display">\[
+\begin{align*}
+\mathbf{x}_0^\top \mathbf{y}_0 &amp;= \| \mathbf{x}_0 \| \|  \mathbf{y}_0 \| \cos \theta\\
+\cos \theta  &amp;=  \frac{\mathbf{x}_0^\top \mathbf{y}_0}{ \|\mathbf{x}_0\| \|\mathbf{y}_0\|}
+\end{align*} \tag{7}
+\]</span></p>
+<p>En donde <span class="math inline">\(\| \mathbf{x_0} \|\)</span> es llamada norma <span class="math inline">\(L^2\)</span>, que no es otra cosa que la distancia euclidiana de un vector con respecto a su origen. Su definición es la raíz cuadrada del producto punto de un vector consigo mismo:</p>
+<p><span class="math display">\[
+\begin{align*}
+  \| \mathbf{x}_0 \| = \sqrt{\mathbf{x}_0^\top \mathbf{x}_0} = \sqrt{x_0(1)^2 + x_0(2)^2 + \dots  } \tag{8}
+\end{align*}
+\]</span></p>
+<p>Notar lo siguiente: la definición de la varianza es el valor esperado de las desviaciones cuadradas de <span class="math inline">\(x\)</span> con respecto a su media, <span class="math inline">\(x - \mathbb{E}[x]\)</span></p>
+<p><span class="math display">\[
+\begin{align*}
+\text{Var}[x] &amp;= \mathbb{E}[(x - \mathbb{E}[x])^2] = \frac{1}{n}\sum_{X} (x - \mathbb{E}[x])^2\\
+\text{Var}[x] &amp;= \frac{1}{n}\sum_{X} x_0^2 = \frac{1}{n}\mathbf{x}_0^\top \mathbf{x}_0 \tag{9}
+\end{align*}
+\]</span></p>
+<p>Dado que la desviación estándar es <span class="math inline">\(\text{SD}[x] = \sqrt{\text{Var}[x]}\)</span>, combinando <span class="math inline">\((8)\)</span> y <span class="math inline">\((9)\)</span> tenemos lo siguiente:</p>
+<p><span class="math display">\[
+\begin{equation*}
+\text{SD}[x] = \sqrt{\text{Var}[x]} = \sqrt{\frac{1}{n}\sum_{X} x_0^2} = \sqrt{1/n}\| \mathbf{x}_0 \| \tag{10}
+\end{equation*}
+\]</span></p>
+<p>Si dividimos <span class="math inline">\(\text{Cov}[x, y]\)</span> entre el producto de las desviaciones de <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span>, $[x] [y] $ tenemos</p>
+<p><span class="math display">\[
+\frac{\frac{1}{n} \mathbf{x}_0^\top \mathbf{y}_0}{\sqrt{1/n}\| \mathbf{x}_0 \| \sqrt{1/n}\| \mathbf{y}_0 \| }
+\]</span></p>
+<p>A la cantidad que resulta se le conoce como coeficiente de correlación, <span class="math inline">\(\rho\)</span>. Notar que, reacomodando (<span class="math inline">\(\sqrt{1/n} \times \sqrt{1/n} = 1/n\)</span>), <span class="math inline">\(\rho\)</span> es el coseno de similitud definido en <span class="math inline">\((7)\)</span></p>
+<p><span class="math display">\[
+  \begin{align*}
+    \rho = \cos \theta &amp;= \frac{\frac{1}{n} \mathbf{x}_0^\top \mathbf{y}_0}{\sqrt{1/n}\| \mathbf{x}_0 \| \sqrt{1/n}\| \mathbf{y}_0 \| }\\
+      &amp;= \frac{\mathbf{x}_0^\top \mathbf{y}_0}{\| \mathbf{x}_0 \| \| \mathbf{y}_0 \| }
+  \end{align*}\tag{11}
+\]</span></p>
+<p>Esta forma de definirlo tiene propiedades interesantes. Por álgebra lineal, sabemos que si dos vectores <span class="math inline">\(\mathbf{a}, \mathbf{b}\)</span> son ortogonales (i.e., <span class="math inline">\(\theta = 90^\circ\)</span>) su producto punto <span class="math inline">\(\mathbf{a}^\top \mathbf{b} = 0\)</span>, y por lo tanto son linealmente independientes. Si dos vectores centrados son ortogonales, <span class="math inline">\(\mathbf{x}_0^\top \mathbf{y}_0 = 0\)</span> y por lo tanto <span class="math inline">\(\rho = 0\)</span>. Es decir, <span class="math inline">\(\rho = 0\)</span> indica que existe independencia lineal entre los vectores.</p>
+<p>Otra observación interesante es la siguiente. Definamos la estandarización de <span class="math inline">\(x\)</span> como la transformación lineal:</p>
+<p><span class="math display">\[
+  z(x) = \frac{x - \mu}{\text{SD}[x]} = \frac{x_0}{\text{SD}[x]}
+\]</span></p>
+<p>Ahora <span class="math inline">\(z(x)\)</span> es una transformación de <span class="math inline">\(x\)</span> que consiste en centrarla y dividirla por su desviación estándar. Por la eq. 11, podemos decir que la correlación <span class="math inline">\(\rho\)</span> es el producto punto de los vectores centrados <span class="math inline">\(\mathbf{x}_0\)</span> y <span class="math inline">\(\mathbf{y}_0\)</span> <em>divididos</em> por el producto de las desviaciones estándar, lo que es equivalente a</p>
+<p><span class="math display">\[
+  \rho = \frac{x_0}{\text{SD}[x]} \times  \frac{y_0}{\text{SD}[y]} = z(x)\times z(y)
+\]</span></p>
+<p>Podemos ver que la eq. 11 es equivalente a la covarianza de las variables estandarizadas.</p>
+<p><span class="math display">\[
+  \rho = \text{Cov}[z_x, z_y] = \frac{1}{n}\mathbf{z}_x^\top\mathbf{z}_y \tag{12}
+\]</span></p>
+<hr>
+<p>Propiedades de <span class="math inline">\(\rho\)</span>:</p>
+<ol type="1">
+<li><span class="math inline">\(-1 \leq \rho \leq 1\)</span>.</li>
+<li>Mide relación (dependencia) lineal.</li>
+<li><span class="math inline">\(\rho\)</span> no cambia con transformaciones lineales (suma o multiplicación con mismo signo).</li>
+</ol>
+<hr>
+<p>A continuación mostraremos algunos de estos importantes resultados usando código de R. Notar que en las definiciones dadas han sido para una población, no para una muestra.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eq 6: mostrar que la covarianza (x,y) es igual al producto punto de</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># los vectores centrados divididos por (n - 1) (por qué?). Usar la función</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cov(x,y) nativa de R.</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>center <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>dot_prod <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) x <span class="sc">%*%</span> y</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>cov_dot <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  x0 <span class="ot">&lt;-</span> <span class="fu">center</span>(x)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  y0 <span class="ot">&lt;-</span> <span class="fu">center</span>(y)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dividir por (n-1) porque es la covarianza muestral</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">1</span> <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">1</span>)) <span class="sc">*</span> <span class="fu">dot_prod</span>(x0, y0) <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">89</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">150</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">150</span>, <span class="dv">5</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sprintf</span>(</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cov_dot_def: %0.6f</span><span class="sc">\n</span><span class="st">  cov_r_fun: %0.6f"</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cov_dot</span>(x, y),</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cov</span>(x, y)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>cov_dot_def: 0.009486
+  cov_r_fun: 0.009486</code></pre>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eq 10: mostrar que la desviación estándar de x es la norma de x centrado</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># multiplicado por por la raíz del recíproco de (n-1). Usar la función sd(x)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># nativa de R.</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># de la definición</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>sd_x <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># centrar x</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  x0 <span class="ot">&lt;-</span> <span class="fu">center</span>(x)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  nsample <span class="ot">&lt;-</span> <span class="fu">length</span>(x0) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># obtener la norma</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  norm_x0 <span class="ot">&lt;-</span> <span class="fu">norm</span>(x0, <span class="at">type =</span> <span class="st">"2"</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  norm_x0 <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> nsample)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">89</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">150</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sprintf</span>(</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">" sd(x)_norm: %0.6f</span><span class="sc">\n</span><span class="st">sd(x)_r_fun: %0.6f"</span>, <span class="fu">sd_x</span>(x), <span class="fu">sd</span>(x)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> sd(x)_norm: 1.042977
+sd(x)_r_fun: 1.042977</code></pre>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eq 11: mostrar que el coeficiente de correlación es igual al coseno de similitud</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># para los vectores centrados x0, y0. Usar la función cor(x,y) nativa de R.</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>cosine_sim <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># obtener el producto punto</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  dot_xy <span class="ot">&lt;-</span> <span class="fu">dot_prod</span>(x, y)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># obtener la norma L2</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  norm_x <span class="ot">&lt;-</span> <span class="fu">norm</span>(x, <span class="at">type =</span> <span class="st">"2"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  norm_y <span class="ot">&lt;-</span> <span class="fu">norm</span>(y, <span class="at">type =</span> <span class="st">"2"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  dot_xy <span class="sc">/</span> (norm_x <span class="sc">*</span> norm_y) <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">89</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">150</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">150</span>, <span class="dv">5</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># centrar vectores</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>x0 <span class="ot">&lt;-</span> <span class="fu">center</span>(x)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">center</span>(y)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># cat(</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   "cos theta = ",</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co">#   cosine_sim(x0, y0) |&gt; round(6),</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">#   "\n",</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#   "     rho = ",</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#   cor(x, y) |&gt; round(6)</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sprintf</span>(</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cos theta: %0.6f</span><span class="sc">\n</span><span class="st">      rho: %0.6f"</span>, <span class="fu">cosine_sim</span>(x0, y0), <span class="fu">cor</span>(x, y)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>cos theta: 0.009196
+      rho: 0.009196</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="1.1_correlaciones_covarianzas_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eq 12: mostrar que la correlación es igual a la covarianza de las variables estandarizadas</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># nota: en R existe la función scale que centre y escala (divide por SD) las variables,</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pero vamos a hacer la nuestra para ilustrar</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>z_score <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">/</span> <span class="fu">sd</span>(x)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">89</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">150</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">150</span>, <span class="dv">5</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># centrar vectores</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>z_x <span class="ot">&lt;-</span> <span class="fu">z_score</span>(x)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>z_y <span class="ot">&lt;-</span> <span class="fu">z_score</span>(y)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">data.frame</span>(</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">cor_by_def =</span> (<span class="dv">1</span> <span class="sc">/</span> (<span class="fu">length</span>(x) <span class="sc">-</span> <span class="dv">1</span>)) <span class="sc">*</span> z_x <span class="sc">%*%</span> z_y,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">cor_r_base =</span> <span class="fu">cor</span>(x, y),</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">cor_cov_z =</span> <span class="fu">cov</span>(z_x, z_y)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A matrix: 3 × 1 of type dbl</caption>
+<tbody>
+    <tr><th scope="row">cor_by_def</th><td>0.009196</td></tr>
+    <tr><th scope="row">cor_r_base</th><td>0.009196</td></tr>
+    <tr><th scope="row">cor_cov_z</th><td>0.009196</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Las propiedades (1) y (2) son fáciles de verificar numéricamente.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rho solo mide dependencia lineal, no dependencia en general</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fun_quadratic <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  xmax <span class="ot">&lt;-</span> <span class="fu">max</span>(x)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  x<span class="sc">*</span>(xmax <span class="sc">-</span> x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, <span class="fl">0.1</span><span class="sc">*</span>xmax)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="fl">0.1</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">fun_quadratic</span>(x)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sprintf</span>(</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'La correlación es de %0.3f'</span>, <span class="fu">cor</span>(x,y)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "La correlación es de -0.003"</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="1.1_correlaciones_covarianzas_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>Off topic</strong>: si <span class="math inline">\(\rho\)</span> no sirve para medir dependencia no lineal, ¿qué podemos usar?</p>
+<p>Para medir dependencia <em>no lineal</em> existen alternativas, como la información mutua o la correlación de la distancia.</p>
+<p>Para calcular la información mutua instalamos el paquete <code>infotheo</code> usando <code>install.packages('infotheo')</code>, y para correlación de la distancia instalamos <code>energy</code> de la misma manera.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cargamos los paquetes</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infotheo)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(energy)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="fl">0.1</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">fun_quadratic</span>(x)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># crear df para discretizar en bins</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>df_raw <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># cantidad de bines recomendado la raíz cuadrada de N</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>df_discretized <span class="ot">&lt;-</span> <span class="fu">discretize</span>(<span class="at">X =</span> df_raw, <span class="at">nbins =</span> <span class="fu">sqrt</span>(<span class="fu">NROW</span>(df_raw)))</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># calcular la información mutua</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>mut_info <span class="ot">&lt;-</span> <span class="fu">multiinformation</span>(df_discretized, <span class="at">method =</span> <span class="st">"mm"</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># calcular la correlación de la distancia</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>cor_dist <span class="ot">&lt;-</span> <span class="fu">dcor</span>(x, y)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sprintf</span>(</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MultInf: %0.3f</span><span class="sc">\n</span><span class="st">CorDist: %0.3f</span><span class="sc">\n</span><span class="st">Ambas diferente de 0"</span>,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    mut_info, cor_dist</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MultInf: 1.221
+CorDist: 0.488
+Ambas diferente de 0</code></pre>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># invariante a transformaciones lineales</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="fl">0.1</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>original_rho <span class="ot">&lt;-</span> <span class="fu">cor</span>(x, y)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># multiplicar x por 2, sumar 3 a y</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>transformed_rho <span class="ot">&lt;-</span> <span class="fu">cor</span>(x <span class="sc">*</span> <span class="dv">2</span>, y <span class="sc">+</span> <span class="dv">3</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sprintf</span>(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">" OriginalRho: %0.3f</span><span class="sc">\n</span><span class="st">LineTransRho: %0.3f"</span>,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    original_rho, transformed_rho</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> OriginalRho: 0.823
+LineTransRho: 0.823</code></pre>
+</div>
+</div>
+</section>
+<section id="covarianza-multivariada" class="level3">
+<h3 class="anchored" data-anchor-id="covarianza-multivariada">1.1.2. Covarianza multivariada</h3>
+<section id="datos-multivariados" class="level4">
+<h4 class="anchored" data-anchor-id="datos-multivariados">Datos multivariados</h4>
+<p>Los datos multivariados surgen cuando, para investigar algún fenóomeno o proceso, se seleccionan <span class="math inline">\(p\geq 1\)</span> <em>variables</em> o características para medir. Todos los valores se miden para una misma <em>unidad observacional</em> (individuo, objeto, proceso, máquina, etc.). Esas variables son llamadas <em>dimensiones</em>.</p>
+<p>El análisis multivariado tiene como objeto el análisis y entendimiento de datos en varias dimensiones. Partimos de un arreglo <span class="math inline">\(\textbf{X} \in \mathbb{R}^p\)</span>.</p>
+<p>Denotamos como <span class="math inline">\(x_{jk}\)</span> a la <span class="math inline">\(k\)</span> variable (columna) medida en la <span class="math inline">\(j\)</span> observación (fila). Cada <span class="math inline">\(x_{j}\)</span> tiene <span class="math inline">\(p\)</span> dimensiones (o variables/columnas).</p>
+<p><span class="math display">\[
+\text{tamaño muestral }n
+\left\{
+\begin{array}{c|cccccc}
+&amp; \text{Variable } 1  &amp; \text{Variable } 2  &amp; \dots &amp; \text{Variable } k &amp; \dots  &amp; \text{Variable } p \\ \hline
+\text{Ob }1 &amp; {x}_{11} &amp; {x}_{12} &amp; \dots &amp; x_{1k}  &amp; \dots &amp; {x}_{1p} \\
+\text{Ob } 2 &amp; {x}_{21} &amp; {x}_{22} &amp; \dots &amp; x_{2k}  &amp; \dots &amp; {x}_{2p}\\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+\text{Ob } j &amp; {x}_{j1} &amp; {x}_{j2} &amp; \dots &amp; x_{jk}  &amp; \dots &amp; {x}_{jp} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots  \\
+\text{Ob } n &amp; {x}_{n1} &amp; {x}_{n2} &amp; \dots &amp; x_{nk}  &amp; \dots &amp; {x}_{np}
+\end{array}\right.
+\]</span></p>
+<p><strong>Ejemplo:</strong></p>
+<p>Una selección de 4 recibos de una librería se obtuvieron para evaluar la venta de libros. Cada recibo tenía el número de libros vendidos y la cantidad de cada venta. Sea la primera variable la vanta en dólares y la segunda el número de libros. Podemos considerar el número correspondiente de recibos como cuatro mediciones de dos variables. Los datos en forma tabular serían</p>
+<p><span class="math display">\[
+\begin{array}{c | c c}
+      &amp; \text{Variable } 1 \ (\text{dólares}) &amp; \text{Variable } 2 \ (n\text{ libros}) \\
+  \hline
+  \text{ítem }1 &amp; 42 &amp; 4\\
+  \text{ítem }2 &amp;  52 &amp; 5\\
+  \text{ítem }3 &amp;  48 &amp; 4\\
+  \text{ítem }4 &amp;  58&amp;  3\\
+  \hline
+\end{array}
+\]</span></p>
+<p>En notación matricial</p>
+<p><span class="math display">\[
+  \textbf{X} = \begin{bmatrix}
+    42 &amp; 4\\
+    52 &amp; 5\\
+    48 &amp; 4\\
+    58 &amp; 3\\
+  \end{bmatrix}
+\]</span></p>
+<hr>
+<p><strong>Covarianza</strong></p>
+<p>La covarianza entre todos los elementos es una matriz, la matriz de covarianza (o varianza-covarianza) se representa como</p>
+<p><span class="math display">\[
+  \Sigma = \begin{bmatrix}
+  \sigma_{X_1X_1} &amp; \dots &amp; \sigma_{X_1X_p} \\
+  \vdots &amp; \ddots &amp; \vdots \\
+  \sigma_{X_pX_1} &amp; \dots &amp; \sigma_{X_pX_p}
+  \end{bmatrix}
+\]</span></p>
+<p>Para abreviar, <span class="math inline">\(\sigma_{X_1X_1}\)</span> se puede denotar simplemente como <span class="math inline">\(\sigma_{11}\)</span>. Dado que estaremos trabajando con muestras, estaremos interesados solo en la covarianza muestral.</p>
+<p>La matriz de covarianza muestral se denota con <span class="math inline">\(S\)</span></p>
+<p><span class="math display">\[
+  S = \begin{bmatrix}
+    S_{11} &amp; \dots &amp; S_{1p} \\
+    \vdots &amp; \ddots &amp; \vdots \\
+    S_{p1} &amp; \dots &amp; S_{pp}
+  \end{bmatrix}
+\]</span></p>
+<p>La covarianza muestral entre dos variables <span class="math inline">\(j\)</span> y <span class="math inline">\(k\)</span>, <span class="math inline">\(S_{jk}\)</span>, se calcula como</p>
+<p><span class="math display">\[
+  S_{jk} = \frac{1}{n-1}\sum_{i=1}^n(x_{ij} - \mathbf{E}[x_j])(x_{ik} - \mathbf{E}[x_k]) \tag{13}
+\]</span></p>
+<p>sobre <span class="math inline">\(i=1, 2, ..., n\)</span> con tamaño de muestra <span class="math inline">\(n\)</span> (la cantidad de filas en <span class="math inline">\(\mathbf{X}\)</span>). En donde <span class="math inline">\(\mathbf{E}[x_j] = \bar{x}_j\)</span> es el promedio o valor esperado de la variable <span class="math inline">\(x_j\)</span> (e igual para <span class="math inline">\(k\)</span>)</p>
+<p>Los elementos de la diagonal, la covarianza de una variable con respecto a sí misma (i.e., <span class="math inline">\(j=k\)</span>), son las varianzas muestrales</p>
+<p><span class="math display">\[
+  \begin{align*}
+    \text{Cov}[x,x] &amp;= \text{Cov}[x, x] = \frac{1}{n-1} \sum_{x}(x - \bar{x})(x - \bar{x})\quad \text{ (por eq. 5)}\\
+    &amp;= \frac{1}{n-1} \sum_{x}(x - \bar{x})^2 = \text{Var}[x] = S^2_X \quad \text{ (por eq. 9)}
+  \end{align*}
+\]</span></p>
+<p>Si centramos las variables restando la media obtenemos <span class="math inline">\(x_0 = x - \bar{x}\)</span>. Definimos la matriz centrada <span class="math inline">\(\mathbf{X_0}\)</span> como</p>
+<p><span class="math display">\[
+\mathbf{X_0} = \begin{bmatrix}
+  {x}_{11} - \bar{x}_1  &amp; {x}_{12} - \bar{x}_2 &amp; \dots &amp; {x}_{1p} - \bar{x}_p \\
+  {x}_{21} - \bar{x}_1  &amp; {x}_{22} - \bar{x}_2 &amp; \dots &amp; {x}_{2p} - \bar{x}_p \\
+   &amp; &amp; \vdots &amp; \\
+  {x}_{n1} - \bar{x}_1  &amp; {x}_{n2} - \bar{x}_2 &amp; \dots &amp; {x}_{np} - \bar{x}_p
+\end{bmatrix}
+\]</span></p>
+<p>Notar que a cada entrada le restamos la media de su columna. Por analogía con la eq. 10, paro ahora usando matrices centradas en vez de vectores, la matriz de covarianza es</p>
+<p><span class="math display">\[
+  S = \frac{1}{n-1}\mathbf{X_0}^\top \mathbf{X_0} \tag{14}
+\]</span></p>
+<p><strong>Correlación</strong></p>
+<p>La matriz de correlaciones <span class="math inline">\(\mathbf{R}\)</span> es similar a la matriz de covarianzas:</p>
+<p><span class="math display">\[
+  \mathbf{R} = \begin{bmatrix}
+    R_{11} &amp; \dots &amp; R_{1p} \\
+  \vdots &amp; \ddots &amp; \vdots \\
+  R_{p1} &amp; \dots &amp; R_{pp}
+  \end{bmatrix}
+\]</span></p>
+<p>Pero ahora, la correlación <span class="math inline">\(R_{jk},\,j=k\)</span> de una variable consigo misma es 1.</p>
+<p><span class="math display">\[
+  \mathbf{R} = \begin{bmatrix}
+    1 &amp; \dots &amp; R_{1p} \\
+  \vdots &amp; \ddots &amp; \vdots \\
+  R_{p1} &amp; \dots &amp; 1
+  \end{bmatrix}
+\]</span></p>
+<p>Recordando la relación dada en eq. 12 de la correlación con respecto a las variables estandarizadas, cada entrada en la matriz de correlaciones es</p>
+<p><span class="math display">\[
+\begin{align*}
+    \mathbf{R} &amp;= %
+  \begin{bmatrix}
+      \frac{1}{n-1}\mathbf{z}_1^\top\mathbf{z}_1 &amp; \dots &amp; \frac{1}{n-1}\mathbf{z}_1^\top\mathbf{z}_p \\
+      \vdots &amp; \ddots &amp; \vdots \\
+      \frac{1}{n-1}\mathbf{z}_p^\top\mathbf{z}_1 &amp; \dots &amp; \frac{1}{n-1}\mathbf{z}_p^\top\mathbf{z}_p
+  \end{bmatrix}\\
+   &amp;= \frac{1}{n-1}%
+   \begin{bmatrix}
+      \mathbf{z}_1^\top\mathbf{z}_1 &amp; \dots &amp; \mathbf{z}_1^\top\mathbf{z}_p \\
+      \vdots &amp; \ddots &amp; \vdots \\
+      \mathbf{z}_p^\top\mathbf{z}_1 &amp; \dots &amp; \mathbf{z}_p^\top\mathbf{z}_p
+  \end{bmatrix}
+\end{align*}
+\]</span></p>
+<p><span class="math display">\[
+  \mathbf{R} = \frac{1}{n-1}\mathbf{Z}^\top\mathbf{Z}\tag{15}
+\]</span></p>
+<p>Es decir, la matriz de correlaciones <span class="math inline">\(\mathbf{R}\)</span> es idéntico a la covarianza de las variables estandarizadas.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="75">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># usamos los datos del ejemplo anterior</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">X_1 =</span> <span class="fu">c</span>(<span class="dv">42</span>, <span class="dv">52</span>, <span class="dv">48</span>, <span class="dv">58</span>),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X_2 =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># la matriz de covarianza usando la función nativa de R es</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>cov_r_base <span class="ot">&lt;-</span> <span class="fu">cov</span>(X)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># la matriz de covarianza usando la definición de eq 14 es</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>X0 <span class="ot">&lt;-</span> <span class="fu">scale</span>(X, <span class="at">scale =</span> <span class="cn">FALSE</span>) <span class="co"># centrar la variable</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>cov_def <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> (<span class="fu">nrow</span>(X) <span class="sc">-</span> <span class="dv">1</span>)) <span class="sc">*</span> <span class="fu">t</span>(X0) <span class="sc">%*%</span> X0 <span class="co"># producto de matrices divididas por 1/(n-1)</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Cov R Base</span><span class="st">`</span> <span class="ot">=</span> cov_r_base,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Cof definition</span><span class="st">`</span> <span class="ot">=</span> cov_def</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<dl>
+    <dt>$`Cov R Base`</dt>
+        <dd><table class="dataframe table table-sm table-striped">
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<thead>
+    <tr><th></th><th scope="col">X_1</th><th scope="col">X_2</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">X_1</th><td>45.33333</td><td>-2.0000000</td></tr>
+    <tr><th scope="row">X_2</th><td>-2.00000</td><td> 0.6666667</td></tr>
+</tbody>
+</table>
+</dd>
+    <dt>$`Cof definition`</dt>
+        <dd><table class="dataframe table table-sm table-striped">
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<thead>
+    <tr><th></th><th scope="col">X_1</th><th scope="col">X_2</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">X_1</th><td>45.33333</td><td>-2.0000000</td></tr>
+    <tr><th scope="row">X_2</th><td>-2.00000</td><td> 0.6666667</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># La diagonal de la matriz de covarianza son las varianzas</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>var1 <span class="ot">&lt;-</span> <span class="fu">var</span>(X0[, <span class="dv">1</span>]) <span class="co"># varianza de la columna 1</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>var2 <span class="ot">&lt;-</span> <span class="fu">var</span>(X0[, <span class="dv">2</span>]) <span class="co"># varianza de la columna 2</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>df_var <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">var_r_base =</span> <span class="fu">c</span>(var1, var2),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">var_diag_cov_matrix =</span> <span class="fu">diag</span>(cov_def)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    var_r_base var_diag_cov_matrix
+X_1 45.3333333          45.3333333
+X_2  0.6666667           0.6666667</code></pre>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="77">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># e1. 15: corroborar que da la misma matriz de correlaciones que la función de R nativa</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">scale</span>(X)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>cor_Z_def <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> (<span class="fu">nrow</span>(X) <span class="sc">-</span> <span class="dv">1</span>)) <span class="sc">*</span> <span class="fu">t</span>(Z) <span class="sc">%*%</span> Z</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>cor_X_base <span class="ot">&lt;-</span> <span class="fu">cor</span>(X)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">cor_Z_def =</span> cor_Z_def,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">cor_X_base =</span> cor_X_base</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<dl>
+    <dt>$cor_Z_def</dt>
+        <dd><table class="dataframe table table-sm table-striped">
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<thead>
+    <tr><th></th><th scope="col">X_1</th><th scope="col">X_2</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">X_1</th><td> 1.0000000</td><td>-0.3638034</td></tr>
+    <tr><th scope="row">X_2</th><td>-0.3638034</td><td> 1.0000000</td></tr>
+</tbody>
+</table>
+</dd>
+    <dt>$cor_X_base</dt>
+        <dd><table class="dataframe table table-sm table-striped">
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<thead>
+    <tr><th></th><th scope="col">X_1</th><th scope="col">X_2</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">X_1</th><td> 1.0000000</td><td>-0.3638034</td></tr>
+    <tr><th scope="row">X_2</th><td>-0.3638034</td><td> 1.0000000</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div>
+</div>
+</section>
+<section id="gráficos-de-matriz-de-correlaciones" class="level4">
+<h4 class="anchored" data-anchor-id="gráficos-de-matriz-de-correlaciones">Gráficos de matriz de correlaciones</h4>
+<p>Cuando se tienen datos multivariados, una forma de ver relaciones entre las variables, para medir dependencia lineal, es creando una matriz de correlaciones de las variables numéricas y graficarlas. El gráfico resultante suele ser llamado gráfico de correlaciones, que es una representación gráfica de la matriz. Dado que la escala de la correlación diverge, es decir, va de [-1, 0] y de [0, 1], es recomendable escoger una paleta de tres colores diferentes con un color en el valor central.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="78">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X_1 =</span> <span class="fu">c</span>(<span class="dv">42</span>, <span class="dv">52</span>, <span class="dv">48</span>, <span class="dv">58</span>),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">X_2 =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>X_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(X) <span class="sc">|&gt;</span> reshape2<span class="sc">::</span><span class="fu">melt</span>()</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> X_cor,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> Var1,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> Var2,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> value</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">low =</span> <span class="st">"navy"</span>,</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">high =</span> <span class="st">"red4"</span>,</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">mid =</span> <span class="st">"white"</span>,</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">midpoint =</span> <span class="dv">0</span>,</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">limit =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">space =</span> <span class="st">"Lab"</span>,</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Pearson</span><span class="sc">\n</span><span class="st">Correlation"</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(Var2, Var1,</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> value <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">5</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="1.1_correlaciones_covarianzas_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>Aplicaciones</strong></p>
+<p>Una de las utilidades de la matriz de correlaciones la extracción de características (<em>feature extraction</em>). Si dos variables correlacionan entre sí, entonces una de ellas contiene información redundante, por lo que no es necesario ingresar ambas.</p>
+</section>
+</section>
+</section>
+<section id="visualización-de-datos-multivariados" class="level2">
+<h2 class="anchored" data-anchor-id="visualización-de-datos-multivariados">1.2. Visualización de datos multivariados</h2>
+<p>Existen diversas maneras para visualizar datos multivariados que dependen de los atributos de los datos. Por ejemplo, si son categóricos o variables continuas, o combinación de ambas.</p>
+<p>Se van a ilustrar algunas maneras de realizar análisis exploratorio de datos y también cómo extraer información relevante a partir de la matriz de correlaciones.</p>
+<p>Para lo anterior, debemos descargar primero un conjunto de datos multivariados, los datos de viviendas de distritos de California.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">tidyverse.quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>()) <span class="co"># fijar un tema para gráficos</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fijar tamaño de gráficos</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width=</span><span class="dv">8</span>, <span class="at">repr.plot.height=</span><span class="dv">6</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># cargar librería tidyverse</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyverse))</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># leer datos de url</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>housing <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/ageron/handson-ml/master/datasets/housing/housing.csv"</span>,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>()</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ver la estructura de los datos</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(housing)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(housing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 20,640
+Columns: 10
+$ longitude          &lt;dbl&gt; -122.23, -122.22, -122.24, -122.25, -122.25, -122.2…
+$ latitude           &lt;dbl&gt; 37.88, 37.86, 37.85, 37.85, 37.85, 37.85, 37.84, 37…
+$ housing_median_age &lt;dbl&gt; 41, 21, 52, 52, 52, 52, 52, 52, 42, 52, 52, 52, 52,…
+$ total_rooms        &lt;dbl&gt; 880, 7099, 1467, 1274, 1627, 919, 2535, 3104, 2555,…
+$ total_bedrooms     &lt;dbl&gt; 129, 1106, 190, 235, 280, 213, 489, 687, 665, 707, …
+$ population         &lt;dbl&gt; 322, 2401, 496, 558, 565, 413, 1094, 1157, 1206, 15…
+$ households         &lt;dbl&gt; 126, 1138, 177, 219, 259, 193, 514, 647, 595, 714, …
+$ median_income      &lt;dbl&gt; 8.3252, 8.3014, 7.2574, 5.6431, 3.8462, 4.0368, 3.6…
+$ median_house_value &lt;dbl&gt; 452600, 358500, 352100, 341300, 342200, 269700, 299…
+$ ocean_proximity    &lt;chr&gt; "NEAR BAY", "NEAR BAY", "NEAR BAY", "NEAR BAY", "NE…</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A tibble: 6 × 10</caption>
+<thead>
+    <tr><th scope="col">longitude</th><th scope="col">latitude</th><th scope="col">housing_median_age</th><th scope="col">total_rooms</th><th scope="col">total_bedrooms</th><th scope="col">population</th><th scope="col">households</th><th scope="col">median_income</th><th scope="col">median_house_value</th><th scope="col">ocean_proximity</th></tr>
+    <tr><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><td>-122.23</td><td>37.88</td><td>41</td><td> 880</td><td> 129</td><td> 322</td><td> 126</td><td>8.3252</td><td>452600</td><td>NEAR BAY</td></tr>
+    <tr><td>-122.22</td><td>37.86</td><td>21</td><td>7099</td><td>1106</td><td>2401</td><td>1138</td><td>8.3014</td><td>358500</td><td>NEAR BAY</td></tr>
+    <tr><td>-122.24</td><td>37.85</td><td>52</td><td>1467</td><td> 190</td><td> 496</td><td> 177</td><td>7.2574</td><td>352100</td><td>NEAR BAY</td></tr>
+    <tr><td>-122.25</td><td>37.85</td><td>52</td><td>1274</td><td> 235</td><td> 558</td><td> 219</td><td>5.6431</td><td>341300</td><td>NEAR BAY</td></tr>
+    <tr><td>-122.25</td><td>37.85</td><td>52</td><td>1627</td><td> 280</td><td> 565</td><td> 259</td><td>3.8462</td><td>342200</td><td>NEAR BAY</td></tr>
+    <tr><td>-122.25</td><td>37.85</td><td>52</td><td> 919</td><td> 213</td><td> 413</td><td> 193</td><td>4.0368</td><td>269700</td><td>NEAR BAY</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>De las 10 variables solo 9 son numéricas, <code>ocean_proximity</code> es categórica. Nos centramos en las primeras 9. Para visualizar rápidamente los datos los transformaremos a formato largo usando <code>pivot_longer</code>. Revisar <a href="https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/main/R_tutorials/data_wrangling_dplyr.ipynb"><code>esta</code></a> notebook para ver cómo.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="80">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># histogramas usando ggplot</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>housing <span class="ot">&lt;-</span> housing <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remover ocean_proximity</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>ocean_proximity)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>housing_long <span class="ot">&lt;-</span> housing <span class="sc">|&gt;</span>  </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variables"</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"values"</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(housing_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A tibble: 6 × 2</caption>
+<thead>
+    <tr><th scope="col">variables</th><th scope="col">values</th></tr>
+    <tr><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><td>longitude         </td><td>-122.23</td></tr>
+    <tr><td>latitude          </td><td>  37.88</td></tr>
+    <tr><td>housing_median_age</td><td>  41.00</td></tr>
+    <tr><td>total_rooms       </td><td> 880.00</td></tr>
+    <tr><td>total_bedrooms    </td><td> 129.00</td></tr>
+    <tr><td>population        </td><td> 322.00</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="81">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ahora todos los valores numéricos están colapsados en 'values', y los nombres de las columnas en 'variables'</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># podemos crear un histograma que tome 'values', y separarlos por variable usando facet_wrap</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># creará un mosaico de 3x3</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  housing_long,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> values)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># para facilitar ver las variables en su propia escala, fijamos escala libre</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variables, <span class="at">scale =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+Warning message:
+“Removed 207 rows containing non-finite values (stat_bin).”</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="1.1_correlaciones_covarianzas_files/figure-html/cell-17-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<ol type="1">
+<li>Notar que los valores de ingreso mediano (<code>median_income</code>) no exceden el valor de 15. Así como está, no tenemos forma de saber qué representa. Los salarios fueron limitados entre 5 y 15, y representan diez miles (un valor de 3 es $ 30’000).</li>
+<li><code>median_house_value</code>, la variable de respuesta (o variable objetivo) también fue restringida a 500’000. Esto podría ser problemático si se quieren predecir el valor de una casa por encima de 500’000 pero un modelo no fue entrenado fuera de esos rangos.</li>
+<li>Las variables tienen diferentes escalas.</li>
+<li>Varias distribuciones tienen colas largas (tienen concentrados valores al inicio, luego se extienden a la derecha un rango muy largo).</li>
+<li>Tres son multimodales.</li>
+</ol>
+<p>Un objetivo posible de este conjunto de datos es predecir el valor de las casas a partir del resto de variables. Para ver cómo se relacionan las variables trataremos el problema como <span class="math inline">\(\text{median\_house\_value } ~ \text{variable}_k\)</span>. Transformamos nuevamente usando <code>pivot_longer</code>.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="82">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transformar los datos, dejando median_house_value como target</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>housing_long <span class="ot">&lt;-</span> housing <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>median_house_value,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variables"</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"values"</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(housing_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A tibble: 6 × 3</caption>
+<thead>
+    <tr><th scope="col">median_house_value</th><th scope="col">variables</th><th scope="col">values</th></tr>
+    <tr><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;chr&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><td>452600</td><td>longitude         </td><td>-122.23</td></tr>
+    <tr><td>452600</td><td>latitude          </td><td>  37.88</td></tr>
+    <tr><td>452600</td><td>housing_median_age</td><td>  41.00</td></tr>
+    <tr><td>452600</td><td>total_rooms       </td><td> 880.00</td></tr>
+    <tr><td>452600</td><td>total_bedrooms    </td><td> 129.00</td></tr>
+    <tr><td>452600</td><td>population        </td><td> 322.00</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="83">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico de dispersion</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  housing_long,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> values, <span class="at">y =</span> median_house_value)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># añadir tendencia lineal</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>) <span class="sc">+</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variables, <span class="at">scale =</span> <span class="st">'free'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'
+
+Warning message:
+“Removed 207 rows containing non-finite values (stat_smooth).”
+Warning message:
+“Removed 207 rows containing missing values (geom_point).”</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="1.1_correlaciones_covarianzas_files/figure-html/cell-19-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Obtener la matriz de correlaciones para seleccionar los mejores predictores lineales.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="84">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># usamos solo observaciones completas, omitiendo NAs</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>housing_cor_mat <span class="ot">&lt;-</span> housing <span class="sc">|&gt;</span> <span class="fu">cor</span>(<span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>housing_cor_mat</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># seleccionamos la columna median_house_value y ordenamos por correlación</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>housing_cor_mat <span class="sc">|&gt;</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># convertir a dataframe, dado que cor retorna matrix</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(median_house_value) <span class="sc">|&gt;</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(median_house_value))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A matrix: 9 × 9 of type dbl</caption>
+<thead>
+    <tr><th></th><th scope="col">longitude</th><th scope="col">latitude</th><th scope="col">housing_median_age</th><th scope="col">total_rooms</th><th scope="col">total_bedrooms</th><th scope="col">population</th><th scope="col">households</th><th scope="col">median_income</th><th scope="col">median_house_value</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">longitude</th><td> 1.00000000</td><td>-0.92461611</td><td>-0.10935655</td><td> 0.04548017</td><td> 0.06960802</td><td> 0.100270301</td><td> 0.05651277</td><td>-0.015550150</td><td>-0.04539822</td></tr>
+    <tr><th scope="row">latitude</th><td>-0.92461611</td><td> 1.00000000</td><td> 0.01189907</td><td>-0.03666681</td><td>-0.06698283</td><td>-0.108997344</td><td>-0.07177419</td><td>-0.079626319</td><td>-0.14463821</td></tr>
+    <tr><th scope="row">housing_median_age</th><td>-0.10935655</td><td> 0.01189907</td><td> 1.00000000</td><td>-0.36062830</td><td>-0.32045104</td><td>-0.295787297</td><td>-0.30276797</td><td>-0.118277723</td><td> 0.10643205</td></tr>
+    <tr><th scope="row">total_rooms</th><td> 0.04548017</td><td>-0.03666681</td><td>-0.36062830</td><td> 1.00000000</td><td> 0.93037950</td><td> 0.857281251</td><td> 0.91899153</td><td> 0.197881519</td><td> 0.13329413</td></tr>
+    <tr><th scope="row">total_bedrooms</th><td> 0.06960802</td><td>-0.06698283</td><td>-0.32045104</td><td> 0.93037950</td><td> 1.00000000</td><td> 0.877746743</td><td> 0.97972827</td><td>-0.007722850</td><td> 0.04968618</td></tr>
+    <tr><th scope="row">population</th><td> 0.10027030</td><td>-0.10899734</td><td>-0.29578730</td><td> 0.85728125</td><td> 0.87774674</td><td> 1.000000000</td><td> 0.90718590</td><td> 0.005086624</td><td>-0.02529973</td></tr>
+    <tr><th scope="row">households</th><td> 0.05651277</td><td>-0.07177419</td><td>-0.30276797</td><td> 0.91899153</td><td> 0.97972827</td><td> 0.907185900</td><td> 1.00000000</td><td> 0.013433892</td><td> 0.06489355</td></tr>
+    <tr><th scope="row">median_income</th><td>-0.01555015</td><td>-0.07962632</td><td>-0.11827772</td><td> 0.19788152</td><td>-0.00772285</td><td> 0.005086624</td><td> 0.01343389</td><td> 1.000000000</td><td> 0.68835548</td></tr>
+    <tr><th scope="row">median_house_value</th><td>-0.04539822</td><td>-0.14463821</td><td> 0.10643205</td><td> 0.13329413</td><td> 0.04968618</td><td>-0.025299732</td><td> 0.06489355</td><td> 0.688355475</td><td> 1.00000000</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 9 × 1</caption>
+<thead>
+    <tr><th></th><th scope="col">median_house_value</th></tr>
+    <tr><th></th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">median_house_value</th><td> 1.00000000</td></tr>
+    <tr><th scope="row">median_income</th><td> 0.68835548</td></tr>
+    <tr><th scope="row">total_rooms</th><td> 0.13329413</td></tr>
+    <tr><th scope="row">housing_median_age</th><td> 0.10643205</td></tr>
+    <tr><th scope="row">households</th><td> 0.06489355</td></tr>
+    <tr><th scope="row">total_bedrooms</th><td> 0.04968618</td></tr>
+    <tr><th scope="row">population</th><td>-0.02529973</td></tr>
+    <tr><th scope="row">longitude</th><td>-0.04539822</td></tr>
+    <tr><th scope="row">latitude</th><td>-0.14463821</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="85">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width=</span><span class="dv">8</span>, <span class="at">repr.plot.height=</span><span class="dv">6</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>housing_cor_mat2 <span class="ot">&lt;-</span> housing_cor_mat <span class="sc">|&gt;</span> reshape2<span class="sc">::</span><span class="fu">melt</span>()</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>housing_cor_mat2 <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> housing_cor_mat2,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> Var1,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> Var2,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> value</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">low =</span> <span class="st">"navy"</span>,</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">high =</span> <span class="st">"red4"</span>,</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">mid =</span> <span class="st">"white"</span>,</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">midpoint =</span> <span class="dv">0</span>,</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">limit =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">space =</span> <span class="st">"Lab"</span>,</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Pearson</span><span class="sc">\n</span><span class="st">Correlation"</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(Var2, Var1,</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> value <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">3</span></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># rotar las etiquetas del eje x</span></span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">x =</span>  <span class="fu">guide_axis</span>(<span class="at">angle =</span> <span class="dv">45</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 3</caption>
+<thead>
+    <tr><th></th><th scope="col">Var1</th><th scope="col">Var2</th><th scope="col">value</th></tr>
+    <tr><th></th><th scope="col">&lt;fct&gt;</th><th scope="col">&lt;fct&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">1</th><td>longitude         </td><td>longitude</td><td> 1.00000000</td></tr>
+    <tr><th scope="row">2</th><td>latitude          </td><td>longitude</td><td>-0.92461611</td></tr>
+    <tr><th scope="row">3</th><td>housing_median_age</td><td>longitude</td><td>-0.10935655</td></tr>
+    <tr><th scope="row">4</th><td>total_rooms       </td><td>longitude</td><td> 0.04548017</td></tr>
+    <tr><th scope="row">5</th><td>total_bedrooms    </td><td>longitude</td><td> 0.06960802</td></tr>
+    <tr><th scope="row">6</th><td>population        </td><td>longitude</td><td> 0.10027030</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="1.1_correlaciones_covarianzas_files/figure-html/cell-21-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Las variables con mejor predicción lineal son <code>median_income</code>, <code>total_rooms</code> y <code>housing_median_age</code>.</p>
+</section>
+<section id="conclusión" class="level2">
+<h2 class="anchored" data-anchor-id="conclusión">Conclusión</h2>
+<p>Esta aplicación vista de la matriz de correlaciones es importante por sí misma, pero tanto la matriz de correlaciones como la matriz de covarianza contienen información que estaremos explotando en los siguientes temas.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

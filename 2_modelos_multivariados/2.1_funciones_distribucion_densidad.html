@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>funciones_distribucion_densidad</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="2.1_funciones_distribucion_densidad_files/libs/clipboard/clipboard.min.js"></script>
+<script src="2.1_funciones_distribucion_densidad_files/libs/quarto-html/quarto.js"></script>
+<script src="2.1_funciones_distribucion_densidad_files/libs/quarto-html/popper.min.js"></script>
+<script src="2.1_funciones_distribucion_densidad_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="2.1_funciones_distribucion_densidad_files/libs/quarto-html/anchor.min.js"></script>
+<link href="2.1_funciones_distribucion_densidad_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="2.1_funciones_distribucion_densidad_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="2.1_funciones_distribucion_densidad_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="2.1_funciones_distribucion_densidad_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="2.1_funciones_distribucion_densidad_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="modelos-de-distribución-multivariados" class="level1">
+<h1>2. Modelos de distribución multivariados</h1>
+<section id="funciones-de-distribución-y-densidad" class="level2">
+<h2 class="anchored" data-anchor-id="funciones-de-distribución-y-densidad">2.1. Funciones de distribución y densidad</h2>
+<p align="right">
+Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl=en&amp;user=3URusCgAAAAJ&amp;view_op=list_works&amp;sortby=pubdate">Google Scholar</a>
+</p>
+<p align="left">
+<br> <a href="https://jealcalat.github.io/Analisis_multivariado/">Regresar a la página del curso</a>
+</p>
+<hr>
+</section>
+<section id="preliminares" class="level2">
+<h2 class="anchored" data-anchor-id="preliminares">2.1.0. Preliminares</h2>
+<p>Referencia: <a href="https://mml-book.github.io/book/mml-book.pdf">Capítulo 6 de Mathematics for Machine Learning</a></p>
+<hr>
+<section id="variables-aleatorias" class="level3">
+<h3 class="anchored" data-anchor-id="variables-aleatorias">Variables aleatorias</h3>
+<p>Suponer que <span class="math inline">\(X\)</span> representa una cantidad desconocida de interés, como la temperatura de una máquina. Si los valores de <span class="math inline">\(X\)</span> son desconocidos o cambian, decimos que <span class="math inline">\(X\)</span> es una variable aleatoria, o <strong>VA</strong>. El conjunto de todos los valores <em>posibles</em> se denota como <span class="math inline">\(\mathcal{X}\)</span>, llamado espacio muestral o espacio de estados. Un evento es un <em>sub</em>conjunto de valores del espacio muestral. Por ejemplo, si <span class="math inline">\(\mathcal{X}\)</span> es el lado de un dado al ser lanzado, <span class="math inline">\(\mathcal{X} = \{ 1, 2, 3, 4, 5, 6 \}\)</span>, el evento “cae 1” se denota <span class="math inline">\(X = 1\)</span>, y “ver un número impar” se denota <span class="math inline">\(X \in \{ 1, 3, 4\}\)</span>, el evento “cae entre 4 y 6” como <span class="math inline">\(4 \leq X \leq 6\)</span>.</p>
+<p><strong>Nota</strong>: no confundir el espacio muestral <span class="math inline">\(\mathcal{X}\)</span> con la VA <span class="math inline">\(X\)</span>. En el segundo caso, la VA toma valores numéricos, es una función de los elementos de <span class="math inline">\(\mathcal{X}\)</span> que mapea de <span class="math inline">\(\mathcal{X}\)</span> al conjunto de los reales o naturales. <span class="math inline">\(\mathcal{X}\)</span> puede o no consistir en valores numéricos. Por ejemplo, si el espacio muestral <span class="math inline">\(\mathcal{X}\)</span> son los posibles resultados de lanzar dos monedas tenemos <span class="math inline">\(\mathcal{X}=\{HH, HT, TT\}\)</span>. Al evento “cantidad de veces que sale caras, o <span class="math inline">\(H\)</span>”, la variable <span class="math inline">\(X\)</span> mapea de <span class="math inline">\(\mathcal{X}\)</span> tres posibles resultados: <span class="math inline">\(X(HH)=2, X(HT)=1, H(TT)=0\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="variables-aleatorias-y-sus-distribuciones" class="level2">
+<h2 class="anchored" data-anchor-id="variables-aleatorias-y-sus-distribuciones">2.1.1. Variables aleatorias y sus distribuciones</h2>
+<section id="va-discretas" class="level3">
+<h3 class="anchored" data-anchor-id="va-discretas">VA discretas</h3>
+<p>Si <span class="math inline">\(\mathcal{X}\)</span> es finito o contable infinito (cada miembro de <span class="math inline">\(\mathcal{X}\)</span> puede asociarse con un elemento de <span class="math inline">\(\mathbb{N}\)</span>), entonces <span class="math inline">\(X\)</span> es una variable aleatoria <em>discreta</em>. En este caso, denotamos la probabilidad de un evento que <span class="math inline">\(X\)</span> toma como <span class="math inline">\(\text{Pr}(X=x)\)</span>. Definimos la <strong>función de masa de probabilidad</strong> (<span class="math inline">\(\text{\sf pmf}\)</span> en inglés) como la función que computa la probabilidad de cada valor de la VA</p>
+<p><span class="math display">\[
+  p(x) \overset{\Delta}{=} \text{Pr}(X = x)
+\]</span></p>
+<p><span class="math inline">\(p(x)\)</span> satisface <span class="math inline">\(0\leq p(x) \leq 1\)</span> y <span class="math inline">\(\sum_{x\in \mathcal{X}} p(x) = 1\)</span>.</p>
+<p>Podemos imaginarnos la distribución de probabilidad de muchas variables aleatorias como el llenado de un arreglo multidimensional. Por ejemplo, en la siguiente imagen (MML-6.2)</p>
+<p align="center">
+<img src="img/rv_array.png" width="40%">
+</p>
+<p>muestra dos variables aleatorias bivariadas, <span class="math inline">\(X\)</span> (que puede tomar valores <span class="math inline">\(x_i, i = 1, 2, \dots, M\)</span>) y <span class="math inline">\(Y\)</span> (que puede tomar valores <span class="math inline">\(j=1, 2, \dots, L\)</span>). La probabilidad (<em>conjunta</em>) de que <span class="math inline">\(X=x, Y=y\)</span> se define como</p>
+<p><span class="math display">\[
+  p(x, y) \overset{\Delta}{=} \text{Pr}(X = x, Y = y)
+\]</span></p>
+<p><span class="math inline">\(p(x, y)\)</span> se lee “la probabilidad de <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span>”, en ocasiones escrito usando notación de teoría de conjuntos como <span class="math inline">\(p(x \cap y)\)</span>. Cada entrada (cada celda) en la tabla se calcula contando la cantidad de casos que <span class="math inline">\((x_i,y_j)\)</span> suceden conjuntamente</p>
+<p><span class="math display">\[
+\text{Pr}(X = x_i, Y = y_i) = \frac{n_{ij}}{N} \tag{1}
+\]</span></p>
+<p>En la tabla, si contamos todos los casos de la fila <span class="math inline">\(j\)</span> tenemos la cantidad total de veces que <span class="math inline">\(y_j\)</span> sucede, y lo llamamos <span class="math inline">\(r_j\)</span>. Si contamos la columna <span class="math inline">\(i\)</span> tenemos la cantidad total de veces que <span class="math inline">\(x_i\)</span> sucede, y que llamamos <span class="math inline">\(c_i\)</span>.</p>
+<p>La <em>probabilidad marginal</em> de <span class="math inline">\(x\)</span>, es decir, la probabilidad que <span class="math inline">\(X=x\)</span> sin importar el valor de <span class="math inline">\(Y\)</span> se escribe como <span class="math inline">\(p(x)\)</span> y se calcula como sigue</p>
+<p><span class="math display">\[
+  p(X = x_i) = p(x_i) = \frac{c_i}{N} \tag{2}
+\]</span></p>
+<p>El número de casos en la columna <span class="math inline">\(i\)</span> es la suma de casos en cada celda <em>en esa columna</em>, por lo que <span class="math inline">\(c_i = \sum_j n_{ij}\)</span> (dejando fija <span class="math inline">\(i\)</span>). Por lo tanto,</p>
+<p><span class="math display">\[
+  p(x_i) = \sum_{j=1}^Lp(x_i, y_j) \tag{3}
+\]</span></p>
+<p>A la ecuación (3) se le conoce como la <em>regla de la suma</em>. Notar que se fija la columna <span class="math inline">\(i\)</span> y se itera sobre las filas <span class="math inline">\(j=1, 2, 3\)</span>, por lo que por cada columna <span class="math inline">\(i\)</span> tenemos una probabilidad <span class="math inline">\(p(x_i)\)</span>.</p>
+<p>Si consideramos los casos en los que <span class="math inline">\(X=x_i\)</span>, la <em>fracción</em> de casos en los que <span class="math inline">\(Y=y_j\)</span> se escribe como <span class="math inline">\(p(Y=y_j | X=x_i)\)</span>, probabilidad que es conocida como <em>probabilidad condicional</em> de <span class="math inline">\(Y=yj\)</span> <em>dado</em> que <span class="math inline">\(X=x_i\)</span>. Se obtiene encontrando la fracción de puntos en una columna <span class="math inline">\(i\)</span> que caen en una celda <span class="math inline">\((i,j)\)</span> dada</p>
+<p><span class="math display">\[
+  p(y_j | x_i) = \frac{n_{ij}}{c_i} \tag{4}
+\]</span></p>
+<p>Notar que <span class="math inline">\(c_i\)</span> es la cantidad total de valores para los cuales <span class="math inline">\(X=x_i\)</span>, y <span class="math inline">\(n_{ij}\)</span> es una celda particular. Con las ecuaciones (1), (2) y (3) podemos derivar la siguiente relación:</p>
+<p><span class="math display">\[
+  \begin{align*}
+    p(x_i, y_i) &amp;=  \frac{n_{ij}}{N} =  \frac{n_{ij}}{c_i} \frac{c_i}{N}\\
+                &amp;= p(y_j | x_i)p(x_i) \tag{5}
+  \end{align*}
+\]</span></p>
+<p>La ecuación (5) es conocida como <em>regla del producto</em>.</p>
+<p>Eliminando la notación excesiva, podemos sintetizar las dos reglas como sigue</p>
+<p><span class="math display">\[
+  \begin{align*}
+    \text{ \bf{regla de la suma}}\quad\quad   &amp;p(x) = \sum_{y}p(x,y) \\
+    \text{ \bf{regla del producto}}\quad\quad &amp;p(x, y) = p(y|x)p(x)
+  \end{align*}
+\]</span></p>
+<!-- <p align="center">
+  <img src="img/regla_sum_prod2.png" width='50%' />
+</p> -->
+<p>Considerando la simetría <span class="math inline">\(p(x,y) = p(y,x)\)</span> y que <span class="math inline">\(p(y,x) = p(x|y)p(y)\)</span>, encontramos la siguiente relación</p>
+<p><span class="math display">\[
+\begin{align*}
+  p(y|x)p(x) &amp;=  p(x|y)p(y)\\
+  p(y|x)     &amp;=  \frac{ p(x|y)p(y)}{p(x)}
+\end{align*} \tag{6}
+\]</span></p>
+<p>La ecuación (6) es llamada <em>Teorema de Bayes</em>, y tiene una importancia en ML y estadística que no puede ser exagerada.</p>
+<hr>
+<section id="muestreando-de-una-distribución-conjunta" class="level4">
+<h4 class="anchored" data-anchor-id="muestreando-de-una-distribución-conjunta">Muestreando de una distribución conjunta</h4>
+<p>Crearemos un data frame que contenga posibles valores de <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>, así como sus frecuencias de ocurrencia. Después, usando la función <code>slice_sample()</code> del paquete <code>{dplyr}</code> tomaremos una muestra aleatoria. Básicamente, lo que hace <code>slice_sample()</code> es tomar filas (<em>slices</em>) del data frame original, solo que en este caso permitiremos que cada fila pueda ser seleccionada más de una vez. La cantidad de veces que cada fila puede ser seleccionada será, aproximadamente, <code>wgts/sum(wgts) * n</code>.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(IRdisplay)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># crear distribución conjunta {X,Y}</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data_for_sampling <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> <span class="fu">rep</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">times =</span> <span class="dv">3</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> <span class="fu">rep</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">each =</span> <span class="dv">4</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>data_for_sampling <span class="ot">&lt;-</span> data_for_sampling <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wgts =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">18</span>, <span class="dv">18</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">0</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># tomar una muestra aleatoria de la dist conjunta X,Y, usando wgts como pesos,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># o frecuencia relativa de cada celda.</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">452</span>) <span class="co"># para reproducibilidad</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>sampled_data <span class="ot">&lt;-</span> data_for_sampling <span class="sc">|&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="dv">10000</span>, <span class="co"># 10k muestras</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="co"># con reemplazo</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">weight_by =</span> data_for_sampling<span class="sc">$</span>wgts <span class="co"># pesos relativos de cada celda</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># crear una tabla de frecuencia</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(sampled_data[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]) <span class="sc">|&gt;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame.matrix</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">"Y/X"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) <span class="sc">|&gt;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">display_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class=" lightable-classic-2 table" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Y/X </th>
+   <th style="text-align:right;"> 0 </th>
+   <th style="text-align:right;"> 1 </th>
+   <th style="text-align:right;"> 2 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 325 </td>
+   <td style="text-align:right;"> 400 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:right;"> 439 </td>
+   <td style="text-align:right;"> 2544 </td>
+   <td style="text-align:right;"> 1351 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:right;"> 1273 </td>
+   <td style="text-align:right;"> 2524 </td>
+   <td style="text-align:right;"> 418 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:right;"> 433 </td>
+   <td style="text-align:right;"> 293 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>De acuerdo con la tabla anterior, ¿cuál es la probabilidad <span class="math inline">\(p(y=0, x=1)\)</span>?</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>xt <span class="ot">&lt;-</span> <span class="fu">table</span>(sampled_data[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]) <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame.matrix</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># obtener la distribución conjunta de cada celda usando la eq 1</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>xt_prob <span class="ot">&lt;-</span> (xt <span class="sc">/</span> <span class="fu">sum</span>(xt))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># colorear la celda que corresponde a y=0 x=1</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>xt_prob[<span class="dv">1</span>, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">cell_spec</span>(xt_prob[<span class="dv">1</span>, <span class="dv">2</span>], <span class="at">background =</span> <span class="st">"red"</span>, <span class="at">color =</span> <span class="st">"black"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># imprimir la tabla</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>xt_prob <span class="sc">|&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">escape =</span> <span class="cn">FALSE</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) <span class="sc">|&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">display_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class=" lightable-classic-2 table" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> 0 </th>
+   <th style="text-align:left;"> 1 </th>
+   <th style="text-align:right;"> 2 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0.0000 </td>
+   <td style="text-align:left;"> <span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: red !important;">0.0325</span> </td>
+   <td style="text-align:right;"> 0.0400 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:right;"> 0.0439 </td>
+   <td style="text-align:left;"> 0.2544 </td>
+   <td style="text-align:right;"> 0.1351 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:right;"> 0.1273 </td>
+   <td style="text-align:left;"> 0.2524 </td>
+   <td style="text-align:right;"> 0.0418 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:right;"> 0.0433 </td>
+   <td style="text-align:left;"> 0.0293 </td>
+   <td style="text-align:right;"> 0.0000 </td>
+  </tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>La celda en rojo corresponde a la probabilidad</p>
+<p><span class="math display">\[
+  p(y=0, x=1) = \frac{325}{10000}
+\]</span></p>
+<p>Ahora, para calcular la probabilidad condicional <span class="math inline">\(p(x=1|y=0)\)</span> debemos obtener la probabilidad marginal de <span class="math inline">\(y\)</span>, o <span class="math inline">\(p(y)\)</span>.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>xt_py <span class="ot">&lt;-</span> xt <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'p(y)'</span> <span class="ot">=</span> <span class="fu">glue</span>(<span class="st">"{rowSums(xt)}/{sum(xt)}={rowSums(xt)/sum(xt)}"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>xt_py <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">escape =</span> <span class="cn">FALSE</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">5</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">background =</span> <span class="st">"#d4d1d1"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">display_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class=" lightable-classic-2 table" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> 0 </th>
+   <th style="text-align:right;"> 1 </th>
+   <th style="text-align:right;"> 2 </th>
+   <th style="text-align:left;"> p(y) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 325 </td>
+   <td style="text-align:right;"> 400 </td>
+   <td style="text-align:left;color: black !important;background-color: #d4d1d1 !important;"> 725/10000=0.0725 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:right;"> 439 </td>
+   <td style="text-align:right;"> 2544 </td>
+   <td style="text-align:right;"> 1351 </td>
+   <td style="text-align:left;color: black !important;background-color: #d4d1d1 !important;"> 4334/10000=0.4334 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:right;"> 1273 </td>
+   <td style="text-align:right;"> 2524 </td>
+   <td style="text-align:right;"> 418 </td>
+   <td style="text-align:left;color: black !important;background-color: #d4d1d1 !important;"> 4215/10000=0.4215 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:right;"> 433 </td>
+   <td style="text-align:right;"> 293 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;color: black !important;background-color: #d4d1d1 !important;"> 726/10000=0.0726 </td>
+  </tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Luego, la probabilidad condicional será la probabilidad conjunta <span class="math inline">\(p(y=0, x=1)\)</span> dividida por la probabilidad marginal <span class="math inline">\(p(y=0)\)</span></p>
+<p><span class="math display">\[
+  p(x=1|y=0) = \frac{p(y=0,x=1)}{p(x=1)} = \frac{325/10000}{725/10000} = \frac{13}{29}
+\]</span></p>
+<p>En general, la distribución condicional <span class="math inline">\(p(x | y=0)\)</span> se puede obtener como sigue</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sampled_data <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filtrar la fila</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Y <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># contar los casos de X condicionales a y=0; crea columna n</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(X) <span class="sc">|&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># obtener la funcion de masa</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">'p(x|y=0)'</span> <span class="ot">=</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">escape =</span> <span class="cn">FALSE</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F) <span class="sc">|&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">display_html</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class=" lightable-classic-2 table" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> X </th>
+   <th style="text-align:right;"> n </th>
+   <th style="text-align:right;"> p(x|y=0) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 325 </td>
+   <td style="text-align:right;"> 0.4482759 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 400 </td>
+   <td style="text-align:right;"> 0.5517241 </td>
+  </tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>La distribución condicional de <span class="math inline">\(x|y=y\)</span> puede verse totalmente diferente que la distribución marginal <span class="math inline">\(p(x)\)</span>. En la siguiente imagen, tomada de Bishop (PRML-1.1), se ilustra la distribución de dos variables <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>. <span class="math inline">\(X\)</span> puede tomar 9 valores posibles, y <span class="math inline">\(Y\)</span> 2. La distribución marginal de <span class="math inline">\(X\)</span>, la distribución independientemente de qué valores tome <span class="math inline">\(Y\)</span>, tiene una forma más achatada (más amplia, con mayor varianza) que la distribución condicional a <span class="math inline">\(Y=1\)</span>.</p>
+<p align="center">
+<img src="img/marginal_conditional.png" width="60%">
+</p>
+</section>
+<section id="va-continuas" class="level4">
+<h4 class="anchored" data-anchor-id="va-continuas">VA continuas</h4>
+<p>Si <span class="math inline">\(X\in \mathbb{R}\)</span> es una función real, se denomina <em>variable aleatoria continua</em>, y es más natural especificar que <span class="math inline">\(X\)</span> se encuentre en un intervalo, e.g,, <span class="math inline">\(a \leq X \leq b\)</span>, dado que en este caso no se puede crear un conjunto <em>contable</em> de valores posibles que <span class="math inline">\(X\)</span> puede tomar, pero podemos crear un conjunto finito de <em>intervalos</em> en la linea real, y asociar los eventos de <span class="math inline">\(X\)</span> que están en esos intervalos.</p>
+<section id="distribución-acumulada-cdf" class="level5">
+<h5 class="anchored" data-anchor-id="distribución-acumulada-cdf">Distribución acumulada (cdf)</h5>
+<p>Sea <span class="math inline">\(A = (X \leq a)\)</span>, <span class="math inline">\(B = (X \leq b)\)</span> y <span class="math inline">\(C = (a &lt; X \leq b)\)</span> en donde <span class="math inline">\(a &lt; b\)</span>. Tenemos que <span class="math inline">\(B\)</span> es la unión de <span class="math inline">\(A\)</span> y <span class="math inline">\(C\)</span>, es decir, <span class="math inline">\(B\)</span> toma todos los valores que toman <span class="math inline">\(A\)</span> y <span class="math inline">\(C\)</span>. Dado que <span class="math inline">\(A\)</span> y <span class="math inline">\(C\)</span> son mutuamente excluyentes, la probabilidad de <span class="math inline">\(B\)</span> es</p>
+<p><span class="math display">\[\text{Pr}(B) = \text{Pr}(A) + \text{Pr}(C) \tag{7} \]</span></p>
+<p>Y la probabilidad de estar en el intervalo <span class="math inline">\(C\)</span> como</p>
+<p><span class="math display">\[
+  \text{Pr}(C) = \text{Pr}(B) - \text{Pr}(A) \tag{8}
+\]</span></p>
+<p>Definimos la distribución de probabilidad acumulada como</p>
+<p><span class="math display">\[
+   P(x) \overset{\Delta}{=} \text{Pr}(X \leq x)
+\]</span></p>
+<p>Con esto, podemos calcular la probabilidad de estar en un intervalo como</p>
+<p><span class="math display">\[
+  \text{Pr}(a &lt; X \leq b) = P(b) - P(a) \tag{9}
+\]</span></p>
+<p>En el siguiente gráfico se representa la función de probabilidad acumulada normal.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">las=</span><span class="dv">1</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width=</span><span class="dv">7</span>, <span class="at">repr.plot.height=</span><span class="dv">5</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pnorm</span>(x, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">to =</span> <span class="dv">3</span>, <span class="at">main =</span> <span class="st">" cdf gaussiana"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">'X'</span>, <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">Pr</span>(X <span class="sc">&lt;=</span> x)),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">lwd =</span> <span class="dv">2</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="2.1_funciones_distribucion_densidad_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="función-de-densidad" class="level5">
+<h5 class="anchored" data-anchor-id="función-de-densidad">Función de densidad</h5>
+<p>Podemos definir la función de densidad de probabilidad, o <em>pdf</em>, como la derivada de la cdf</p>
+<p><span class="math display">\[
+  p(x) \overset{\Delta}{=} \frac{d}{dx}P(x)
+\]</span></p>
+<p>Dada la <span class="math inline">\(\text{\sf pdf}\)</span>, podemos calcular la probabilidad de una variable continua en un intervalo finito como sigue</p>
+<p><span class="math display">\[
+  \text{Pr}(a &lt;X\leq b) = \int_a^b p(x)dx = P(b) - P(a) \tag{10}
+\]</span></p>
+<p>Por ejemplo, en la siguiente figura a la izquierda se representa una variable aleatoria normal con media 0 y desviación estándar de 1, conocida como distribución normal estándar, y representada como <span class="math inline">\(\mathcal{N}(\mu=0, \sigma = 1)\)</span> o simplemente <span class="math inline">\(\mathcal{N}(0, 1)\)</span>. Para la densidad de probabilidad normal, usamos <code>dnorm(x, mean, sd)</code>, que nos retorna la densidad en <code>x</code>.</p>
+<p>A la derecha se representa el área equivalente en la cdf, usando <code>pnorm</code>.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="100">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width=</span><span class="dv">7</span><span class="sc">*</span><span class="dv">2</span>, <span class="at">repr.plot.height=</span><span class="dv">5</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">las =</span> <span class="dv">1</span>, <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># graficar la curva usando la función de dnorm; curve crea in-situ 101 valores</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># para x que van de from a to. Es idéntico a</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># x &lt;- seq(from, to, length = 101); plot(x, dnorm(x, 0, 1))</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># figura a la izquierda, pdf</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dnorm</span>(x, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">to =</span> <span class="dv">3</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"blue"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"p(x)"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>from_x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">1.5</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>to_x <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># valores para x y y en el área sombreada</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>sx <span class="ot">&lt;-</span> <span class="fu">c</span>(from_x, <span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>), to_x)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>sy <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dnorm</span>(<span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>)), <span class="dv">0</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co"># crear área sombreada con sx y sy</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  sx, sy,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"#B3B3FF"</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">0</span>,</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">0</span>) <span class="sc">/</span> <span class="dv">2</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">expression</span>(<span class="fu">integral</span>(<span class="fu">p</span>(x) <span class="sc">*</span> dx, <span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>)),</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">0</span>,</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">0</span>) <span class="sc">/</span> <span class="dv">3</span>,</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="st">"= P(1.5) - P(-1.5)"</span>,</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="co"># figura a la derecha, cdf</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pnorm</span>(x, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">to =</span> <span class="dv">3</span>, <span class="at">main =</span> <span class="st">" cdf gaussiana"</span>,</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">'X'</span>, <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">Pr</span>(X <span class="sc">&lt;=</span> x)),</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">lwd =</span> <span class="dv">2</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>from_x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">1.5</span> <span class="co"># en rigor, debería ser -Inf</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>to_x <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>sx  <span class="ot">&lt;-</span> <span class="fu">c</span>(from_x, <span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>), to_x)</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>sy  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">pnorm</span>(<span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>)), <span class="dv">0</span>)</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>  sx, sy,</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"#B3B3FF"</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="2.1_funciones_distribucion_densidad_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>En <code>R</code>, la función de densidad acumulada (<span class="math inline">\(\text{\sf cdf}\)</span>) para la distribución normal se obtiene con <code>pnorm(x, mean, sd)</code> en donde <code>x</code> es un vector de <em>cuantiles</em>, que es el, o los, valores en <span class="math inline">\(x\)</span> para el cual(es) deseamos obtener su probabilidad.</p>
+<p>Para obtener el área sombreada en la anterior figura, usamos <code>pnorm(b) - pnorm(a)</code></p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="87">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.5</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mean = 0, sd = 1 están por defecto, pero los ponemos para mayor claridad</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+0.866385597462284
+</div>
+</div>
+<p>El área que cubre <code>pnorm(1.5)</code> va desde <span class="math inline">\(-\infty\)</span> a 1.5, y el área de <code>pnorm(-1.5)</code> va de <span class="math inline">\(-\infty\)</span> a -1.5.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="102">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width=</span><span class="dv">7</span>, <span class="at">repr.plot.height=</span><span class="dv">5</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dnorm</span>(x, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">to =</span> <span class="dv">3</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"blue"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"p(x)"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>from_x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10</span> <span class="co"># en rigor, debería ser -Inf</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>to_x <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>sx  <span class="ot">&lt;-</span> <span class="fu">c</span>(from_x, <span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>), to_x)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>sy  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dnorm</span>(<span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>)), <span class="dv">0</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  sx, sy,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"#B3B3FF"</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fl">1.5</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">dnorm</span>(<span class="fl">1.5</span>, <span class="dv">0</span>),</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="st">'x=1.5'</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="2.1_funciones_distribucion_densidad_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>En contraste con las <strong>VA</strong> discretas, la probabilidad de que una variable continua <span class="math inline">\(X\in \mathbb{R}\)</span> tome un valor particular, <span class="math inline">\(p(X = x)\)</span>, es 0. Es como integrar la función de densidad de la siguiente manera:</p>
+<p><span class="math display">\[
+  p(a \leq X \leq a) = \int_a^b p(x)dx = P(a) - P(a)
+\]</span></p>
+<p>Por esta razón, con <span class="math inline">\(\text{\sf pdf}\)</span> solo calculamos probabilidades en intervalos.</p>
+<hr>
+<p>Para VA continuas, las reglas de suma y producto son</p>
+<p><span class="math display">\[
+  \begin{align*}
+    \text{ \bf{regla de la suma}}  \quad\quad   &amp;p(x) = \int_y p(x,y) \\
+    \text{ \bf{regla del producto}}\quad\quad &amp;p(x, y) = p(y|x)p(x)
+  \end{align*}
+\]</span></p>
+</section>
+</section>
+</section>
+</section>
+<section id="ejercicios-de-tarea" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicios-de-tarea">Ejercicios de tarea</h2>
+<section id="va-discretas-1" class="level3">
+<h3 class="anchored" data-anchor-id="va-discretas-1">VA discretas</h3>
+<p>La <span class="math inline">\(\text{\sf pmf}\)</span> de una distribución de probabilidad discreta de Poisson permite calcular la probabilidad un número dado de eventos en un intervalo, dada una tasa de ocurrencia <span class="math inline">\(\lambda\)</span>. Por ejemplo, ¿cuál es la probabilidad de que ocurran 3 choques en un día en López Mateos si la tasa de ocurrencia es de 2 choques por día? Con la <span class="math inline">\(\text{\sf pmf}\)</span></p>
+<p><span class="math display">\[
+  p(x \mid \lambda) = \frac{e^{-\lambda} \lambda^{x}}{x!} \tag{11}
+\]</span></p>
+<p>Sería</p>
+<p><span class="math display">\[
+  p(3 \mid 2) = \frac{e^{-2} \lambda^{3}}{3!}.
+\]</span></p>
+<p>En <code>R</code></p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="85">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creamos una función para la eq 11</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pmf_poisson <span class="ot">&lt;-</span> <span class="cf">function</span>(x, l) (<span class="fu">exp</span>(<span class="sc">-</span>l) <span class="sc">*</span> l<span class="sc">^</span>x) <span class="sc">/</span> (<span class="fu">factorial</span>(x))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pmf_poisson</span>(<span class="at">x =</span> x, <span class="at">l =</span> l)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># R tiene una función por defecto más eficiente que calcula esto</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># dpois(x = x, lambda = l)</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># graficamente</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">las=</span><span class="dv">1</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>xp <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">15</span>, <span class="dv">1</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  xp,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pmf_poisson</span>(xp, l),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"h"</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"P(X=x)"</span>,</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">'x'</span>,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">expression</span>(Poisson<span class="sc">~</span>pmf<span class="sc">~</span><span class="fu">p</span>(x<span class="sc">*</span><span class="st">'|'</span><span class="sc">*</span>lambda<span class="sc">==</span><span class="dv">2</span>))</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">x0 =</span> <span class="dv">3</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">x1 =</span> <span class="dv">3</span>,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">y0 =</span> <span class="dv">0</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">y1 =</span> <span class="fu">pmf_poisson</span>(<span class="at">x =</span> x, <span class="at">l =</span> l),</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">'red'</span>,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+0.180447044315484
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="2.1_funciones_distribucion_densidad_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Encontrar las probabilidades siguientes</p>
+<ol type="1">
+<li><span class="math inline">\(p(x=3 \mid \lambda = 3/4) = ?\)</span></li>
+<li><span class="math inline">\(p(0 \leq x \leq 10 \mid \lambda = 3) = ?\)</span></li>
+</ol>
+</section>
+<section id="va-continuas-1" class="level3">
+<h3 class="anchored" data-anchor-id="va-continuas-1">VA continuas</h3>
+<p>La pdf de la distribución normal con media <span class="math inline">\(\mu\)</span> y desviación estándar <span class="math inline">\(\sigma\)</span> (o varianza <span class="math inline">\(\sigma^2\)</span>) es caracterizada por</p>
+<p><span class="math display">\[
+  p(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{\frac{-(x-\mu)^2}{2\sigma^2}}
+\]</span></p>
+<ol type="1">
+<li>Suponer que un manufacturador de un tipo de botana sabe que el peso total del paquete de botana está distribuido normalmente con una media de 80.2 gramos y una desviación estándar de 1.1 ramos. ¿Cuál es la probabilidad de que un paquete de botana pese menos de 78 gramos?</li>
+<li>Bajo las mismas asunciones anteriores, ¿cuál es la probabilidad de que un paquete dado tenga un peso que esté entre 2 desviaciones estándar de la media? Es decir, <span class="math inline">\(p(x \in [\mu - \sigma, \mu + \sigma])\)</span>.</li>
+<li>Grafica el área de la pdf que se cubriría en el ejercicio 2.</li>
+</ol>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
