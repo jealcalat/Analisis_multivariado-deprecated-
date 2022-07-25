@@ -22,6 +22,7 @@ Asesorías: solicitar cita.
     - [Fundamentos de `R`](#fundamentos-de-r)
     - [Data wrangling con `{dplyr}` y `{tidyr}`](#data-wrangling-con-dplyr-y-tidyr)
     - [Visualización con `{ggplot}`](#visualización-con-ggplot)
+    - [Documentos reproducibles con RMarkdown](#documentos-reproducibles-con-rmarkdown)
     - [Modelamiento con `{tidymodels}`](#modelamiento-con-tidymodels)
 
 ## Temas del curso
@@ -98,6 +99,10 @@ En la [`esta`](https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/
 `{ggplot}` (oficialmente, `{ggplot2}`) es un paquete popular para la visualización de datos que implementa un conjunto de principios de visualización llamado "the grammar of graphics". Ha sido tan influyente que existen implementaciones en Python y Matlab.
 
 En [`esta`](https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/main/R_tutorials/data_viz_ggplot.ipynb) notebook de jupyter se encuentra un sencillo tutorial con los fundamentos.
+
+### Documentos reproducibles con RMarkdown
+
+Consultar [esta plantilla de RMarkdown](R_tutorials/rmarkdown_plantilla.Rmd), que se usará para la entrega de tareas.
 
 ### Modelamiento con `{tidymodels}`
 
