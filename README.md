@@ -16,6 +16,7 @@ Asesorías: solicitar cita.
 
 - [Análisis Estadístico Multivariable](#análisis-estadístico-multivariable)
   - [Temas del curso](#temas-del-curso)
+  - [Tareas](#tareas)
   - [Bibliografía](#bibliografía)
   - [Datasets](#datasets)
   - [Tutoriales de `R`](#tutoriales-de-r)
@@ -53,12 +54,16 @@ Asesorías: solicitar cita.
 
 6. Aplicaciones
 
+## Tareas
+
+Para la entrega de tareas, usar la plantilla de RMarkdown de la sección
+[Documentos reproducibles con RMarkdown](#documentos-reproducibles-con-rmarkdown).
+
 ## Bibliografía
 
 - [*Applied Multivariate Statistical Analysis*](https://link.springer.com/content/pdf/10.1007/978-3-662-45171-7.pdf). Wolfgang H. and Simar. L. Springer, 2015
 - *Applied Multivariate Statistical Concepts*. Hahs-Vaughn, D. Editorial Routledge, 2016.
 - [*Applied Multivariate Statistics with R*](https://web.uniroma1.it/memotef/sites/default/files/file%20lezioni/102b_textbook.pdf). Zelterman, D. Editorial Springer, 2015.
-
 
 ## Datasets
 
