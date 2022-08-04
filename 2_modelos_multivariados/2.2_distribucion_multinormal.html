@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>distribucion_multinormal</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="2.2_distribucion_multinormal_files/libs/clipboard/clipboard.min.js"></script>
+<script src="2.2_distribucion_multinormal_files/libs/quarto-html/quarto.js"></script>
+<script src="2.2_distribucion_multinormal_files/libs/quarto-html/popper.min.js"></script>
+<script src="2.2_distribucion_multinormal_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="2.2_distribucion_multinormal_files/libs/quarto-html/anchor.min.js"></script>
+<link href="2.2_distribucion_multinormal_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="2.2_distribucion_multinormal_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="2.2_distribucion_multinormal_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="2.2_distribucion_multinormal_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="2.2_distribucion_multinormal_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="modelos-de-distribución-multivariados" class="level1">
+<h1>2. Modelos de distribución multivariados</h1>
+<p align="right">
+Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl=en&amp;user=3URusCgAAAAJ&amp;view_op=list_works&amp;sortby=pubdate">Google Scholar</a>
+</p>
+<p align="left">
+<br> <a href="https://jealcalat.github.io/Analisis_multivariado/">Regresar a la página del curso</a>
+</p>
+<hr>
+<section id="preliminares" class="level2">
+<h2 class="anchored" data-anchor-id="preliminares">2.0. Preliminares</h2>
+<section id="eigenvalores-y-eigenvectores" class="level3">
+<h3 class="anchored" data-anchor-id="eigenvalores-y-eigenvectores">Eigenvalores y eigenvectores</h3>
+<p>Considerar la matriz cuadrada <span class="math inline">\(A_{p\times p}\)</span>. Si existe un escalar <span class="math inline">\(\lambda\)</span> y un vector <span class="math inline">\(\mathbf{x}\)</span> tal que</p>
+<p><span class="math display">\[
+  A\mathbf{x} = \lambda\mathbf{x} \tag{1}
+\]</span></p>
+<p>En donde <span class="math inline">\(\lambda\)</span> es un <em>eigenvalor</em> (valor propio) y <span class="math inline">\(\mathbf{x}\)</span> un eigenvector.</p>
+</section>
+<section id="inversa" class="level3">
+<h3 class="anchored" data-anchor-id="inversa">Inversa</h3>
+<p>Considerar la matriz cuadrada <span class="math inline">\(A_{p\times p}\)</span>. Sea la matriz cuadrada <span class="math inline">\(B_{p\times p}\)</span> una matriz con la propiedad de <span class="math inline">\(AB = I = BA\)</span>. En este caso, <span class="math inline">\(B_{p\times p}\)</span> es llamada <em>la inversa</em> de <span class="math inline">\(A\)</span>, y se denota como <span class="math inline">\(A^{-1}\)</span>. La matrix <span class="math inline">\(I\)</span> es una matriz especial cuyas diagonales son 1, y por encima y debajo de las diagonales solo hay 0s.</p>
+<p><span class="math display">\[
+  I_{p\times p}= \begin{bmatrix}
+  1 &amp; 0 &amp; 0 &amp; \cdots &amp; 0\\
+  0 &amp; 1 &amp; 0  &amp; \cdots &amp; 0 \\
+  0 &amp; 0 &amp; 1 &amp; \cdots &amp; 0 \\
+  \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+  0 &amp; 0 &amp; 0 &amp; \cdots &amp; 1
+  \end{bmatrix}
+\]</span></p>
+<p>Considerar las matrices</p>
+<p><span class="math display">\[
+  A = \begin{bmatrix}
+  a_{11} &amp; a_{12} \\
+  a_{21} &amp; a_{22}
+  \end{bmatrix}\quad
+  A' = \begin{bmatrix}
+  a_{22} &amp; -a_{12} \\
+  -a_{21} &amp; a_{11}
+  \end{bmatrix}
+\]</span></p>
+<p>El producto de ambas es</p>
+<p><span class="math display">\[
+  AA' = \begin{bmatrix}
+    a_{11}a_{22} - a_{12}a_{21} &amp; 0 \\
+    0 &amp; a_{11}a_{22} - a_{12}a_{21}
+  \end{bmatrix} = (a_{11}a_{22} - a_{12}a_{21})I
+\]</span></p>
+<p>Dado que <span class="math inline">\(AA^{-1} = I\)</span>, entonces</p>
+<p><span class="math display">\[
+  A^{-1} = \frac{1}{a_{11}a_{22} - a_{12}a_{21}}A' = \frac{1}{a_{11}a_{22} - a_{12}a_{21}}\begin{bmatrix}
+  a_{22} &amp; -a_{12} \\
+  -a_{21} &amp; a_{11}
+  \end{bmatrix}
+\]</span></p>
+<p><strong>Nota</strong>: para que <span class="math inline">\(A^{-1}\)</span> exista, es decir, para que <span class="math inline">\(A\)</span> sea <em>invertible</em>, <span class="math inline">\(a_{11}a_{22} - a_{12}a_{21} \neq 0\)</span>.</p>
+</section>
+<section id="determinante" class="level3">
+<h3 class="anchored" data-anchor-id="determinante">Determinante</h3>
+<p>Los determinantes solo están definidos para matrices cuadradas <span class="math inline">\(A_{p\times p}\)</span> (matrices que tienen el mismo número de filas que de columnas). El determinante <span class="math inline">\(\text{det}(A)\)</span> o <span class="math inline">\(|A|\)</span> es una función que mapea <span class="math inline">\(A\)</span> a números reales.</p>
+<p>De la sección <a href="#inversa">Inversa</a>, sabemos que para una matriz de <span class="math inline">\(2\times 2\)</span>, <span class="math inline">\(A^{-1}\)</span> existe si y solo si <span class="math inline">\(a_{11}a_{22} - a_{12}a_{21} \neq 0\)</span>. Esta cantidad es el determinante de <span class="math inline">\(A\in \mathbb{R}^{2\times 2}\)</span>, es decir</p>
+<p><span class="math display">\[
+  \text{det}(A)_{2\times 2} = a_{11}a_{22} - a_{12}a_{21}\tag{2}
+\]</span></p>
+<p><strong>Nota</strong>: Tanto en <a href="#inversa">Inversa</a> como en <a href="#determinante">Determinante</a> se usó un ejemplo de una matriz sencilla de <span class="math inline">\(2\times 2\)</span>. En general, para cualquier matriz <span class="math inline">\(A_{p\times p}\)</span>, para que <span class="math inline">\(A^{-1}\)</span> exista, <span class="math inline">\(\text{det}(A_{p\times p})\neq 0\)</span>. Es decir, <em>una matriz cuadrada es invertible <strong>si y solo si</strong> su determinante es diferente de 0.</em></p>
+<p>Se da ahora una expresión general para obtener el determinante de cualquier matriz cuadrada. Sea <span class="math inline">\(A\)</span> la matriz cuadrada <span class="math inline">\({p\times p}\)</span>. Para todo <span class="math inline">\(j=1, \dots, p\)</span>, el determinante expandido a través de la fila <span class="math inline">\(j\)</span> se obtiene con</p>
+<p><span class="math display">\[
+  \text{det}(A) = |A| = \sum_{k=1}^{p}(-1)^{k+j}a_{jk}\text{det}(A_{j,k}) \tag{3}
+\]</span></p>
+<p>En donde <span class="math inline">\(A_{j,k}\in \mathbb{R}^{(p-1)\times (p-1)}\)</span> es una <em>submatriz</em> que obtenemos eliminando la fila <span class="math inline">\(j\)</span> y la columna <span class="math inline">\(k\)</span>, y <span class="math inline">\(a_{jk}\)</span> es la entrada de la matriz <span class="math inline">\(A\)</span> en la fila <span class="math inline">\(j\)</span> y columna <span class="math inline">\(k\)</span>. A la ecuación (2) se le conoce como la expansión de Laplace.</p>
+<p>Por ejemplo</p>
+<p><span class="math display">\[
+  A = \begin{bmatrix}
+  1 &amp; 2 &amp; 3\\
+  3 &amp; 1 &amp; 2\\
+  0 &amp; 0 &amp; 1
+  \end{bmatrix}
+\]</span></p>
+<p>Usando la expansión de Laplace a en la primera fila, aplicando (2) obtenemos</p>
+<p><span class="math display">\[
+  |A| = \begin{vmatrix}
+  1 &amp; 2 &amp; 3\\
+  3 &amp; 1 &amp; 2\\
+  0 &amp; 0 &amp; 1
+  \end{vmatrix} = %
+  \underbrace{(-1)^{1+1}\times 1 \begin{vmatrix}
+  1 &amp; 2\\
+  0 &amp; 1
+  \end{vmatrix}}_{k=1} %
+  + \underbrace{(-1)^{1+2}\times 2\begin{vmatrix}
+  3 &amp; 2\\
+  0 &amp; 1
+  \end{vmatrix}}_{k=2} %
+    + \underbrace{(-1)^{1+3}\times 3\begin{vmatrix}
+  3 &amp; 1\\
+  0 &amp; 0
+  \end{vmatrix}}_{k=3}
+\]</span></p>
+<p>Podemos ahora calcular los determinantes <span class="math inline">\(2\times 2\)</span> usando la ecuación (2). Por ejemplo,</p>
+<p><span class="math display">\[
+  \begin{vmatrix}
+  1 &amp; 2\\
+  0 &amp; 1
+  \end{vmatrix} = 1\times 1 - 0\times 2 = 1-0
+\]</span></p>
+<p>Con lo que tenemos al final <span class="math inline">\(\text{det}(A) = -5\)</span>.</p>
+<p>En <code>R</code></p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>, <span class="co"># especificar que el orden sea por fila de 3 en 3</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># el determinante</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(A)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># la inversa se obtiene con </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+-5
+</div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A matrix: 3 × 3 of type dbl</caption>
+<tbody>
+    <tr><td>-0.2</td><td> 0.4</td><td>-0.2</td></tr>
+    <tr><td> 0.6</td><td>-0.2</td><td>-1.4</td></tr>
+    <tr><td> 0.0</td><td> 0.0</td><td> 1.0</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="núcleo-kernel-o-espacio-nulo" class="level3">
+<h3 class="anchored" data-anchor-id="núcleo-kernel-o-espacio-nulo">Núcleo (kernel o espacio nulo)</h3>
+<p>Considerar la siguiente ecuación</p>
+<p><span class="math display">\[
+  A \mathbf{x} = \mathbf{0}
+\]</span></p>
+<p>El kernel <span class="math inline">\(\text{ker}(A\mathbf{x})\)</span> captura todas las posibles combinaciones lineales <span class="math inline">\(a_1x_1 + \dots + a_px_p\)</span> que producen <span class="math inline">\(\mathbf{0}\)</span></p>
+</section>
+<section id="descomposición-expectral" class="level3">
+<h3 class="anchored" data-anchor-id="descomposición-expectral">Descomposición expectral</h3>
+<p>La matriz cuadrada <span class="math inline">\(A_{p\times p}\)</span> puede se reescrita como</p>
+<p><span class="math display">\[
+  A = \mathbf{x} \Lambda \mathbf{x}^\top \tag{3}
+\]</span></p>
+<p>En donde la matriz diagonal <span class="math inline">\(\Lambda = \text{diag}(\lambda_1, \lambda_2,\dots,\lambda_p)\)</span></p>
+<p>Un eigenvalor <span class="math inline">\(\lambda\)</span> es la raíz del polinomio de orden <span class="math inline">\(p\)</span>,</p>
+<p><span class="math display">\[
+  (A - \lambda \mathbf{I})\mathbf{x}=\mathbf{0} \tag{4}
+\]</span></p>
+<p>por lo que hay <span class="math inline">\(p\)</span> eigenvalores de <span class="math inline">\(A\)</span>. A cada eigenvalor <span class="math inline">\(\lambda_j\)</span> le corresponde un eigenvector <span class="math inline">\(x_j\)</span>. Dado que <span class="math inline">\(\mathbf{x} \neq \mathbf{0}\)</span></p>
+</section>
+</section>
+<section id="distribución-multinormal" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-multinormal">2.2. Distribución multinormal</h2>
+<p>Ya vimos que para la distribución normal univariada, la función de densidad está dada por</p>
+<p><span class="math display">\[
+  p(x) = \frac{1}{\sigma \sqrt{2\pi}} e\left\{\frac{-(x-\mu)^2}{2\sigma^2}\right\}  \tag{1}
+\]</span></p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
