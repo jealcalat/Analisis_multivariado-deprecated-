@@ -116,16 +116,12 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <br> <a href="https://jealcalat.github.io/Analisis_multivariado/">Regresar a la página del curso</a>
 </p>
 <hr>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="124">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cargar algunas funciones que se utilizarán</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"../r_scripts/utilities.r"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="preliminares" class="level2">
 <h2 class="anchored" data-anchor-id="preliminares">2.0. Preliminares</h2>
-<section id="eigenvalores-y-eigenvectores" class="level3">
-<h3 class="anchored" data-anchor-id="eigenvalores-y-eigenvectores">Eigenvalores y eigenvectores</h3>
-<p>Considerar la matriz cuadrada <span class="math inline">\(A_{p\times p}\)</span>. Si existe un escalar <span class="math inline">\(\lambda\)</span> y un vector <span class="math inline">\(\mathbf{x}\)</span> tal que</p>
-<p><span class="math display">\[
-  A\mathbf{x} = \lambda\mathbf{x} \tag{1}
-\]</span></p>
-<p>En donde <span class="math inline">\(\lambda\)</span> es un <em>eigenvalor</em> (valor propio) y <span class="math inline">\(\mathbf{x}\)</span> un eigenvector.</p>
-</section>
 <section id="inversa" class="level3">
 <h3 class="anchored" data-anchor-id="inversa">Inversa</h3>
 <p>Considerar la matriz cuadrada <span class="math inline">\(A_{p\times p}\)</span>. Sea la matriz cuadrada <span class="math inline">\(B_{p\times p}\)</span> una matriz con la propiedad de <span class="math inline">\(AB = I = BA\)</span>. En este caso, <span class="math inline">\(B_{p\times p}\)</span> es llamada <em>la inversa</em> de <span class="math inline">\(A\)</span>, y se denota como <span class="math inline">\(A^{-1}\)</span>. La matrix <span class="math inline">\(I\)</span> es una matriz especial cuyas diagonales son 1, y por encima y debajo de las diagonales solo hay 0s.</p>
@@ -161,7 +157,7 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
   A^{-1} = \frac{1}{a_{11}a_{22} - a_{12}a_{21}}A' = \frac{1}{a_{11}a_{22} - a_{12}a_{21}}\begin{bmatrix}
   a_{22} &amp; -a_{12} \\
   -a_{21} &amp; a_{11}
-  \end{bmatrix}
+  \end{bmatrix} \tag{1}
 \]</span></p>
 <p><strong>Nota</strong>: para que <span class="math inline">\(A^{-1}\)</span> exista, es decir, para que <span class="math inline">\(A\)</span> sea <em>invertible</em>, <span class="math inline">\(a_{11}a_{22} - a_{12}a_{21} \neq 0\)</span>.</p>
 </section>
@@ -215,20 +211,20 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 \]</span></p>
 <p>Con lo que tenemos al final <span class="math inline">\(\text{det}(A) = -5\)</span>.</p>
 <p>En <code>R</code></p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>, <span class="co"># especificar que el orden sea por fila de 3 en 3</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># el determinante</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(A)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># la inversa se obtiene con </span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="125">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>, <span class="co"># especificar que el orden sea por fila de 3 en 3</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># el determinante</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(A)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># la inversa se obtiene con</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 -5
 </div>
@@ -251,28 +247,516 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <p><span class="math display">\[
   A \mathbf{x} = \mathbf{0}
 \]</span></p>
-<p>El kernel <span class="math inline">\(\text{ker}(A\mathbf{x})\)</span> captura todas las posibles combinaciones lineales <span class="math inline">\(a_1x_1 + \dots + a_px_p\)</span> que producen <span class="math inline">\(\mathbf{0}\)</span></p>
+<p>El kernel <span class="math inline">\(\text{ker}(A\mathbf{x})\)</span> captura todas las posibles combinaciones lineales <span class="math inline">\(a_1x_1 + \dots + a_px_p\)</span> que producen <span class="math inline">\(\mathbf{0}\)</span>. En ese sentido, el kernel es un subespacio de soluciones para <span class="math inline">\(A \mathbf{x} = \mathbf{0}\)</span>.</p>
+</section>
+<section id="eigenvalores-y-eigenvectores" class="level3">
+<h3 class="anchored" data-anchor-id="eigenvalores-y-eigenvectores">Eigenvalores y eigenvectores</h3>
+<p>Considerar la matriz cuadrada <span class="math inline">\(A_{p\times p}\)</span>. Si existe un escalar <span class="math inline">\(\lambda\)</span> y un vector <span class="math inline">\(\mathbf{x}\)</span> tal que</p>
+<p><span class="math display">\[
+  A\mathbf{x} = \lambda\mathbf{x} \tag{4}
+\]</span></p>
+<p>La ecuación (3) es llamada <em>la ecuación de eigenvalores</em>. <span class="math inline">\(\lambda\)</span> es un <em>eigenvalor</em> (valor propio) y <span class="math inline">\(\mathbf{x}\)</span> un eigenvector.</p>
+<p>Un eigenvalor <span class="math inline">\(\lambda\)</span> es la raíz del polinomio de orden <span class="math inline">\(p\)</span>,</p>
+<p><span class="math display">\[
+  (A - \lambda I)\mathbf{x}=\mathbf{0} \tag{5}
+\]</span></p>
+<p>por lo que hay <span class="math inline">\(p\)</span> eigenvalores de <span class="math inline">\(A\)</span>. A cada eigenvalor <span class="math inline">\(\lambda_j\)</span> le corresponde un eigenvector <span class="math inline">\(x_j\)</span>. Dado que <span class="math inline">\(\mathbf{x} \neq \mathbf{0}\)</span>, la ecuación (4) implica que <span class="math inline">\((A - \lambda I) =\mathbf{0}\)</span>, y el kernel <span class="math inline">\(\text{ker}(A - \lambda I)\)</span> debe contener más elementos que no sean <span class="math inline">\(\mathbf{0}\)</span>, es decir <span class="math inline">\(x \in \text{ker}(A-\lambda I)\)</span>, por lo que la matriz no es invertible y su determinante es 0, es decir</p>
+<p><span class="math display">\[
+  \text{det}(A - \lambda I) = 0 \tag{6}
+\]</span></p>
+<p>A la ecuación (5) se le conoce como <em>polinomio característico</em>. En la matriz</p>
+<p><span class="math display">\[
+  A = \begin{bmatrix}
+  4 &amp; 2 \\
+  1 &amp; 3
+  \end{bmatrix}
+\]</span></p>
+<p>Su polinomio característico es</p>
+<p><span class="math display">\[
+p_A(\lambda) = \text{det}(A - \lambda I) = \text{det} %
+\left( %
+\begin{bmatrix}
+  4 &amp; 2 \\
+  1 &amp; 3
+\end{bmatrix} - %
+\begin{bmatrix}
+  \lambda &amp; 0 \\
+  0 &amp; \lambda
+\end{bmatrix}
+\right) =
+\begin{vmatrix}
+  4 - \lambda &amp; 2 \\
+  1           &amp; 3 - \lambda
+\end{vmatrix}
+\]</span></p>
+<p>Que se reduce a</p>
+<p><span class="math display">\[
+  p_A(\lambda) = (4 - \lambda)(3 - \lambda) - 2 = 0
+\]</span></p>
+<p>Y factorizando</p>
+<p><span class="math display">\[
+  p_A(\lambda) = (2 - \lambda)(5 - \lambda) = 0
+\]</span></p>
+<p>Cuyas soluciones son <span class="math inline">\(\lambda_1 = 2, \lambda_2 = 5\)</span>.</p>
+<p>Los eigenvectores se pueden encontrar sustituyendo los eigen valores en</p>
+<p><span class="math display">\[
+  \begin{bmatrix}
+  4 - \lambda &amp; 2 \\
+  1           &amp; 3 - \lambda
+\end{bmatrix}\mathbf{x} = \mathbf{0}
+\]</span></p>
+<p><strong>Nota</strong>: el determinante de <span class="math inline">\(A\)</span> es el producto de sus eigenvalores</p>
+<p><span class="math display">\[
+  \text{det}(A) = \prod_{i=1}^n \lambda_i
+\]</span></p>
 </section>
 <section id="descomposición-expectral" class="level3">
 <h3 class="anchored" data-anchor-id="descomposición-expectral">Descomposición expectral</h3>
 <p>La matriz cuadrada <span class="math inline">\(A_{p\times p}\)</span> puede se reescrita como</p>
 <p><span class="math display">\[
-  A = \mathbf{x} \Lambda \mathbf{x}^\top \tag{3}
+  A = \mathbf{P} D \mathbf{P}^{-1} \tag{7}
 \]</span></p>
-<p>En donde la matriz diagonal <span class="math inline">\(\Lambda = \text{diag}(\lambda_1, \lambda_2,\dots,\lambda_p)\)</span></p>
-<p>Un eigenvalor <span class="math inline">\(\lambda\)</span> es la raíz del polinomio de orden <span class="math inline">\(p\)</span>,</p>
+<p>En donde la matriz diagonal <span class="math inline">\(D = \text{diag}(\lambda_1, \lambda_2,\dots,\lambda_p)\)</span>.</p>
+<p><strong>Nota</strong>: Cuando <span class="math inline">\(A\)</span> es simétrica, <span class="math inline">\(\mathbf{P}\)</span> es ortogonal, lo que significa que <span class="math inline">\(\mathbf{P}\mathbf{P}^\top=\mathbf{P}\mathbf{P}^{-1}=I\)</span>, o lo que es lo mismo, <span class="math inline">\(\mathbf{P}^\top=\mathbf{P}^{-1}\)</span>, por lo que</p>
 <p><span class="math display">\[
-  (A - \lambda \mathbf{I})\mathbf{x}=\mathbf{0} \tag{4}
+  A = \mathbf{P} D \mathbf{P}^\top
 \]</span></p>
-<p>por lo que hay <span class="math inline">\(p\)</span> eigenvalores de <span class="math inline">\(A\)</span>. A cada eigenvalor <span class="math inline">\(\lambda_j\)</span> le corresponde un eigenvector <span class="math inline">\(x_j\)</span>. Dado que <span class="math inline">\(\mathbf{x} \neq \mathbf{0}\)</span></p>
+</section>
+<section id="matrices-triangulares-y-factorización-de-cholesky" class="level3">
+<h3 class="anchored" data-anchor-id="matrices-triangulares-y-factorización-de-cholesky">Matrices triangulares y factorización de Cholesky</h3>
+<p>Una matriz simétrica definida positiva puede ser factorizada como el producto</p>
+<p><span class="math display">\[A = LL^\top\]</span></p>
+<p>En donde <span class="math inline">\(L\)</span> es la matriz triangular inferior, una matriz cuadrada especial cuyas entradas por encima de la diagonal son 0s.</p>
+<p><span class="math display">\[
+  L = \begin{bmatrix}
+    l_{1,1} &amp; 0 &amp; \cdots &amp; \cdots &amp; 0 \\
+    l_{1,2} &amp; l_{2,2} &amp; \ddots &amp;  &amp; \vdots\\
+    \vdots &amp; \ddots &amp; \ddots &amp; \ddots &amp; \vdots\\
+    \vdots &amp;  &amp; \ddots &amp; \ddots &amp; 0\\
+    l_{1,n} &amp; \cdots &amp; \cdots &amp; l_{n-1,n} &amp; l_{n,n}
+\end{bmatrix}
+\]</span></p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="126">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## eigenvalores y descomposición espectral</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear A</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="sc">-</span><span class="dv">2</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># eigenvalores y eigenvectores usando la función eigen(), ?eigen para ayuda</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># retorna un objeto de dos elementos: los eigenvalores y los eigenvectores</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>eig <span class="ot">&lt;-</span> <span class="fu">eigen</span>(A) <span class="co"># desc. espectral</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># crear P</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> eig<span class="sc">$</span>vectors</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># crear la diagonal de eigenvalores D</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">diag</span>(eig<span class="sc">$</span>values)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># verificar eq 7; la inversa de P se obtiene con solve(P)</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">APDP =</span> P <span class="sc">%*%</span> D <span class="sc">%*%</span> <span class="fu">solve</span>(P),</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">A =</span> A</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<dl>
+    <dt>$APDP</dt>
+        <dd><table class="dataframe table table-sm table-striped">
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<tbody>
+    <tr><td>-3</td><td> 5</td></tr>
+    <tr><td> 4</td><td>-2</td></tr>
+</tbody>
+</table>
+</dd>
+    <dt>$A</dt>
+        <dd><table class="dataframe table table-sm table-striped">
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<tbody>
+    <tr><td>-3</td><td> 5</td></tr>
+    <tr><td> 4</td><td>-2</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="127">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># determinante es igual al producto de los eigenvalores</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(A)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(eig<span class="sc">$</span>values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+-14
+</div>
+<div class="cell-output cell-output-display">
+-14
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="128">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ahora verificamos que si A es simétrica, P es ortogonal</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A simétrica</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">3</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>eig <span class="ot">&lt;-</span> <span class="fu">eigen</span>(A)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># P</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> eig<span class="sc">$</span>vectors</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Inversa de P</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(P)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># transpuesta de P</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(P)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>A <span class="co"># A es igual al producto PDP'</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>P <span class="sc">%*%</span> <span class="fu">diag</span>(eig<span class="sc">$</span>values) <span class="sc">%*%</span> <span class="fu">t</span>(P)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A matrix: 3 × 3 of type dbl</caption>
+<tbody>
+    <tr><td>-0.5843738</td><td>-0.6345775</td><td>-0.5057852</td></tr>
+    <tr><td> 0.5449251</td><td> 0.1549789</td><td>-0.8240377</td></tr>
+    <tr><td> 0.6013018</td><td>-0.7571611</td><td> 0.2552315</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A matrix: 3 × 3 of type dbl</caption>
+<tbody>
+    <tr><td>-0.5843738</td><td>-0.6345775</td><td>-0.5057852</td></tr>
+    <tr><td> 0.5449251</td><td> 0.1549789</td><td>-0.8240377</td></tr>
+    <tr><td> 0.6013018</td><td>-0.7571611</td><td> 0.2552315</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A matrix: 3 × 3 of type dbl</caption>
+<tbody>
+    <tr><td>1</td><td>4</td><td>2</td></tr>
+    <tr><td>4</td><td>1</td><td>3</td></tr>
+    <tr><td>2</td><td>3</td><td>1</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A matrix: 3 × 3 of type dbl</caption>
+<tbody>
+    <tr><td>1</td><td>4</td><td>2</td></tr>
+    <tr><td>4</td><td>1</td><td>3</td></tr>
+    <tr><td>2</td><td>3</td><td>1</td></tr>
+</tbody>
+</table>
+</div>
+</div>
 </section>
 </section>
 <section id="distribución-multinormal" class="level2">
 <h2 class="anchored" data-anchor-id="distribución-multinormal">2.2. Distribución multinormal</h2>
 <p>Ya vimos que para la distribución normal univariada, la función de densidad está dada por</p>
 <p><span class="math display">\[
-  p(x) = \frac{1}{\sigma \sqrt{2\pi}} e\left\{\frac{-(x-\mu)^2}{2\sigma^2}\right\}  \tag{1}
+  p(x) = \frac{1}{\sigma \sqrt{2\pi}} e\left\{\frac{-(x-\mu)^2}{2\sigma^2}\right\}  \tag{8}
 \]</span></p>
+<p>Cuando <span class="math inline">\(\mu = 0, \sigma = 1\)</span>, la ecuación (8) es una distribución especial llamada <em>distribución normal estándar</em>. La distribución normal estándar <span class="math inline">\(\mathcal{N}(0, 1)\)</span> tiene ciertas propiedades interesantes:</p>
+<ol type="1">
+<li>En el intervalo <span class="math inline">\(\left[\mu - \sigma, \mu + \sigma \right]\)</span> se cubre el 0.683 del área total, es decir, <span class="math inline">\(p(\mu - \sigma \leq X \leq \mu + \sigma) \approx 0.68\)</span>.</li>
+<li>En el intervalo <span class="math inline">\(\left[\mu - 2\sigma, \mu + 2\sigma \right]\)</span> se cubre el .954 del área total.</li>
+<li>El área en <span class="math inline">\(X \leq \mu - \sigma\)</span> es <span class="math inline">\(1 - p(X &gt; \mu - \sigma)\)</span></li>
+</ol>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="129">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dado que la distribución es simétrica, p(mu - sigma &lt;= X &lt;= mu+sigma)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># la región mu-sigma es igual que mu+sigma, por lo tanto, es suficiente</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># con restarle a 1 la probabilidad p(mu-sigma &lt;= X) * 2</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">*</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">*</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># con 3 sigma cubre el 99 % del espacio</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">*</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># la probabilidad de x &lt;= mu-sigma es</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">pnorm</span>(<span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># o equivalentemente</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>(<span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+0.683
+</div>
+<div class="cell-output cell-output-display">
+0.954
+</div>
+<div class="cell-output cell-output-display">
+0.997
+</div>
+<div class="cell-output cell-output-display">
+0.159
+</div>
+<div class="cell-output cell-output-display">
+0.159
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="130">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fijar tamaño de gráficos</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">10</span>, <span class="at">repr.plot.height =</span> <span class="dv">4</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># graficar normal estándar</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># colores</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>red_light <span class="ot">&lt;-</span> <span class="st">"#be1b1b75"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>blue_light <span class="ot">&lt;-</span> <span class="st">"#B3B3FF"</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>green_light <span class="ot">&lt;-</span> <span class="st">"#77f475"</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">to =</span> <span class="dv">3</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">axes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">""</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"p(x)"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.first =</span> {</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">axis</span>(<span class="dv">1</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">at =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">:</span><span class="dv">2</span>),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="fu">c</span>(<span class="st">"mu-2*sigma"</span>, <span class="st">"mu-sigma"</span>, <span class="st">"mu"</span>, <span class="st">"mu+sigma"</span>, <span class="st">"mu+2*sigma"</span>))</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># función cargada en utilities.R</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># graficar area de x entre [mu-sigma, mu+sigma]</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_area_normal</span>(</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">from_x =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">to_x =</span> <span class="dv">1</span>,</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> blue_light</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co"># graficar área de mu-2sigma &lt;= x &lt;= mu-sigma</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_area_normal</span>(</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">from_x =</span> <span class="sc">-</span><span class="dv">2</span>,</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">to_x =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> red_light</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_area_normal</span>(</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">from_x =</span> <span class="dv">1</span>,</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">to_x =</span> <span class="dv">2</span>,</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> green_light</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co"># anotación de proporción de la curva</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>x_lab_pos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span> <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">3</span> <span class="sc">/</span> <span class="dv">2</span>) <span class="co"># posición en x</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>y_lab_pos <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x_lab_pos, <span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span> <span class="co"># posición en y</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> x_lab_pos,</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> y_lab_pos,</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a la izquierda de la zona azul es</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    (<span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>),</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">-</span> (<span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">*</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>),</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    (<span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">x0 =</span> <span class="fu">c</span>(x_lab_pos[<span class="dv">1</span>] <span class="sc">*</span> <span class="fl">0.8</span>, x_lab_pos[<span class="dv">3</span>] <span class="sc">*</span> <span class="fl">0.8</span>),</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">y0 =</span> <span class="fu">c</span>(y_lab_pos[<span class="dv">1</span>], y_lab_pos[<span class="dv">3</span>]),</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">x1 =</span> <span class="fu">rep</span>(<span class="fl">1.5</span>, <span class="dv">2</span>),</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">y1 =</span> <span class="fu">dnorm</span>(<span class="fu">rep</span>(<span class="fl">1.5</span>, <span class="dv">2</span>)) <span class="sc">*</span> <span class="fl">2.5</span>,</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">length =</span> <span class="fl">0.15</span>,</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">code =</span> <span class="dv">1</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fl">1.5</span>,</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">dnorm</span>(<span class="fl">1.5</span>) <span class="sc">*</span> <span class="fl">2.6</span>,</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"sum = {(0.954 - 0.683)} + 0.683 = {0.683 + (0.954 - 0.683)}"</span>)</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="2.2_distribucion_multinormal_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>El término en el exponente en la ecuación (8)</p>
+<p><span class="math display">\[
+  \frac{(x-\mu)^2}{2\sigma^2}
+\]</span></p>
+<p>Puede ser convenientemente reescrito como</p>
+<p><span class="math display">\[
+  \frac{(x-\mu)^2}{2\sigma^2} = (x - \mu)(\sigma^2)^{-1}(x-\mu)
+\]</span></p>
+<p>Para mostrar que este término mide el cuadrado de la distancia entre <span class="math inline">\(x\)</span> y <span class="math inline">\(\mu\)</span> en unidades de desviación estándar. Esta distancia ser generalizada para un vector <span class="math inline">\(\mathbf{x} \in \mathbb{R}^D\)</span> de <span class="math inline">\(D\)</span> variables como</p>
+<p><span class="math display">\[
+  (\mathbf{x}-\bm{\mu})^\top \bm{\Sigma}^{-1}(\mathbf{x}-\bm{\mu}) \tag{9}
+\]</span></p>
+<p>A la ecuación (9) se le conoce como distancia de Mahalanobis (en realidad, es la raíz cuadrada de dicha expresión). El significado de los parámetros se describe en la siguiente sección.</p>
+<section id="distribución-bivariada" class="level3">
+<h3 class="anchored" data-anchor-id="distribución-bivariada">2.2.1. Distribución bivariada</h3>
+<p>La distribución normal multivariada (MVN) se caracteriza completamente por el vector de medias <span class="math inline">\(\bm{\mu}\)</span> y la matriz de covarianzas <span class="math inline">\(\bm{\Sigma}\)</span></p>
+<p><span class="math display">\[
+  p(\mathbf{x} \mid \bm{\mu},\bm{\Sigma}) = \frac{1}{(2\pi)^{D/2}|\bm{\Sigma}|^{1/2}}e\left\{ -\frac{1}{2}(\bm{y}-\bm{\mu})^\top \bm{\Sigma}^{-1}(\bm{y}-\bm{\mu}) \right\} \tag{10}
+\]</span></p>
+<p>En donde <span class="math inline">\(\bm{\mu}=\mathbb{E}[y]\)</span> y <span class="math inline">\(D=\text{dim}(\bm{y})\)</span> (la dimensión de <span class="math inline">\(\bm{y}\)</span>; en el caso de una normal bivariada <span class="math inline">\(D=2\)</span>). <span class="math inline">\(\bm{\Sigma}\)</span> es la matriz simétrica <span class="math inline">\(D\times D\)</span> de covarianza. En <span class="math inline">\(D=2\)</span> (bivariada), <span class="math inline">\(\bm{\Sigma}\)</span> es</p>
+<p><span class="math display">\[
+  \bm{\Sigma} = \begin{bmatrix}
+  \sigma_1^2 &amp; \sigma_{12}^2\\
+  \sigma_{21}^2 &amp; \sigma_{2}^2
+  \end{bmatrix}
+\]</span></p>
+<p>Como se vio en la lección 1, el coeficiente de correlación <span class="math inline">\(\rho\)</span> es igual a la covarianza <span class="math inline">\(\sigma_{12}^2\)</span> dividida por el producto de las desviaciones estándar <span class="math inline">\(\sigma_1\sigma_2\)</span></p>
+<p><span class="math display">\[
+  \rho_{X_1,X_2} = \frac{\sigma_{12}^2}{\sigma_1\sigma_2}
+\]</span></p>
+<p>Por lo que, despejando, tenemos <span class="math inline">\(\sigma_{12}^2 = \rho\sigma_1\sigma_2\)</span>. La matriz de covarianzas puede ser reescrita como</p>
+<p><span class="math display">\[
+  \bm{\Sigma} = \begin{bmatrix}
+  \sigma_1^2 &amp; \rho\sigma_1\sigma_2\\
+  \rho\sigma_1\sigma_2 &amp; \sigma_{2}^2
+  \end{bmatrix} \tag{11}
+\]</span></p>
+<p>El determinante <span class="math inline">\(|\Sigma|\)</span> para la bivariada es, de acuerdo con la ecuación (2)</p>
+<p><span class="math display">\[
+\begin{align*}
+  \text{det}(\Sigma) &amp;= \sigma_1^2\sigma_2^2 - (\rho\sigma_1\sigma_2)^2\\
+                     &amp;= \sigma_1^2\sigma_2^2 - \rho^2\sigma_1^2\sigma_2^2\\
+                     &amp;= \sigma_1^2\sigma_2^2(1-\rho^2) \tag{12}
+\end{align*}
+\]</span></p>
+<p>Esta forma de representar la distribución bivariada (aplica también para al MVN) enfatiza la influencia de la correlación en la pdf conjunta. En la siguiente sección simulamos dicha influencia.</p>
+<p><strong>Propiedades de la MVN</strong>:</p>
+<ol type="1">
+<li>Las combinaciones lineales de los componentes de <span class="math inline">\(\mathbf{x}\sim \mathcal{N}(\bm{\mu}, \bm{\Sigma})\)</span> también están distribuidas normalmente, <span class="math inline">\(\mathbf{a^\top x} = a_1x_1 + \dots + a_Dx_D \sim \mathcal{N}(\bm{a^\top\mu}, \bm{a^\top\Sigma})\)</span></li>
+<li>Covarianza de cero implica que los componentes de <span class="math inline">\(\mathbf{x}\)</span> están distribuidos independientemente.</li>
+<li>Las distribuciones condicionales de los componentes, e.g., <span class="math inline">\(x_1 | x_2\)</span> (<span class="math inline">\(x_1\)</span> dado <span class="math inline">\(x_2\)</span>), también están distribuidas normalmente, con media <span class="math inline">\(\mu_1 + \frac{\sigma_{12}}{\sigma_{22}}(x_2 - \mu_2)\)</span> y desviación estándar <span class="math inline">\(\sigma_{11}(1-\rho_{12}^2)\)</span> (para el caso de la bivariada, <span class="math inline">\(\rho_{12}=\rho\)</span>), es decir, <span class="math display">\[
+x_1|x_2 \sim \mathcal{N}\left(%
+  \mu_1 + \frac{\sigma_{12}}{\sigma_{22}}(x_2 - \mu_2),\sigma_{11}(1-\rho_{12}^2)%
+  \right)
+\]</span></li>
+</ol>
+<section id="muestras-bivariadas" class="level4">
+<h4 class="anchored" data-anchor-id="muestras-bivariadas">Muestras bivariadas</h4>
+<p>Algoritmo para generar muestras <span class="math inline">\(\mathbf{x} \sim \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})\)</span><a name="cite_ref-1" href=""></a><a href="#cite_note-1"><sup>[1]</sup></a> con media aribitraria <span class="math inline">\(\mathbf{x}\)</span> y matriz de covarianza <span class="math inline">\(\boldsymbol{\Sigma}\)</span> con generador gaussiano (i.e., normal):</p>
+<ol type="1">
+<li>Computar la factorización de Cholesky <span class="math inline">\(L\)</span> de una matriz positiva definida <span class="math inline">\(\boldsymbol{\Sigma}=LL^\top\)</span>, en donde <span class="math inline">\(L\)</span> es la matriz triangular inferior.</li>
+<li></li>
+</ol>
+<p><a name="cite_note-1" href=""></a>1. [^](#cite_ref-1) C. E. Rasmussen &amp; C. K. I. Williams (2006). <em>Gaussian Processes for Machine Learning</em>. The MIT Press, 2006</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="131">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">7</span>, <span class="at">repr.plot.height =</span> <span class="dv">6</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.6</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>sigma_1 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>sigma_2 <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>z1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>z2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> sigma_1 <span class="sc">*</span> z1 <span class="sc">+</span> mu1</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> sigma_2 <span class="sc">*</span> (rho <span class="sc">*</span> z1 <span class="sc">+</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">-</span> rho<span class="sc">^</span><span class="dv">2</span>) <span class="sc">*</span> z2) <span class="sc">+</span> sigma_2</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x, y) <span class="co"># ~ -0.6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+-0.593935543137415
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="2.2_distribucion_multinormal_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="164">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ep <span class="ot">&lt;-</span> <span class="fl">0.00001</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>SIGMA <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">2</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>SIGMA <span class="ot">&lt;-</span> SIGMA <span class="sc">+</span> <span class="fu">diag</span>(D) <span class="sc">*</span> ep</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">chol</span>(SIGMA))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># L %*% t(L) # verificar</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n <span class="sc">*</span> D), D, n)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> m <span class="sc">+</span> <span class="fu">t</span>(L <span class="sc">%*%</span> u)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(x[, <span class="dv">2</span>] <span class="sc">~</span> x[, <span class="dv">1</span>]))</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Ellipse radius from Chi-Sqaure distrubiton</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.95</span>), <span class="at">df =</span> <span class="fu">ncol</span>(x))</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>rad <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(rad)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ellipse</span>(x, rad, <span class="at">colores =</span> <span class="fu">c</span>(blue_light, red_light))</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>eigen_vv <span class="ot">&lt;-</span> <span class="fu">eigen</span>(SIGMA)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>eig_vector <span class="ot">&lt;-</span> eigen_vv<span class="sc">$</span>vectors</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>eig_val <span class="ot">&lt;-</span> eigen_vv<span class="sc">$</span>values</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>xp1 <span class="ot">&lt;-</span> eig_vector[<span class="dv">2</span>,<span class="dv">1</span>] <span class="sc">/</span> eig_vector[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">*</span> <span class="fu">sqrt</span>(eig_val[<span class="dv">1</span>])</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>xp2 <span class="ot">&lt;-</span> eig_vector[<span class="dv">2</span>,<span class="dv">2</span>] <span class="sc">/</span> eig_vector[<span class="dv">1</span>,<span class="dv">2</span>]<span class="sc">*</span> <span class="fu">sqrt</span>(eig_val[<span class="dv">2</span>])</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(m[<span class="dv">1</span>], xp1, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">5</span>)</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(m[<span class="dv">2</span>], xp2, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">cex =</span> <span class="dv">5</span>)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xy_center, eigen_vec[<span class="dv">2</span>, <span class="dv">2</span>] <span class="sc">/</span> eigen_vec[<span class="dv">1</span>, <span class="dv">2</span>] <span class="sc">*</span> xy_center, <span class="at">col =</span> red_light)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>xy_center <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">center</span>(x), <span class="fu">center</span>(y))</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>xy_sigma <span class="ot">&lt;-</span> <span class="fu">cov</span>(xy_center) </span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>spectral_decomp <span class="ot">&lt;-</span> <span class="fu">eigen</span>(xy_sigma)</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>egen_val <span class="ot">&lt;-</span> spectral_decomp<span class="sc">$</span>values</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>eigen_vec <span class="ot">&lt;-</span> spectral_decomp<span class="sc">$</span>vectors</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xy_center) </span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xy_center, eigen_vec[<span class="dv">2</span>, <span class="dv">1</span>] <span class="sc">/</span> eigen_vec[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">*</span> xy_center, <span class="at">col =</span> blue_light)</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xy_center, eigen_vec[<span class="dv">2</span>, <span class="dv">2</span>] <span class="sc">/</span> eigen_vec[<span class="dv">1</span>, <span class="dv">2</span>] <span class="sc">*</span> xy_center, <span class="at">col =</span> red_light)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+1.73205369431782
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="2.2_distribucion_multinormal_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="2.2_distribucion_multinormal_files/figure-html/cell-10-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">200</span> <span class="co"># Number of random samples</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Target parameters for univariate normal distributions</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.6</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters for bivariate normal distribution</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">c</span>(mu1, mu2) <span class="co"># Mean</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(s1<span class="sc">^</span><span class="dv">2</span>, s1 <span class="sc">*</span> s2 <span class="sc">*</span> rho, s1 <span class="sc">*</span> s2 <span class="sc">*</span> rho, s2<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>) <span class="co"># Covariance matrix</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">chol</span>(sigma))</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># M %*% t(M)</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">2</span> <span class="sc">*</span> N), <span class="dv">2</span>, N) <span class="co"># 2 rows, N/2 columns</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>bvn2 <span class="ot">&lt;-</span> <span class="fu">t</span>(M <span class="sc">%*%</span> Z) <span class="sc">+</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(mu, N), <span class="at">byrow =</span> <span class="cn">TRUE</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(bvn2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"bvn2_X1"</span>, <span class="st">"bvn2_X2"</span>)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co"># tercer método</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>rbvn <span class="ot">&lt;-</span> <span class="cf">function</span>(n, m1, s1, m2, s2, rho) {</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  X1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu1, s1)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu2 <span class="sc">+</span> (s2 <span class="sc">/</span> s1) <span class="sc">*</span> rho <span class="sc">*</span> (X1 <span class="sc">-</span> mu1), <span class="fu">sqrt</span>((<span class="dv">1</span> <span class="sc">-</span> rho<span class="sc">^</span><span class="dv">2</span>) <span class="sc">*</span> s2<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(X1, X2)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>bvn3 <span class="ot">&lt;-</span> <span class="fu">rbvn</span>(N, mu1, s1, mu2, s2, rho)</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(bvn3) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X1"</span>, <span class="st">"X2"</span>)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>p_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>  bvn3 <span class="sc">|&gt;</span> <span class="fu">as.data.frame</span>(),</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> X2)</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(p_scatter, <span class="at">type =</span> <span class="st">"densigram"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'
+
+`geom_smooth()` using formula 'y ~ x'
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="2.2_distribucion_multinormal_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
 </section>
 </section>
 
