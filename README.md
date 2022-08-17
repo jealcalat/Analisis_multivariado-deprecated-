@@ -28,6 +28,8 @@ Asesorías: solicitar cita.
     - [Documentos reproducibles con RMarkdown](#documentos-reproducibles-con-rmarkdown)
     - [Modelamiento con `{tidymodels}`](#modelamiento-con-tidymodels)
 
+Para ver el calendario del curso, revisa el siguiente enlace: [Calendario del curso](listas/calendario_del_curso.md).
+
 ## Temas del curso
 
 1. Variables aleatorias multivariadas
