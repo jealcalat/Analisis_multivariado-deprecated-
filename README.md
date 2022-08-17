@@ -14,7 +14,6 @@ Asesorías: solicitar cita.
 
 - [Análisis Estadístico Multivariable](#análisis-estadístico-multivariable)
   - [Temas del curso](#temas-del-curso)
-  - [6. Aplicaciones](#6-aplicaciones)
   - [Bibliografía](#bibliografía)
   - [Evaluación](#evaluación)
     - [Tareas](#tareas)
@@ -57,6 +56,7 @@ Para ver el calendario del curso, revisa el siguiente enlace: [Calendario del cu
    4. [Análisis discriminante](https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/main/5_descomposicion_datos_tecnicas/5.4_analisis_discriminante.ipynb)
 
 6. Aplicaciones
+
 ---
 ## Bibliografía
 
