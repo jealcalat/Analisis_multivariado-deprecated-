@@ -74,7 +74,7 @@ den_histogram <- function(x_dat,
                           density_line = TRUE,
                           add = FALSE,
                           axis = TRUE) {
-  # Basado en
+  # Basado en https://osf.io/bv8fr
 
   if (class(plot_limits) == "NULL") {
     plot_limits <- range(x_dat)
@@ -86,9 +86,8 @@ den_histogram <- function(x_dat,
   y_base <- c(0, rep(h$density, each = 2), 0)
   breaks_base <- h$breaks
   densities_base <- c(h$density, tail(h$density, 1))
-
+  # kernel density
   den <- KernSmooth::bkde(x_dat)
-  
 
   if (class(density_limits) == "NULL") {
     density_limits <- c(0, max(h$density) * amplify_max_density)

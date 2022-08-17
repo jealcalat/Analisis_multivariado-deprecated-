@@ -1,8 +1,6 @@
 
 # Análisis Estadístico Multivariable
 
-Página del curso [aquí](https://jealcalat.github.io/Analisis_multivariado/).
-
 Curso de la maestría en ciencia de datos (MCD) del ITESO.
 
 Instructor: Emmanuel Alcalá
@@ -16,9 +14,13 @@ Asesorías: solicitar cita.
 
 - [Análisis Estadístico Multivariable](#análisis-estadístico-multivariable)
   - [Temas del curso](#temas-del-curso)
-  - [Tareas](#tareas)
+  - [6. Aplicaciones](#6-aplicaciones)
   - [Bibliografía](#bibliografía)
-  - [Datasets](#datasets)
+  - [Evaluación](#evaluación)
+    - [Tareas](#tareas)
+    - [Participación en clase](#participación-en-clase)
+    - [Proyectos](#proyectos)
+    - [Exámenes](#exámenes)
   - [Tutoriales de `R`](#tutoriales-de-r)
     - [Fundamentos de `R`](#fundamentos-de-r)
     - [Data wrangling con `{dplyr}` y `{tidyr}`](#data-wrangling-con-dplyr-y-tidyr)
@@ -53,24 +55,68 @@ Asesorías: solicitar cita.
    4. [Análisis discriminante](https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/main/5_descomposicion_datos_tecnicas/5.4_analisis_discriminante.ipynb)
 
 6. Aplicaciones
-
-## Tareas
-
-Para la entrega de tareas, usar la plantilla de RMarkdown de la sección
-[Documentos reproducibles con RMarkdown](#documentos-reproducibles-con-rmarkdown).
-
+---
 ## Bibliografía
 
 - [*Applied Multivariate Statistical Analysis*](https://link.springer.com/content/pdf/10.1007/978-3-662-45171-7.pdf). Wolfgang H. and Simar. L. Springer, 2015
 - *Applied Multivariate Statistical Concepts*. Hahs-Vaughn, D. Editorial Routledge, 2016.
 - [*Applied Multivariate Statistics with R*](https://web.uniroma1.it/memotef/sites/default/files/file%20lezioni/102b_textbook.pdf). Zelterman, D. Editorial Springer, 2015.
 
-## Datasets
+## Evaluación
+
+| RUBROS                                                    | PORCENTAJE |
+| --------------------------------------------------------- | ---------- |
+| 1. [Tareas](#tareas)                                      | 30%        |
+| 2. [Participación en clase](#participación-en-clase)      | 15%        |
+| 3. [Proyectos (Solución de casos de estudio)](#proyectos) | 20%        |
+| 4. [Exámenes]()                                           | 30%        |
+| Total                                                     | 100%       |
+
+
+### Tareas
+
+Serán 3 tareas:
+
+1. [Tarea 1](), de las unidades 1 y 2.
+2. [Tarea 2](), de las unidades 3 y 4.
+3. [Tarea 3](), de la unidad 5.
+
+Para la entrega de tareas, usar la plantilla de RMarkdown de la sección Documentos reproducibles con [RMarkdown](#documentos-reproducibles-con-rmarkdown).
+
+### Participación en clase
+
+La participación en clase se evaluará con exposiciones grupales, una exposición por equipo. Las exposiciones estarán distribuidas de la siguiente manera:
+
+| Equipo   | Tema                        |
+| -------- | --------------------------- |
+| Equipo 1 | 3.4. Regresión logística    |
+| Equipo 2 | 4.3. Selección de variables |
+| Equipo 3 | 5.2. Análisis factorial     |
+| Equipo 4 | 5.4. Análisis discriminante |
+
+### Proyectos
+
+Resolver un caso de estudio escogiendo alguno de los temas de las unidades 3, 4 y 5. Los proyectos son individuales y deben entregarse también usando la plantilla de [RMarkdown](#documentos-reproducibles-con-rmarkdown). Deberán tener las siguientes secciones
+
+1. Introducción: describir un problema o una pregunta. Ver [este ejemplo]() si tienes dudas de cómo hacerlo.
+2. Datos: describir los datos que se van a usar, sus variables, si se hizo un tratamiento o tranformación (e.g., ingeniería de características). 
+3. Presentación del análisis:
+   1. Métodos: el análisis que harás. Debes describir formalmente dicho análisis (aquí me entero de que tienes una comprensión formal de dicho análisis).
+   2. Resultados: gráficos principales y tablas de estadísticos, lo más refinado que puedas.
+4. Conclusión: transmite tus hallazgos a una audiencia más amplia.
+
+### Exámenes
+
+TODO
+
+---
+
+<!-- ## Datasets
 
 - [RDatasets](https://vincentarelbundock.github.io/Rdatasets/articles/data.html)
 - [The Humanitarian Data Exchange](https://data.humdata.org/)
 - [TidyTuesday](https://github.com/rfordatascience/tidytuesday)
-- [Openpsychometrics](https://openpsychometrics.org/_rawdata/)
+- [Openpsychometrics](https://openpsychometrics.org/_rawdata/) -->
 
 ## Tutoriales de `R`
 
