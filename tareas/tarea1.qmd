@@ -1,0 +1,116 @@
+---
+title: "Tarea 1"
+subtitle: Análisis Estadístico Multivariado
+author: Emmanuel Alcalá
+format:
+  pdf:
+    number-sections: true
+    colorlinks: true
+    number-depth: 0
+fig-pos: 'h'
+---
+
+# Ejercicio 1
+
+Considera la distribución bivariada $p(x,y)$ de dos VA discretas $X, Y$
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{2022-08-23-13-19-28.png}
+  \label{fig:figConjunta}
+  \caption{$f(y,x)$}
+\end{figure}
+
+Calcula:
+
+\begin{enumerate}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+  \item Las distribuciones marginales $p(x)$ y $p(y)$
+  \item Las distribuciones condicionales $p(x \mid Y = y_1)$ y $p(y \mid X = x_3)$
+\end{enumerate}
+
+# Ejercicio 2
+
+Supongamos lo siguiente:
+
+Un 5% de la población son mujeres (M) con estudios universitarios completos (U). Las mujeres representan un 55% de la población. Un 20% de la población tiene estudios universitarios completos
+
+1. ¿Cuál es la probabilidad de que una mujer tenga estudios universitarios completos? Hint: calcular $p(U \mid M)$.
+2. ¿Cuál es la probabilidad de que una mujer tenga estudios universitarios completos? Hint: calcular $p(M \min U)$
+3. ¿Cuál es la probabilidad de que una persona con estudios universitarios completos sea hombre (H)? Hint: necesitamos el complemento de 2). 
+
+# Ejercicio 3
+
+La pmf de una distribución de probabilidad discreta de Poisson permite calcular la probabilidad un número dado de eventos en un intervalo, dada una tasa de ocurrencia $\lambda$. Por ejemplo, ¿cuál es la probabilidad de que ocurran 3 choques en un día en López Mateos si la tasa de ocurrencia es de 2 choques por día? Con la pmf 
+
+$$
+  p(x \mid \lambda) = \frac{e^{-\lambda} \lambda^{x}}{x!} \tag{11}
+$$
+
+Sería 
+
+$$
+  p(3 \mid 2) = \frac{e^{-2} \lambda^{3}}{3!}.
+$$
+
+En `R`
+
+```{r}
+#| echo: true
+# creamos una función para la eq 11
+pmf_poisson <- function(x, l) (exp(-l) * l^x) / (factorial(x))
+x <- 3
+l <- 2
+pmf_poisson(x = x, l = l)
+```
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-pos: H
+#| fig-width: 4
+#| fig-height: 3
+#| fig-cap: "Distribución de probabilidad de Poisson con $x=3$  y $\\lambda=2$"
+par(las=1)
+xp <- seq(0, 15, 1)
+plot(
+  xp,
+  pmf_poisson(xp, l),
+  type = "h",
+  ylab = "P(X=x)",
+  xlab = 'x',
+  main = expression(Poisson~pmf~p(x*'|'*lambda==2))
+)
+segments(
+  x0 = 3,
+  x1 = 3,
+  y0 = 0,
+  y1 = pmf_poisson(x = x, l = l),
+  col = 'red',
+  lwd = 2
+)
+```
+
+Resolver:
+
+\begin{enumerate}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+  \item $p(x=3 \mid \lambda = 3/4) = ?$
+  \item $p(0 \leq x \leq 10 \mid \lambda = 3) = ?$
+\end{enumerate}
+
+# Ejercicio 4
+
+La pdf de la distribución normal con media $\mu$ y desviación estándar $\sigma$ (o varianza $\sigma^2$) es caracterizada por
+
+$$
+  p(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{\frac{-(x-\mu)^2}{2\sigma^2}} \tag{12}
+$$
+
+1. Suponer que un manufacturador de un tipo de botana sabe que el peso total del paquete de botana está distribuido normalmente con una media de 80.2 gramos y una desviación estándar de 1.1 ramos. ¿Cuál es la probabilidad de que un paquete de botana pese menos de 78 gramos?
+2. Bajo las mismas asunciones anteriores, ¿cuál es la probabilidad de que un paquete dado tenga un peso que esté entre 2 desviaciones estándar de la media? Es decir,  $p(x \in [\mu - \sigma, \mu + \sigma])$.
+3. Grafica el área de la pdf que se cubriría en el ejercicio 2.
