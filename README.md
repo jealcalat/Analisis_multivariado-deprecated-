@@ -96,6 +96,18 @@ La participación en clase se evaluará con exposiciones grupales, una exposici�
 | Equipo 3 | 5.2. Análisis factorial     |
 | Equipo 4 | 5.4. Análisis discriminante |
 
+Organización sugerida de las exposiciones:
+
+**3.4. Regresión logística**
+1. Modelos lineales generalizados (estructura, función de enlace).
+2. Implementación y diagnóstico de modelo de regresión logística en R.
+3. Interpretación de resultados (efectos marginales, odds ratio, intervalos de confianza, etc).
+   
+**4.3. Selección de variables**
+
+
+
+
 ### Proyectos
 
 Resolver un caso de estudio escogiendo alguno de los temas de las unidades 3, 4 y 5. Los proyectos son individuales y deben entregarse también usando la plantilla de [RMarkdown](#documentos-reproducibles-con-rmarkdown). Deberán tener las siguientes secciones

@@ -18,7 +18,7 @@ Considera la distribución bivariada $p(x,y)$ de dos VA discretas $X, Y$
   \centering
   \includegraphics[width=0.5\textwidth]{2022-08-23-13-19-28.png}
   \label{fig:figConjunta}
-  \caption{$f(y,x)$}
+  \caption{Distribución conjunta $p(y,x)$}
 \end{figure}
 
 Calcula:
