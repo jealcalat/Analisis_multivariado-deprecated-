@@ -79,7 +79,7 @@ Para ver el calendario del curso, revisa el siguiente enlace: [Calendario del cu
 
 Serán 3 tareas:
 
-1. [Tarea 1](), de las unidades 1 y 2.
+1. [Tarea 1](/tareas/tarea1.pdf), de las unidades 1 y 2.
 2. [Tarea 2](), de las unidades 3 y 4.
 3. [Tarea 3](), de la unidad 5.
 

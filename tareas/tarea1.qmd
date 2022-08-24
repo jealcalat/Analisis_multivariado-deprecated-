@@ -55,16 +55,24 @@ $$
   p(3 \mid 2) = \frac{e^{-2} \lambda^{3}}{3!}.
 $$
 
-En `R`
+En `R`, la probabilidad de que $x$ tome el valor de 3 si el valor de $\lambda$ es 2 se calcularía así (creamos nuestra propia función a partir de la ecuación (11)): 
 
 ```{r}
 #| echo: true
-# creamos una función para la eq 11
-pmf_poisson <- function(x, l) (exp(-l) * l^x) / (factorial(x))
+# creamos una función para la eq 11; esta función necesita dos argumentos:
+# x y lambda
+pmf_poisson <- function(x, lambda) (exp(-lambda) * lambda^x) / (factorial(x))
+# asignamos valores a los argumentos
 x <- 3
-l <- 2
-pmf_poisson(x = x, l = l)
+l <- 2 # lambda
+# usamos la función creada ingresando los argumentos
+pmf_poisson(x = x, lambda = l)
+# NOTA: R tiene una función base para hacer esto, dpois(),
+# pero estos ejercicios son buenos para desmitificar R mientras nos hábiles
+# dpois(x, l) # da el mismo resultado
 ```
+
+Gráficamente, nuestro valor $x=3$ en una distribución de Poisson se vería así:
 
 ```{r}
 #| echo: false
@@ -93,7 +101,7 @@ segments(
 )
 ```
 
-Resolver:
+Resolver (y graficar):
 
 \begin{enumerate}
   \setlength{\itemsep}{0pt}
@@ -111,6 +119,5 @@ $$
   p(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{\frac{-(x-\mu)^2}{2\sigma^2}} \tag{12}
 $$
 
-1. Suponer que un manufacturador de un tipo de botana sabe que el peso total del paquete de botana está distribuido normalmente con una media de 80.2 gramos y una desviación estándar de 1.1 ramos. ¿Cuál es la probabilidad de que un paquete de botana pese menos de 78 gramos?
+1. Suponer que un manufacturador de un tipo de botana sabe que el peso total del paquete de botana está distribuido normalmente con una media de 80.2 gramos y una desviación estándar de 1.1 gramos. ¿Cuál es la probabilidad de que un paquete de botana pese *menos* de 78 gramos?
 2. Bajo las mismas asunciones anteriores, ¿cuál es la probabilidad de que un paquete dado tenga un peso que esté entre 2 desviaciones estándar de la media? Es decir,  $p(x \in [\mu - \sigma, \mu + \sigma])$.
-3. Grafica el área de la pdf que se cubriría en el ejercicio 2.
