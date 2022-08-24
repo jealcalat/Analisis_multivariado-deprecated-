@@ -75,7 +75,7 @@ pmf_poisson(x = x, lambda = l)
 Gráficamente, nuestro valor $x=3$ en una distribución de Poisson se vería así:
 
 ```{r}
-#| echo: false
+#| echo: true
 #| fig-align: center
 #| fig-pos: H
 #| fig-width: 4
@@ -83,6 +83,7 @@ Gráficamente, nuestro valor $x=3$ en una distribución de Poisson se vería as�
 #| fig-cap: "Distribución de probabilidad de Poisson con $x=3$  y $\\lambda=2$"
 par(las=1)
 xp <- seq(0, 15, 1)
+# graficar la distribución (en barras)
 plot(
   xp,
   pmf_poisson(xp, l),
@@ -91,10 +92,15 @@ plot(
   xlab = 'x',
   main = expression(Poisson~pmf~p(x*'|'*lambda==2))
 )
+# enfatizar la barra de probabilidad de x=3
 segments(
+  # inicio del segmento en x
   x0 = 3,
+  # fin del segmento en x
   x1 = 3,
+  # inicio del segmento en y
   y0 = 0,
+  # altura del segmento
   y1 = pmf_poisson(x = x, l = l),
   col = 'red',
   lwd = 2
