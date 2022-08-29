@@ -160,3 +160,36 @@ scatter_marginal <- function(x, y, color, fill, ...) {
   # restablecer config original
   # par(old_op)
 }
+
+like_binom <- function(x, n, theta) {
+  theta^x * (1 - theta)^(n - x)
+}
+
+
+## From Alexander Etz Blog
+## Plots the likelihood function for the data obtained
+## h = number of successes (heads), n = number of trials (flips),
+## p1 = prob of success (head) on H1, p2 = prob of success (head) on H2
+## Returns the likelihood ratio for p1 over p2. The default values are the ones used in the blog post
+like_binom_plot <- function(k, n, p1 = .5, p2 = .75) {
+  L1 <- dbinom(k, n, p1) / dbinom(k, n, k / n) ## Likelihood for p1, standardized vs the MLE
+  L2 <- dbinom(k, n, p2) / dbinom(k, n, k / n) ## Likelihood for p2, standardized vs the MLE9
+  Ratio <- (dbinom(k, n, p1) / dbinom(k, n, p2)) |> signif(2) ## Likelihood ratio for p1 vs p2
+  curve((dbinom(k, n, x) / max(dbinom(k, n, x))),
+    xlim = c(0, 1),
+    ylab = expression(L(theta)),
+    xlab = "Probabilidad de caras",
+    las = 1,
+    main = bquote(frac(L(theta[2]), L(theta[1])) == .(Ratio)),
+    lwd = 3,
+    axes = FALSE
+  )
+  axis(1)
+  box()
+  points(p1, L1, cex = 2, pch = 21, bg = "navy")
+  points(p2, L2, cex = 2, pch = 21, bg = "navy")
+  lines(c(p1, p2), c(L1, L1), lwd = 3, lty = 2, col = "navy")
+  lines(c(p2, p2), c(L1, L2), lwd = 3, lty = 2, col = "navy")
+  abline(v = k / n, lty = 5, lwd = 1, col = "grey73")
+  # return(Ratio) ## Returns the likelihood ratio for p1 vs p2
+}
