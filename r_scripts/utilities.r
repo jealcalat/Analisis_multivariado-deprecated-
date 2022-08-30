@@ -193,3 +193,18 @@ like_binom_plot <- function(k, n, p1 = .5, p2 = .75) {
   abline(v = k / n, lty = 5, lwd = 1, col = "grey73")
   # return(Ratio) ## Returns the likelihood ratio for p1 vs p2
 }
+
+
+binom_mle <- function(y, n) {
+  L <- function(p) dbinom(y, n, p)
+  mle <- optimize(L, interval = c(0, 1), maximum = TRUE)$max
+  p <- (1:100) / 100
+  # par(mfrow=c(2,1))
+  # plot(p, L(p), type='l')
+  # abline(v=mle)
+  # plot(p, log(L(p)), type='l')
+  # abline(v=mle)
+  mle
+}
+
+binom_mle(9, 10)
