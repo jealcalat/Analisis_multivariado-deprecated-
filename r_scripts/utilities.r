@@ -1,3 +1,5 @@
+par(las = 1, tck = -0.015)
+
 center <- function(x) x - mean(x)
 
 plot_area_normal <- function(from_x, to_x, fill) {
@@ -178,7 +180,7 @@ like_binom_plot <- function(k, n, p1 = .5, p2 = .75) {
   curve((dbinom(k, n, x) / max(dbinom(k, n, x))),
     xlim = c(0, 1),
     ylab = expression(L(theta)),
-    xlab = "Probabilidad de caras",
+    xlab = expression("Probabilidad de caras" ~ theta),
     las = 1,
     main = bquote(frac(L(theta[2]), L(theta[1])) == .(Ratio)),
     lwd = 3,
@@ -186,11 +188,11 @@ like_binom_plot <- function(k, n, p1 = .5, p2 = .75) {
   )
   axis(1)
   box()
-  points(p1, L1, cex = 2, pch = 21, bg = "navy")
-  points(p2, L2, cex = 2, pch = 21, bg = "navy")
-  lines(c(p1, p2), c(L1, L1), lwd = 3, lty = 2, col = "navy")
-  lines(c(p2, p2), c(L1, L2), lwd = 3, lty = 2, col = "navy")
-  abline(v = k / n, lty = 5, lwd = 1, col = "grey73")
+  lines(c(p1, p2), c(L1, L1), lwd = 3, lty = 2, col = "#B3B3FF")
+  lines(c(p2, p2), c(L1, L2), lwd = 3, lty = 2, col = "#B3B3FF")
+  points(p1, L1, cex = 2, pch = 21, bg = "#a73e0e")
+  points(p2, L2, cex = 2, pch = 21, bg = "#a73e0e")
+  abline(v = k / n, lty = 5, lwd = 1, col = "grey60")
   # return(Ratio) ## Returns the likelihood ratio for p1 vs p2
 }
 
