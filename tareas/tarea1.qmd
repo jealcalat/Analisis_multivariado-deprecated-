@@ -38,8 +38,7 @@ Supongamos lo siguiente:
 Un 5% de la población son mujeres (M) con estudios universitarios completos (U). Las mujeres representan un 55% de la población. Un 20% de la población tiene estudios universitarios completos
 
 1. ¿Cuál es la probabilidad de que una mujer tenga estudios universitarios completos? Hint: calcular $p(U \mid M)$.
-2. ¿Cuál es la probabilidad de que una mujer tenga estudios universitarios completos? Hint: calcular $p(M \min U)$
-3. ¿Cuál es la probabilidad de que una persona con estudios universitarios completos sea hombre (H)? Hint: necesitamos el complemento de 2). 
+2. ¿Cuál es la probabilidad de que una persona con estudios universitarios completos sea hombre (H)? Hint: necesitamos el complemento de 2). 
 
 # Ejercicio 3
 
