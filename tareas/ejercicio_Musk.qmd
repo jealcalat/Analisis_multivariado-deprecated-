@@ -67,3 +67,42 @@ Por lo tanto, $p(T_i) = 0.015$. La probabilidad de tener COVID dado que la prueb
 
 ¿Cómo calculamos $p(X=1\mid T_1=+,T_2=-)$? Usando la misma ecuación, teniendo en cuenta que la sensibilidad y la especificidad no cambian, pero ahora nuestra probabilidad *a priori* no será $p(X=1)$ sino $p(X=1\mid T=+)$.
 
+Para simplificar un poco las cosas, supongamos que $A$ es $X=1$, y $B$ es $T_1=+\cap T_2=-) $.El teorema de Bayes nos dice que
+
+$$
+  p(A\mid B) = \frac{p(B)}{}
+$$
+
+$$
+  p(X = 1\mid T_1=+,T_2=-) =\frac{p(T_2=-\mid T_1=+, X=1)p(X=1\mid T_1=+)}{p(T_2=-\mid T_1=+)}
+$$
+
+Sabemos que $p(X=1\mid T_1=+)=0.67$, ¿y $p(T_2=-\mid T_1=+, X=1)$? Dado que la prueba $T_1$ es independiente de $T_2$, la probabilidad de que salga negativo *dado* que tiene covid es simplemente $p(T_2=-\mid X=1)=1-p(T_2=+\mid X=1)=1-sensibilidad=1-0.84=0.16$. Por lo tanto, en el numerador tenemos $0.67\times 0.16=0.1072$. ¿Cómo calculamos $p(T_2=-\mid T_1=+)$?
+
+$$
+  p(T_2=-\mid T_1=+)=\frac{p(T_1=+, T_2=-)}{p(T_1)}
+$$
+
+Sabemos que $p(T_1)=0.015$, $p(T_1=+, T_2=-)$ se puede obtener con la ley de probabilidad total
+
+$$
+  p(T_1=+, T_2=-) = p(T_1=+, T_2=-\mid X=1)p(X=1)+p(T_1=+, T_2=-\mid X=0)p(X=0)
+$$
+
+Dado que tenemos eventos independientes, $p(T_1=+, T_2=-\mid X=1)p(X=1)=p(T_1=+)p(T_2=-)p(X=1)$; con $p(T_1=+, T_2=-\mid X=0)p(X=0)$ usaremos los eventos complementarios.
+
+$$
+  p(T_1=+, T_2=-) =0.995*0.995* 0.0121+(1-0.995)*(1-0.995)*(1-0.0121)=0.012
+$$
+
+Por lo tanto
+
+$$
+  p(T_2=-\mid T_1=+)=\frac{p(T_1=+, T_2=-)}{p(T_1)}=\frac{0.012}{0.015}=0.8
+$$
+
+y
+
+$$
+   p(X = 1\mid T_1=+,T_2=-)=
+$$

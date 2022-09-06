@@ -1,0 +1,61 @@
+---
+title: "Ejercicios de Teorema de Bayes"
+subtitle: Análisis Estadístico Multivariado
+author: Emmanuel Alcalá
+format:
+  pdf: 
+    include-in-header: 
+      text: |
+        \usepackage{amsmath}
+        \usepackage{amsfonts}
+        \usepackage{amssymb}
+    number-sections: true
+    colorlinks: true
+    number-depth: 0
+fig-pos: 'h'
+---
+
+1.25 de [Luis Rincón - Introducción a la probabilidad](https://lya.fciencias.unam.mx/lars/Publicaciones/proba1-2014.pdf)
+
+En una fábrica hay dos máquinas. La máquina 1 realiza el 60 % de la producción total y la máquina 2 el 40 %. De su producción total, la máquina 1 produce 3 % de material defectuoso (es decir, *dado* $M_1$, el 3% es defectuoso, o $p(D\mid M_1)=0.03$), la máquina 2 el 5 % (lo mismo que en $M_1$). El asunto es que se ha encontrado material defectuoso. ¿Cuál es la probabilidad de que este material defectuoso provenga de la máquina 2?
+
+Definir los eventos
+
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+  \item $D=$ El material escogido es defectuoso
+  \item $M_1=$ La máquina 1 produjo el material escogido.
+  \item $M_2=$ La máquina 2 produjo el material escogido
+\end{itemize}
+
+Lo que queremos encontrar es $p(M_2\mid D)$. El teorema de Bayes nos dice que
+
+$$
+  p(M_2\mid D)=\frac{p(D\mid M_2)p(M_2)}{p(D)}
+$$
+
+En donde $p(D)$, la probabilidad marginal de $D$, se obtiene con la ley de probabilidad total: $p(D)=p(D\cap M_1)+p(D\cap M_2)$. Como vimos, la probabilidad conjunta se puede obtener con la probabilidad marginal, $p(A\cap B)=p(A\mid B)p(B)$. Por lo tanto $p(D)=p(D\mid M_1)p(M_1)+p(D\mid M_2)p(M_2)$.
+
+Finalmente
+
+$$
+  p(M_2\mid D)=\frac{p(D\mid M_2)p(M_2)}{p(D\mid M_1)p(M_1)+p(D\mid M_2)p(M_2)}
+$$
+
+1. Encontrar $p(M_2\mid D)$
+2. Encontrar $p(M_1\mid D)$.
+
+---
+
+Supongamos que nos hacemos un test rápido contra COVID. Esta es la información con la que disponemos:
+
+1. La especificidad del test es del 0.995 (resultado negativo cuando no se tiene la enfermedad).
+2. La sensibilidad del test del 0.84 (resultado positivo cuando sí se tiene).
+3. Supongamos que la prevalencia (la proporción de personas infectadas sin importar su resultado; es decir, la proporción marginal de enfermos) es del 0.3 (aprox 30 %).
+
+Sea $E$ el evento en el que estamos enfermos, y $S$ en el que estamos sanos, y $t+$ el resultado del test positivo, y $t-$ el resultado del test negativo.
+
+1. Encontrar $p(E\mid t_+)$.
+2. Supongamos que nos hacemos un segundo test. ¿Cuál es la probabilidad de tener la enfermedad si ambos dan positivo? $p(E\mid t_{1+}\cap t_{2+})$
