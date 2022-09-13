@@ -1,0 +1,21 @@
+---
+title: "Asesorías de R"
+author: "Emmanuel Alcalá"
+format: pdf
+editor: visual
+---
+
+# Comandos básicos y operaciones sobre objetos en R (2 sesiones)
+
+1\. Asignación, aritmética, instalar y cargar librerías
+
+2\. Abrir y guardar scripts en R.
+
+3\. Objetos en R: vectores, matrices y data.frames
+
+4\. Cargar y escribir datos en R: read.xxx, write.xxx
+
+5\. Subsetting
+
+6\. Gráficos con R base: plot, hist, barplot
+
