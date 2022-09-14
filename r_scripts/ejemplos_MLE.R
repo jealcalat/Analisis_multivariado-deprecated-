@@ -1,5 +1,4 @@
-x <- c(115L, 122L, 130L, 127L, 149L, 160L, 152L, 138L, 149L, 180L)
-x <- as.numeric(x)
+x <- c(115, 122, 130, 127, 149, 160, 152, 138, 149, 180)
 neg_log_lik_gaussian <- function(mu,sigma) {
   -sum(dnorm(x, mean=mu, sd=sigma, log=TRUE))
 }

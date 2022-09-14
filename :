@@ -1,0 +1,176 @@
+nlm                   package:stats                    R Documentation
+
+_N_o_n-_L_i_n_e_a_r _M_i_n_i_m_i_z_a_t_i_o_n
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     This function carries out a minimization of the function ‘f’ using
+     a Newton-type algorithm.  See the references for details.
+
+_U_s_a_g_e:
+
+     nlm(f, p, ..., hessian = FALSE, typsize = rep(1, length(p)),
+         fscale = 1, print.level = 0, ndigit = 12, gradtol = 1e-6,
+         stepmax = max(1000 * sqrt(sum((p/typsize)^2)), 1000),
+         steptol = 1e-6, iterlim = 100, check.analyticals = TRUE)
+     
+_A_r_g_u_m_e_n_t_s:
+
+       f: the function to be minimized, returning a single numeric
+          value.  This should be a function with first argument a
+          vector of the length of ‘p’ followed by any other arguments
+          specified by the ‘...’ argument.
+
+          If the function value has an attribute called ‘gradient’ or
+          both ‘gradient’ and ‘hessian’ attributes, these will be used
+          in the calculation of updated parameter values.  Otherwise,
+          numerical derivatives are used. ‘deriv’ returns a function
+          with suitable ‘gradient’ attribute and optionally a ‘hessian’
+          attribute.
+
+       p: starting parameter values for the minimization.
+
+     ...: additional arguments to be passed to ‘f’.
+
+ hessian: if ‘TRUE’, the hessian of ‘f’ at the minimum is returned.
+
+ typsize: an estimate of the size of each parameter at the minimum.
+
+  fscale: an estimate of the size of ‘f’ at the minimum.
+
+print.level: this argument determines the level of printing which is
+          done during the minimization process.  The default value of
+          ‘0’ means that no printing occurs, a value of ‘1’ means that
+          initial and final details are printed and a value of 2 means
+          that full tracing information is printed.
+
+  ndigit: the number of significant digits in the function ‘f’.
+
+ gradtol: a positive scalar giving the tolerance at which the scaled
+          gradient is considered close enough to zero to terminate the
+          algorithm.  The scaled gradient is a measure of the relative
+          change in ‘f’ in each direction ‘p[i]’ divided by the
+          relative change in ‘p[i]’.
+
+ stepmax: a positive scalar which gives the maximum allowable scaled
+          step length.  ‘stepmax’ is used to prevent steps which would
+          cause the optimization function to overflow, to prevent the
+          algorithm from leaving the area of interest in parameter
+          space, or to detect divergence in the algorithm. ‘stepmax’
+          would be chosen small enough to prevent the first two of
+          these occurrences, but should be larger than any anticipated
+          reasonable step.
+
+ steptol: A positive scalar providing the minimum allowable relative
+          step length.
+
+ iterlim: a positive integer specifying the maximum number of
+          iterations to be performed before the program is terminated.
+
+check.analyticals: a logical scalar specifying whether the analytic
+          gradients and Hessians, if they are supplied, should be
+          checked against numerical derivatives at the initial
+          parameter values. This can help detect incorrectly formulated
+          gradients or Hessians.
+
+_D_e_t_a_i_l_s:
+
+     Note that arguments after ‘...’ must be matched exactly.
+
+     If a gradient or hessian is supplied but evaluates to the wrong
+     mode or length, it will be ignored if ‘check.analyticals = TRUE’
+     (the default) with a warning.  The hessian is not even checked
+     unless the gradient is present and passes the sanity checks.
+
+     The C code for the “perturbed” cholesky, ‘choldc()’ has had a bug
+     in all R versions before 3.4.1.
+
+     From the three methods available in the original source, we always
+     use method “1” which is line search.
+
+     The functions supplied should always return finite (including not
+     ‘NA’ and not ‘NaN’) values: for the function value itself
+     non-finite values are replaced by the maximum positive value with
+     a warning.
+
+_V_a_l_u_e:
+
+     A list containing the following components:
+
+ minimum: the value of the estimated minimum of ‘f’.
+
+estimate: the point at which the minimum value of ‘f’ is obtained.
+
+gradient: the gradient at the estimated minimum of ‘f’.
+
+ hessian: the hessian at the estimated minimum of ‘f’ (if requested).
+
+    code: an integer indicating why the optimization process
+          terminated.
+
+          1: relative gradient is close to zero, current iterate is
+              probably solution.
+
+          2: successive iterates within tolerance, current iterate is
+              probably solution.
+
+          3: last global step failed to locate a point lower than
+              ‘estimate’.  Either ‘estimate’ is an approximate local
+              minimum of the function or ‘steptol’ is too small.
+
+          4: iteration limit exceeded.
+
+          5: maximum step size ‘stepmax’ exceeded five consecutive
+              times.  Either the function is unbounded below, becomes
+              asymptotic to a finite value from above in some direction
+              or ‘stepmax’ is too small.
+
+iterations: the number of iterations performed.
+
+_S_o_u_r_c_e:
+
+     The current code is by Saikat DebRoy and the R Core team, using a
+     C translation of Fortran code by Richard H. Jones.
+
+_R_e_f_e_r_e_n_c_e_s:
+
+     Dennis, J. E. and Schnabel, R. B. (1983).  _Numerical Methods for
+     Unconstrained Optimization and Nonlinear Equations_.
+     Prentice-Hall, Englewood Cliffs, NJ.
+
+     Schnabel, R. B., Koontz, J. E. and Weiss, B. E. (1985).  A modular
+     system of algorithms for unconstrained minimization.  _ACM
+     Transactions on Mathematical Software_, *11*, 419-440.
+     doi:10.1145/6187.6192 <https://doi.org/10.1145/6187.6192>.
+
+_S_e_e _A_l_s_o:
+
+     ‘optim’ and ‘nlminb’.
+
+     ‘constrOptim’ for constrained optimization, ‘optimize’ for
+     one-dimensional minimization and ‘uniroot’ for root finding.
+     ‘deriv’ to calculate analytical derivatives.
+
+     For nonlinear regression, ‘nls’ may be better.
+
+_E_x_a_m_p_l_e_s:
+
+     f <- function(x) sum((x-1:length(x))^2)
+     nlm(f, c(10,10))
+     nlm(f, c(10,10), print.level = 2)
+     utils::str(nlm(f, c(5), hessian = TRUE))
+     
+     f <- function(x, a) sum((x-a)^2)
+     nlm(f, c(10,10), a = c(3,5))
+     f <- function(x, a)
+     {
+         res <- sum((x-a)^2)
+         attr(res, "gradient") <- 2*(x-a)
+         res
+     }
+     nlm(f, c(10,10), a = c(3,5))
+     
+     ## more examples, including the use of derivatives.
+     ## Not run: demo(nlm)
+     
+
