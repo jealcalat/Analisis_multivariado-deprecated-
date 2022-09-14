@@ -12,10 +12,9 @@
 |        | 8      | 8 de septiembre  | Máxima Verosimilitud                                               |                                             |
 | 5      | 9      | 13 de septiembre | Razón de Verosimilitud                                             |                                             |
 |        | 10     | 15 de septiembre | Razón de Verosimilitud                                             |                                             |
-| 6      | 11     | 20 de septiembre | Primer Examen Parcial_Parte 1                                      | Aplicar en una sesión                       |
-|        | 12     | 22 de septiembre | Primer Examen Parcial_Parte 2                                      |                                             |
-| 7      | 13     | 27 de septiembre | Prueba de Hipótesis Lineal                                         |                                             |
-|        | 14     | 29 de septiembre | Prueba de Hipótesis Lineal                                         |                                             |
+| 6      | 11     | 22 de septiembre | Primer Examen Parcial_Parte 1                                      | Aplicar en una sesión                       |
+|        | 12     | 27 de septiembre | Primer Examen Parcial_Parte 2                                      |                                             |
+| 7      | 13     | 29 de septiembre | Prueba de Hipótesis Lineal                                         |                                             |
 | 8      | 15     | 4 de octubre     | Regresión Lineal                                                   |                                             |
 |        | 16     | 6 de octubre     | Regresión Lineal                                                   |                                             |
 | 9      | 17     | 11 de octubre    | Exposición Regresión Logística                                     | La exposición se puede alargar a dos clases |

@@ -1,5 +1,5 @@
 ---
-title: "Ejercicios MLE en R"
+title: "Tarea 2. Funciones de densidad y MLE"
 subtitle: Análisis Estadístico Multivariado
 author: Emmanuel Alcalá
 format:
@@ -26,7 +26,65 @@ Recuerden que en el repositorio de Github se encuentran varios tutoriales de R
 
 ---
 
-# Ejemplo ilustrativo
+# Ejemplo ilustrativo 1 (cálculo de probabilidades conjuntas)
+
+Sean $X, Y$ variables aleatorias continuas con función de densidad
+
+$$
+  f_{xy}(x,y)=\frac{1}{2}x + \frac{3}{2}y\quad \text{para } 0 \leq x\leq 1, 0 \leq y \leq 1
+$$
+
+La función de distribución acumulada, o cdf, está dada por
+
+$$
+  F(x,y)=\int_0^{x}\int_0^y\left( \frac{1}{2}u + \frac{3}{2}v\right)dvdu
+$$
+
+Para obtener la cdf, integramos primero la parte interna
+
+$$
+  F(x,y)=\int_0^{x} \left\{ \int_0^y \left( \frac{1}{2}u + \frac{3}{2}v\right)dv\right\}du
+$$
+
+Considerando $x$ constante, la integral nos da 
+
+$$
+  F(x,y)=\int_0^{x} \left\{ \frac{1}{2}uv + \frac{3}{2} \frac{v^2}{2} \right\}_0^ydu=
+  \int_0^{x} \left( \frac{1}{2}uy + \frac{3}{4} y^2 \right)du
+$$
+
+La segunda integral nos da
+
+$$
+  F(x,y)=\int_0^{x} \left( \frac{1}{2}uy + \frac{3}{4} y^2 \right)du=\left( \frac{1}{2}\frac{u^2}{2}y + \frac{3}{4} uy^2 \right)_0^x=\frac{1}{4}x^2y + \frac{3}{4} xy^2
+$$
+
+La funciones marginales se obtienen una variable con respecto a la otra. Para obtener la distribución marginal de $x$, tenemos la expresión
+
+$$
+  f_x(x) = \int_0^1 f_{xy}(x,y)dy=\int_0^1\left(\frac{1}{2}x + \frac{3}{2}y\right)dy
+$$
+
+Integrando la expresión, obtenemos
+
+$$
+  f_x(x) = \frac{1}{2}xy + \frac{3}{2}\frac{y^2}{2}\bigg|_0^1=\frac{1}{2}x + \frac{3}{4}
+$$
+
+**Ejercicio 1**
+
+\begin{itemize}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+  \item[a)] Encontrar las densidades condicionales de $x$ dado $y$ y de $y$ dado $x$, que están dadas por 
+  $$
+    f_{x|y}(x\mid y)=\frac{f_{xy}(x,y)}{f_x(x)},\quad f_{y|x}(y\mid x)=\frac{f_{xy}(x,y)}{f_y(y)}
+  $$
+  \item[b)] Demuestra que $X, Y$ \textit{no} son independientes. Para eso sírvete de la regla que se cunmple cuando son independientes $f_{xy}(x,y)=f_x(x)f_y(y)$.
+\end{itemize}
+
+# Ejemplo ilustrativo 2 (uso de R para obtener los MLE)
 
 Simularemos un conjunto de datos para una distribución normal usando la función `rnorm()` de R, con media y desviación estándar que definiremos. Posteriormente, estimaremos los parámetros del vector aleatorio creado. Si el método funciona bien, debemos obtener estimadores cercanos a los parámetros reales que usamos.
 
