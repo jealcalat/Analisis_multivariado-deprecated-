@@ -113,11 +113,7 @@ Para saber qué tan buenos resultados se obtienen con estos estimadores con resp
 # primero graficamos el histograma original, pero añadimos altura en y
 # para mejorar la simulación
 hist(rx_sim, freq = FALSE, ylim = c(0, 0.1))
-# repetimos la curva original con los datos reales, pero en color rojo
-curve(
-  dnorm(x, mean = mu_real, sd = sd_real),
-  col = 'red',
-  from = 0, to = 200, add = TRUE)
+
 # guardamos los estimadores en un vector que llamaremos coefs
 coefs <- estimadores$estimate
 # simularemos 100 veces la variable aleatoria
@@ -141,7 +137,12 @@ for (i in 1:nsims) {
   # líneas muy delgadas
   lines(den_rx$x, den_rx$y, lwd = 0.1)
 }
-
+# repetir la curva original con los datos reales, pero en color rojo y gruesa
+curve(
+  dnorm(x, mean = mu_real, sd = sd_real),
+  col = 'red',
+  lwd = 2,
+  from = 0, to = 200, add = TRUE)
 ```
 
 Podemos ver que con los parámetros obtenidos, obtenemos densidades (líneas negras) bastante próximas a los parámetros reales (línea roja).
@@ -155,7 +156,15 @@ Dado el siguiente vector de datos aleatorios `x`, obtén estimadores de la media
 x <- c(115, 122, 130, 127, 149, 160, 152, 138, 149, 180)
 # coloca correctamente entre las comas los argumentos de la función para
 # obtener los estimadores
-estimadores <- nlm(, , , iterlim = 1e5)
+# estimadores <- nlm(, , , iterlim = 1e5) # quita el primer '#'
 ```
 
-Luego, realiza un gráfico de histograma y añade 100 simulaciones con los parámetros estimados en el paso anterior.
+Luego, realiza un gráfico de histograma y añade 100 simulaciones con los parámetros estimados en el paso anterior, y verifica qué tan bien se ajusta la simulación a los datos en `x`.
+
+# Ejercicio 2
+
+Realiza una simulación con datos exponencialmente distribuidos, similar al ejemplo ilustrativo, con `n=100` y una tasa de 60. 
+
+Para obtener la variable aleatoria de datos exponenciales, se usa `rexp(100, 1/60)`. Por diseño, en R la tasa en las exponenciales se parametriza como el inverso; en vez de `lambda=60`, es `rate=1/lambda`.
+
+En la función de verosimilitud negativa que hagas, en vez de usar `dnorm` ahora usarás `dexp`. Comprueba tus resultados guiándote con el ejemplo ilustrativo.
