@@ -70,7 +70,7 @@ Para ver el calendario del curso, revisa el siguiente enlace: [Calendario del cu
 | --------------------------------------------------------- | ---------- |
 | 1. [Tareas](#tareas)                                      | 30%        |
 | 2. [Participación en clase](#participación-en-clase)      | 15%        |
-| 3. [Proyectos (Solución de casos de estudio)](#proyectos) | 20%        |
+| 3. [Proyectos (Solución de casos de estudio)](#proyectos) | 25%        |
 | 4. [Exámenes]()                                           | 30%        |
 | Total                                                     | 100%       |
 
