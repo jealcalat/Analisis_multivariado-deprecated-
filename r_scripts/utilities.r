@@ -208,5 +208,3 @@ binom_mle <- function(y, n) {
   # abline(v=mle)
   mle
 }
-
-binom_mle(9, 10)
