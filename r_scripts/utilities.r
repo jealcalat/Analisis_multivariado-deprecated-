@@ -1,3 +1,7 @@
+# colores
+red_light <- "#be1b1b75"
+blue_light <- "#B3B3FF"
+green_light <- "#77f475"
 par(las = 1, tck = -0.015)
 
 center <- function(x) x - mean(x)
