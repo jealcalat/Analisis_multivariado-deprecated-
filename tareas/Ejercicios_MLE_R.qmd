@@ -183,7 +183,7 @@ curve(dnorm(x, mean = mu_real, sd = sd_real), col = 'red',
   lwd = 2,from = 0, to = 200, add = TRUE)
 ```
 
-Podemos ver que con los parámetros obtenidos, obtenemos densidades (líneas negras) bastante próximas a los parámetros reales (línea roja).
+Podemos ver que con los parámetros obtenidos, obtenemos densidades (líneas azules) bastante próximas a los parámetros reales (línea roja).
 
 ---
 

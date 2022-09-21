@@ -44,35 +44,3 @@ hist(vec_sum_xi)
 
 mean(vec_mean)
 mean(vec_sum_xi)
-
-# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: #
-## EJEMPLO DE LR
-# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: #
-
-
-lambda_fun <- function(x_bar) {
-  exp(-(1 / 4) * (x_bar - 10)^2)
-}
-
-par(las = 1)
-x_vec <- seq(2, 18, 0.001)
-lx <- lambda_fun(x_vec)
-plot(
-  x_vec, lx,
-  xlab = expression(bar(x)),
-  ylab = expression(lambda(bar(x))),
-  type = "l"
-)
-# notar que tiene centro en 10
-# debemos hallar un lamda <= k
-k <- max(lx[lx <= 0.2])
-x1 <- x_vec[lx == k]
-abline(h = k)
-abline(v = x1)
-
-# normal estandar
-curve(dnorm(x), from = -3, to = 3)
-alfa <- 0.05 / 2
-abline(v = qnorm(p = c(alfa, 1 - alfa)))
-
-qnorm(1 - alfa)
