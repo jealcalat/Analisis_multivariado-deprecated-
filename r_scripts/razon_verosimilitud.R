@@ -26,13 +26,13 @@ abline(h = k)
 abline(v = x1)
 
 # normal estandar
-curve(dnorm(x), from = -3, to = 3, main = "Normal estandar")
+curve(dnorm(x), from = -5, to = 5, main = "Normal estandar")
 alfa <- 0.05 / 2
 abline(v = qnorm(p = c(alfa, 1 - alfa)))
 # encontrar el cuantil (en x) correspondiente a un alfa de 0.05 para dos colas
 # recordar que queremos hallar el cuantil en una curva simétrica, tal que
 # ese cuantil cubra el (1-alfa)*100 del área.
-qnorm(1 - alfa)
+qnorm(1 - alfa, 0, 1)
 # el alfa lo obtenemos nuevamente así
 2*(1-pnorm(1.9599))
 # el área cubierta es obviamente la integral 1.96 - 1.96
@@ -40,6 +40,13 @@ pnorm(1.96) - pnorm(-1.96)
 # o lo que es lo mismo
 integrate(dnorm, mean = 0, sd = 1, lower = -1.96, upper = 1.96)
 
+n <- 20
+x_barra <- 10.5
+10.5 - 10 # es iqual
+z <- abs(x_barra-10)/(sqrt(2)/sqrt(n))
+z
+abline(v = z, col = "blue")
+z
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: #
 
 # ejercicio en clase--- 
