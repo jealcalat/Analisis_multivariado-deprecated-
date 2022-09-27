@@ -17,19 +17,19 @@
 | 7      | 13     | 29 de septiembre | Prueba de Hipótesis Lineal                                         |                                             |
 | 8      | 15     | 4 de octubre     | Regresión Lineal                                                   |                                             |
 |        | 16     | 6 de octubre     | Regresión Lineal                                                   |                                             |
-| 9      | 17     | 11 de octubre    | Exposición Regresión Logística                                     | La exposición se puede alargar a dos clases |
+| 9      | 17     | 11 de octubre    | **Exposición Regresión Logística**                                 | La exposición se puede alargar a dos clases |
 |        | 18     | 13 de octubre    | ANOVA/MANOVA                                                       |                                             |
 | 10     | 19     | 18 de octubre    | ANOVA/MANOVA                                                       |                                             |
-|        | 20     | 20 de octubre    | Exposición ANCOVA/MANCOVA                                          | La exposición se puede alargar a dos clases |
-| 11     | 21     | 25 de octubre    | Segundo Examen Parcial_Parte 1                                     | Aplicar en una sesión                       |
-|        | 22     | 27 de octubre    | Segundo Examen Parcial_Parte 2                                     |                                             |
-| 12     | 23     | 1 de noviembre   | Análisis de Componentes Principales                                | Semana de Bajas                             |
-|        | 24     | 3 de noviembre   | Análisis de Componentes Principales                                |                                             |
-| 13     | 25     | 8 de noviembre   | Exposición Análisis Factorial                                      | La exposición se puede alargar a dos clases |
+|        | 20     | 20 de octubre    | **Exposición Análisis de Componentes Principales**                 | La exposición se puede alargar a dos clases |
+| 11     | 21     | 25 de octubre    | **Exposición PCA**                                                 |                                             |
+|        | 22     | 27 de octubre    | Segundo Examen Parcial_Parte 1                                     | Aplicar en una sesión                       |
+| 12     | 23     | 1 de noviembre   | Segundo Examen Parcial_Parte 2                                     | Semana de Bajas                             |
+|        | 24     | 3 de noviembre   | **Exposición Análisis Factorial**                                  |                                             |
+| 13     | 25     | 8 de noviembre   | **Exposición Análisis Factorial**                                  | La exposición se puede alargar a dos clases |
 |        | 26     | 10 de noviembre  | Análisis de clúster                                                |                                             |
 | 14     | 27     | 15 de noviembre  | Análisis de clúster                                                |                                             |
 |        | 28     | 17 de noviembre  | **Exposición DBScan**                                              | La exposición se puede alargar a dos clases |
-| 15     | 29     | 22 de noviembre  | **Exposición GMM**                                                 | La exposición se puede alargar a dos clases |
+| 15     | 29     | 22 de noviembre  | Exposición GMM                                                     | La exposición se puede alargar a dos clases |
 |        | 30     | 24 de noviembre  | Proyecto Final (por definir)                                       |                                             |
 | 16     | 31     | 29 de noviembre  | Proyecto Final (por definir)                                       |                                             |
 |        | 32     | 1 de diciembre   | Entrega de Calificaciones                                          |                                             |
