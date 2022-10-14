@@ -157,6 +157,7 @@ new_data <- data.frame(
 )
 # calculamos el intervalo de confianza
 predict(model, newdata = new_data, type = "response", interval = "confidence")
+# y_promedio = b0 + b1*x_promedio
 # ahora el intervalo de predicción
 predict(model, newdata = new_data, type = "response", interval = "prediction")
 # asignar la predicción (una matriz) a pred_new
@@ -164,10 +165,21 @@ pred_new <- predict(model,
   newdata = new_data,
   type = "response",
   interval = "prediction"
-) |># convertir a dataframe
-  as.data.frame()
+) |> as.data.frame()
+
+pred_new <- as.data.frame(
+  predict(model,
+          newdata = new_data,
+          type = "response",
+          interval = "prediction"
+  )
+)
+
+pred_new$upr
+
 # graficar nuevamente datos originales
-plot(marketing$youtube,
+plot(
+  marketing$youtube,
   marketing$sales,
   col = "grey80",
   # extender el rango en X y en Y
@@ -202,7 +214,8 @@ segments(
 
 # comparemos intervalos de confianza y de predicción para diferentes valores de yt
 youtube_new <- data.frame(youtube = seq(0, 450, 0.1))
-conf_interval <- predict(model,
+conf_interval <- predict(
+  model,
   newdata = youtube_new,
   interval = "confidence"
 )
@@ -210,7 +223,8 @@ conf_interval <- predict(model,
 lines(youtube_new$youtube, conf_interval[, 2], col = "blue", lty = 2)
 lines(youtube_new$youtube, conf_interval[, 3], col = "blue", lty = 2)
 
-pred_interval <- predict(model,
+pred_interval <- predict(
+  model,
   newdata = youtube_new,
   interval = "prediction"
 )
@@ -237,13 +251,14 @@ mean(marketing$youtube)
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 # regresión lineal múltiple -------------------------------------------
 
+# sales = b0 + b1*youtube + b2*facebook + b3*newspaper
 model_m <- lm(sales ~ youtube + facebook + newspaper, data = marketing)
 
 summary(model_m)
 
 # interpretación:
 # para valores de youtube y newspaper fijos, el incremento en 1000 adicionales
-# en youtube produce un incremento 0.189*1000 = 189 en unidades de ventas
+# en facebook produce un incremento 0.189*1000 = 189 en unidades de ventas
 
 ## Predecir nuevos valores (valores promedio)
 # usar colMeans para obtener los promedios por columna, luego trasponer
@@ -256,6 +271,7 @@ new_data <- colMeans(marketing) |>
 predict(model_m, newdata = new_data, type = "response")
 
 # ¿qué pasaria su no se gasta en facebook?
+new_data$facebook <- 0
 new_data$facebook <- 0 # fijar gasto de facebook en 0
 predict(model_m, newdata = new_data, type = "response")
 # y en youtube?
@@ -282,23 +298,45 @@ predict(model_m, newdata = new_data, type = "response")
 # para youtube.
 # Además---
 # Es posible que haya una interacción entre youtube y facebook
+# model selection and multimodel inference
+model_m2 <- lm(sales ~ youtube + facebook + newspaper + youtube * facebook, data = marketing)
+summary(model_m2)
 
-model_m <- lm(sales ~ youtube + facebook + newspaper + youtube * facebook, data = marketing)
-summary(model_m)
+AIC(model)
+AIC(model_m)
+AIC(model_m2)
 
-
-## ---------------------------------------------------------------------------
-
-# ahora necesitamos hacer diagnóstico del modelo.
-# Recordar las asunciones:
-# 1. los errores (residuales) son independientes, cov(e_i, e_j) = 0
-# 2. los errores tienen la misma varianza
-# 3. los errores están distribuidos normalmente
+# akaike information criterion
+# balance entre qué tan buen predictor es un modelo, y su complejidad
 
 
-lines(marketing$youtube, ajustados)
 
-# veamos cómo se comportan los residuos con respecto a los valores ajustados
-# dado que asumimos que los residuos
-par(mfrow = c(2, 2))
-plot(model)
+
+
+
+
+
+
+
+
+
+
+
+
+
+# TODO
+# ## ---------------------------------------------------------------------------
+# 
+# # ahora necesitamos hacer diagnóstico del modelo.
+# # Recordar las asunciones:
+# # 1. los errores (residuales) son independientes, cov(e_i, e_j) = 0
+# # 2. los errores tienen la misma varianza
+# # 3. los errores están distribuidos normalmente
+# 
+# 
+# lines(marketing$youtube, ajustados)
+# 
+# # veamos cómo se comportan los residuos con respecto a los valores ajustados
+# # dado que asumimos que los residuos
+# par(mfrow = c(2, 2))
+# plot(model)
