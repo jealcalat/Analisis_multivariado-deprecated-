@@ -20,6 +20,7 @@ Asesorías: solicitar cita.
     - [Participación en clase](#participación-en-clase)
     - [Proyectos](#proyectos)
     - [Exámenes](#exámenes)
+  - [- Examen 2](#--examen-2)
   - [Tutoriales de `R`](#tutoriales-de-r)
     - [Fundamentos de `R`](#fundamentos-de-r)
     - [Data wrangling con `{dplyr}` y `{tidyr}`](#data-wrangling-con-dplyr-y-tidyr)
@@ -121,8 +122,8 @@ Resolver un caso de estudio escogiendo alguno de los temas de las unidades 3, 4 
 
 ### Exámenes
 
-TODO
-
+- [Examen 1](examenes/examen1.pdf)
+- [Examen 2](examenes/examen2.pdf)
 ---
 
 <!-- ## Datasets
