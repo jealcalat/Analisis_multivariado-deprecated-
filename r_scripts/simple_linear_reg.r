@@ -312,17 +312,51 @@ AIC(model_m2)
 
 
 
+# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# Prueba F
+summary(model_m)
+
+sum_model_m <- summary(model_m)
+
+# suma de cuadrados totales (varianza total)
+tss <- sum((marketing$sales - mean(marketing$sales))^2)
+# suma de cuadrados residuales (varianza no explicada)
+rss <- sum(resid(model_m)^2)
+# el numerador es la varianza explicada; denominador la no explicada
+# p = 3, n = nobs(model_m)
+f_obs <- ((tss-rss)/3)/(rss / (n - 3 - 1))
+f_obs
+
+# valor p?
+
+pf(f_obs, 3, n-3-1)
+
+sum_model_m
+
+curve(
+  df(x, 3, n-3-1),
+  0, 590, n = 700
+)
+abline(v = f_obs, col = 2)
+
+# ¿cómo depende F de n?
+
+n1 <- 10
+n2 <- 200
+p <- 6
+curve(df(x, p, n1-p-1), 0, 10, col = 2)
+curve(df(x, p, n2-p-1), add =TRUE, col = 'blue')
 
 
+p <- 8
+n_vec <- (p+2):100
+f_hat <- sapply(n_vec, function(nf){qf(1-0.05, p, nf-p-1)})
 
+plot(n_vec, f_hat, type = 'l', log = 'xy')
 
-
-
-
-
-
-
-
+# par aun p fijo, la cantidad de muestra necesaria para F_crit desciende,
+# es decir, conforme n crece, el F_obs necesario para probar H0 decrece.
 
 # TODO
 # ## ---------------------------------------------------------------------------
