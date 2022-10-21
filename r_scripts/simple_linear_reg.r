@@ -1,5 +1,5 @@
 # usaremos el paquete datarium para extraer un conjunto de datos
-install.packages("datarium")
+# install.packages("datarium")
 
 # cargamos los datos 'marketing'. Estos datos nos dicen el impacto que tienen
 # medios como youtube, facebook y diarios en ventas
@@ -309,11 +309,9 @@ AIC(model_m2)
 # akaike information criterion
 # balance entre qué tan buen predictor es un modelo, y su complejidad
 
-
-
-
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
+# sales = b0 + b1*youtube + b2*facebook + b3*newspaper
+model_m <- lm(sales ~ youtube + facebook + newspaper, data = marketing)
 # Prueba F
 summary(model_m)
 
@@ -322,11 +320,17 @@ sum_model_m <- summary(model_m)
 # suma de cuadrados totales (varianza total)
 tss <- sum((marketing$sales - mean(marketing$sales))^2)
 # suma de cuadrados residuales (varianza no explicada)
-rss <- sum(resid(model_m)^2)
+rss <- sum(residuals(model_m)^2)
 # el numerador es la varianza explicada; denominador la no explicada
 # p = 3, n = nobs(model_m)
+# 
 f_obs <- ((tss-rss)/3)/(rss / (n - 3 - 1))
 f_obs
+alfa = 0.05
+f_crit <- qf(1-alfa, 3, n - 3 - 1)
+f_crit
+
+
 
 # valor p?
 
