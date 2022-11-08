@@ -1,0 +1,425 @@
+---
+title: "PCA Expo"
+output: html_document
+date: "2022-11-01"
+---
+
+```{r setup, include=FALSE, label = 'R Setup'}
+library(reticulate)
+library(tidymodels)
+library(tidyverse)
+library(gapminder)
+library(plotly)
+library(broom)
+library(pins)
+library(paws.storage)
+
+reticulate::virtualenv_create(envname = 'venv', 
+                              python = 'C:/Python/Python310/python.exe')
+
+reticulate::py_install(
+    packages = c("pandas", "numpy", "scikit-learn", "seaborn", "matplotlib"),
+    envname = "./venv/",
+    pip = TRUE
+)
+```
+
+```{python, label='Python Setup'}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
+
+
+```{r, label = "Getting the data"}
+gapminder
+
+head(gapminder)
+
+glimpse(gapminder)
+
+summary(gapminder)
+
+```
+
+
+```{r, label = "Preparing the data"}
+
+gapminder_temp <- gapminder %>%
+                        select(country, continent, year, lifeExp) %>%
+                                pivot_wider(
+                                    names_from = year, 
+                                    names_sep = "_", 
+                                    values_from = c(lifeExp, year)) %>%
+                                select(continent, country, starts_with("lifeExp")) %>%
+                                filter(continent %in% c("Africa", "Americas", "Europe"))
+
+head(gapminder_temp)
+```
+
+
+```{r, label = "Sending the data to S3"}
+board <- board_s3("aem-pca-expo", 
+                  access_key = aws_access_key,
+                  secret_access_key = aws_secret_key,
+                  region = "us-east-1")
+
+board %>%
+    pin_write(gapminder_temp, "gapminder", type = 'csv')
+
+```
+
+```{r, label = "More data wrangling"}
+gapminder_lite <- board %>%
+                    pin_read("gapminder") %>%
+                    unite("continent_country", c("continent", "country")) %>%
+                    column_to_rownames("continent_country")
+
+head(gapminder_lite)
+```
+
+
+```{r, label = "Creating the PCA"}
+gapminder_pca <- prcomp(gapminder_lite, scale = TRUE)
+
+```
+
+
+   Una vez realizado el PCA, nuestro objeto resultante tiene 5 variables. La variable $x$ guarda los componentes principales, en donde cada registro corresponde al país
+   
+```{r, label = "PCA object 1"}
+head(gapminder_pca$x, 5)
+```
+
+   La variable *center* contiene el promedio de nuestros datos previo a la estandarización 
+
+```{r, label = "PCA object 2"}
+gapminder_pca$center
+```
+
+   La variable *scale* tiene la desviación estándar de nuestros datos, antes de la estandarización
+   
+```{r, label = "PCA object 3"}
+gapminder_pca$scale
+```
+   
+   Y por ende, podemos calcular la varianza de cada una de las columnas
+   
+```{r, label = "PCA object 4"}
+gapminder_pca$scale^2
+```
+
+   La variable $rotation$ es una matrix que contiene los eigenvectores
+
+```{r, label = "PCA object 5"}
+gapminder_pca$rotation
+```
+
+
+
+
+   La variable *sdev* tiene la desviación estandard de los componentes principales, y podemos usarla para calcular la varianza explicada de cada componente
+   
+```{r}
+gapminder_pca$sdev
+```
+
+
+```{r, label = "Create Var Explained"}
+var_explicada <- gapminder_pca$sdev^2/sum(gapminder_pca$sdev^2)
+var_explicada
+```
+
+```{r, label = "Screeplot 1"}
+biplot(x = gapminder_pca, scale = 0, cex = 0.7, col = c("blue4", "brown3"))
+
+t <- ggplot(data = data.frame(var_explicada, pc = 1:12),
+            aes(x = pc, y = var_explicada)) +
+        geom_col(width = 0.3) +
+        scale_y_continuous(limits = c(0,1)) +
+        theme_bw() +
+    labs(x = "Componente principal", 
+         y = "Prop. de varianza explicada")
+
+ggplotly(t)
+```
+
+   
+```{r, label = "Screeplot 2"}
+q <- qplot(c(1:12), var_explicada) + 
+        geom_line() +
+        xlab("PC") +
+        ylab("Variance Explained") +
+        ggtitle("Gapminder Screeplot") +
+        ylim(0,1)
+    
+ggplotly(q)
+
+
+```
+
+
+
+
+```{r, label = "PCA scatterplot1"}
+p <- gapminder_pca$x %>% 
+        as.data.frame %>%
+        rownames_to_column("continent_country") %>%
+        separate(continent_country,c("continent")) %>%
+        ggplot(aes(x = PC1,y = PC2)) + geom_point(aes(color = continent),size = 2) +
+        theme_bw(base_size = 32) + 
+        labs(x = paste0("PC1: ",round(var_explicada[1]*100,1),"%"),
+             y = paste0("PC2: ",round(var_explicada[2]*100,1),"%")) +
+        theme(legend.position = "top")
+
+ggplotly(p)
+
+```
+
+
+   Ahora con el Tidyverse, se usa la función *nest()* para guardar los datos como un objeto de tipo tibble
+   
+```{r, warning=FALSE, label = "Tidy Gapminder"}
+
+gapminder_lite_tidy <- gapminder_lite %>%
+                            rownames_to_column("continent_country") %>%
+                            nest()
+```
+
+
+   Ahora nuestros datos están en una variable de nombre data. Una vez realizado lo anterior, usamos la función *map* cuyos argumentos seran los datos en formato tibble que acabamos de crear y el segundo es la función *prcomp* para realizar el PCA. Además usamos mutate para guardar los datos en una nueva variable
+
+
+```{r, warning=FALSE, label = "Purrr in action"}
+tidy_pca <- gapminder_lite %>%
+                nest() %>%
+                mutate(pca = map(data, ~ prcomp(.x, center = TRUE, scale = TRUE)))
+
+``` 
+
+
+   Para el objeto que acabamos de generar, obtenemos la varianza explicada de cada uno de los componentes principales con la función *tidy* de la librería *broom*
+
+```{r, label = "Brooming the components"}
+tidy_pca_nested <- tidy_pca$pca %>%
+                        map(~tidy(.x, data = .y, "pcs")) %>%
+                        as.data.frame()
+```
+
+
+   Ahora volvemos a crear un par de gráficas
+
+
+```{r, label = "Plotting Again"}
+p_tidy <- tidy_pca_nested %>%
+            ggplot(aes(x = PC, y = percent)) +
+            geom_bar(stat = "identity") +
+            xlab("PC") + 
+            ylab("Varianza Explicada")
+
+ggplotly(p_tidy)
+```
+
+```{r, label = "Tidy PCA"} 
+tidy_pca_nested %>%
+    ggplot(aes(x = PC, y = percent)) + 
+    geom_point(size = 2) +
+    geom_line()
+
+```
+
+
+#### Using Python ####
+
+
+```{python, label = "Using the data for Python"}
+
+gapminder2 = r.gapminder_temp
+gapminder2.head()
+
+gapminder2.shape
+
+gapminder2 = gapminder2.drop("country", axis = 1)
+gapminder2.head()
+```
+
+
+```{python, label = "Recoding Continent"}
+gapminder2['continent'].replace(0, 'Americas', inplace = True)
+gapminder2['continent'].replace(1, 'Africa', inplace = True)
+gapminder2['continent'].replace(2, 'Europe', inplace = True)
+```
+
+```{python, label = "Knowing this df"}
+gapminder2.info()
+gapminder2.columns
+gapminder2.head()
+```
+
+
+```{python, label = "Unleashing scikit learn"}
+from sklearn.preprocessing import StandardScaler
+gapminder2_temp = gapminder2.loc[:, 'lifeExp_1952':].values
+gapminder2_temp = StandardScaler().fit_transform(gapminder2_temp)
+gapminder2_temp.shape
+```
+
+
+```{python, label = "Standardizing"}
+np.mean(gapminder2_temp), np.std(gapminder2_temp)
+```
+
+```{python, label = "Starting the PCA"}
+from sklearn.decomposition import PCA
+pca_gapminder = PCA(n_components = 12)
+principalComponents_gapminder = pca_gapminder.fit_transform(gapminder2_temp)
+```
+
+```{python, label = "Creating the dataframe"}
+pca_gapminder_df = pd.DataFrame(data = principalComponents_gapminder, columns = ['PC-1', 'PC-2', 'PC-3', 'PC-4', 'PC-5', 'PC-6', 'PC-7', 'PC-8', 'PC-9', 'PC-10', 'PC-11', 'PC-12'])
+pca_gapminder_df.head()
+```
+
+```{python, label = "Explained variation"}
+print('Explained variation per principal component: {}'.format(pca_gapminder.explained_variance_ratio_))
+```
+
+
+```{python, label = "Plotting in python 1"}
+plt.plot(pca_gapminder.explained_variance_ratio_)
+plt.xlabel('number of components')
+plt.ylabel('cumulative explained variance')
+plt.show()
+
+```
+
+Como vemos el efecto de las variables en cada uno de los componentes
+
+
+```{python, label = "Plotting in python 2"}
+plt.figure()
+plt.figure(figsize=(15,15))
+plt.xticks(fontsize=10)
+plt.yticks(fontsize=10)
+plt.xlabel('PC - 1',fontsize=20)
+plt.ylabel('PC - 2',fontsize=20)
+plt.title("Principal Component Analysis of Gapminder Dataset",fontsize=15)
+targets = ['Americas', 'Africa', 'Europe']
+colors = ['r', 'g', 'b']
+for target, color in zip(targets,colors):
+    indicesToKeep = gapminder2['continent'] == target
+    plt.scatter(pca_gapminder_df.loc[indicesToKeep, 'PC-1']
+               , pca_gapminder_df.loc[indicesToKeep, 'PC-2'], c = color, s = 40)
+
+plt.legend(targets,prop={'size': 15})
+plt.show()
+```
+
+
+   De aqui, tenemos los coeficientes de correlación entre las variables originales y los componentes
+
+
+```{python}
+weights = pca_gapminder.components_
+total_components = pca_gapminder.n_features_
+
+pc_list = ["PC"+str(i) for i in list(range(1, total_components+1))]
+
+weights_df = pd.DataFrame.from_dict(dict(zip(pc_list, weights)))
+
+weights_df["variable"] = gapminder2.columns.values[1:]
+
+weights_df = weights_df.set_index("variable")
+```
+
+Graficando una matriz de correlaciones
+
+```{python, label = "Correlation matrix of weights"}
+
+ax = sns.heatmap(weights_df, annot=True, cmap='Spectral')
+plt.show()
+```
+
+
+
+
+
+#### Using Tidymodels ####
+
+Primero, para usar Tidymodels, debemos crear un pipeline, que representarán los pasos de nuestro análisis
+
+```{r, label = "Intro to recipe"}
+
+gapminder_lite <- board %>%
+                    pin_read("gapminder")# %>%
+                    #unite("continent_country", c("continent", "country")) %>%
+                    #column_to_rownames("continent_country")
+
+
+pca_recipe <- recipe(~., data = gapminder_lite)
+
+```
+
+
+Hacemos el trabajo previo a la creación del PCA
+
+```{r,  label = "Centering and scaling the data in tidymodels"}
+
+pca_transformation <- pca_recipe %>%
+                            step_center(all_numeric()) %>%
+                            step_scale(all_numeric()) %>%
+                            step_pca(all_numeric())
+
+```
+
+
+Iniciamos el preprocesamiento de nuestro pipeline
+
+```{r, label = "Preprocessing our recipe"}
+
+pca_estimation <- prep(pca_transformation)
+
+pca_estimation$var_info
+
+```
+
+Podemos revisar nuestros resultados en el objeto "steps"
+
+```{r, label = "Checking the steps object"}
+pca_estimation$steps
+
+pca_means <- pca_estimation$steps[[1]]$means
+
+pca_sdev <- pca_estimation$steps[[3]]$res$sdev
+
+percent_variation <- pca_sdev^2/sum(pca_sdev^2)
+
+```
+
+Ahora haremos nuestro screeplot
+
+```{r, label = "Plotting"}
+variation_df <- data.frame(PC = paste0("PC", 1:length(pca_sdev)), 
+                           var_explained = percent_variation,
+                           stringsAsFactors = FALSE)
+
+temp1 <- variation_df %>%
+            mutate(PC = fct_inorder(PC)) %>%
+            ggplot(aes(x = PC, y = var_explained)) +
+                geom_col()
+
+ggplotly(temp1)
+
+```
+
+Para ver los resultados de nuestros componentes, usamos la función *juice*
+
+```{r}
+juice(pca_estimation)
+
+juice(pca_estimation) %>%
+    ggplot(aes(PC1, PC2)) +
+    geom_point(aes(color = continent), alpha = 0.7, size = 2) + 
+    labs(title = "PCA en Tidymodels")
+```
