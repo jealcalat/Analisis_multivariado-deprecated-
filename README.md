@@ -3,16 +3,19 @@
 
 Curso de la maestría en ciencia de datos (MCD) del ITESO.
 
-Instructor: Emmanuel Alcalá
+Inicio: 15 de enero de 2023
+Fin: 15 de mayo de 2023
+**Plataforma**: Teams (reuniones virtuales), CANVAS (administración del curso), y GitHub (materiales del curso y calendario)
 
-Correo: <jaime.alcala@iteso.mx>
-
-Asesorías: solicitar cita.
+**Instructor**: Emmanuel Alcalá
+**Correo**: <jaime.alcala@iteso.mx>
+**Asesorías**: solicitar cita.
 
 ---
 **Contenido**
 
 - [Análisis Estadístico Multivariable](#análisis-estadístico-multivariable)
+  - [Calendario del curso](#calendario-del-curso)
   - [Temas del curso](#temas-del-curso)
   - [Bibliografía](#bibliografía)
   - [Evaluación](#evaluación)
@@ -20,13 +23,17 @@ Asesorías: solicitar cita.
     - [Participación en clase](#participación-en-clase)
     - [Proyectos](#proyectos)
     - [Exámenes](#exámenes)
-  - [- Examen 2](#--examen-2)
   - [Tutoriales de `R`](#tutoriales-de-r)
     - [Fundamentos de `R`](#fundamentos-de-r)
+    - [Cargar datos (csv, xlsx) en R con RStudio](#cargar-datos-csv-xlsx-en-r-con-rstudio)
     - [Data wrangling con `{dplyr}` y `{tidyr}`](#data-wrangling-con-dplyr-y-tidyr)
     - [Visualización con `{ggplot}`](#visualización-con-ggplot)
     - [Documentos reproducibles con RMarkdown](#documentos-reproducibles-con-rmarkdown)
     - [Modelamiento con `{tidymodels}`](#modelamiento-con-tidymodels)
+  - [Tutoriales de MML](#tutoriales-de-mml)
+    - [Cálculo](#cálculo)
+
+## Calendario del curso
 
 Para ver el calendario del curso, revisa el siguiente enlace: [Calendario del curso](listas/calendario_del_curso.md).
 
@@ -54,7 +61,8 @@ Para ver el calendario del curso, revisa el siguiente enlace: [Calendario del cu
    1. [Análisis de componentes principales](https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/main/5_descomposicion_datos_tecnicas/5.1_analisis_de_componentes_principales.ipynb)
    2. [Análisis factorial](https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/main/5_descomposicion_datos_tecnicas/5.2_analisis_factorial.ipynb)
    3. [Análisis de clúster](https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/main/5_descomposicion_datos_tecnicas/5.3_analisis_de_cluster.ipynb)
-   4. [Análisis discriminante](https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/main/5_descomposicion_datos_tecnicas/5.4_analisis_discriminante.ipynb)
+   4. [Modelos de Mezclas Gaussianas]()
+   5. [Análisis discriminante](https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/main/5_descomposicion_datos_tecnicas/5.4_analisis_discriminante.ipynb)
 
 6. Aplicaciones
 
@@ -72,7 +80,7 @@ Para ver el calendario del curso, revisa el siguiente enlace: [Calendario del cu
 | 1. [Tareas](#tareas)                                      | 30%        |
 | 2. [Participación en clase](#participación-en-clase)      | 15%        |
 | 3. [Proyectos (Solución de casos de estudio)](#proyectos) | 25%        |
-| 4. [Exámenes]()                                           | 30%        |
+| 4. [Exámenes](#exámenes)                                  | 30%        |
 | Total                                                     | 100%       |
 
 
@@ -81,8 +89,8 @@ Para ver el calendario del curso, revisa el siguiente enlace: [Calendario del cu
 Serán 3 tareas:
 
 1. [Tarea 1](/tareas/tarea1.pdf), de las unidades 1 y 2.
-2. [Tarea 2](), de las unidades 3 y 4.
-3. [Tarea 3](), de la unidad 5.
+2. [Tarea 2](/tareas/Tarea2.pdf), de las unidades 3 y 4.
+3. [Tarea 3](/tareas/tarea3.pdf), de la unidad 5.
 
 Para la entrega de tareas, usar la plantilla de RMarkdown de la sección Documentos reproducibles con [RMarkdown](#documentos-reproducibles-con-rmarkdown).
 
@@ -90,28 +98,29 @@ Para la entrega de tareas, usar la plantilla de RMarkdown de la sección Documen
 
 La participación en clase se evaluará con exposiciones grupales, una exposición por equipo. Las exposiciones estarán distribuidas de la siguiente manera:
 
-| Equipo   | Tema                        |
-| -------- | --------------------------- |
-| Equipo 1 | 3.4. Regresión logística    |
-| Equipo 2 | 4.3. Selección de variables |
-| Equipo 3 | 5.2. Análisis factorial     |
-| Equipo 4 | 5.4. Análisis discriminante |
+| Equipo   | Tema                   |
+| -------- | ---------------------- |
+| Equipo 1 | Regresión logística    |
+| Equipo 2 | PCA                    |
+| Equipo 3 | Análisis factorial     |
+| Equipo 4 | Análisis discriminante |
 
 Organización sugerida de las exposiciones:
 
-**3.4. Regresión logística**
-1. Modelos lineales generalizados (estructura, función de enlace).
-2. Implementación y diagnóstico de modelo de regresión logística en R.
+**Regresión logística**
+1. Modelos lineales generalizados (énfasis en función de enlace).
+2. Implementación y diagnóstico de modelo de regresión logística en R/Python.
 3. Interpretación de resultados (efectos marginales, odds ratio, intervalos de confianza, etc).
    
-**4.3. Selección de variables**
-
-
+**PCA**
+1. Estructura matemática (combinación lineal).
+2. Método de obtención con factorización matricial.
+3. Implementación e interpretación en R/Python
 
 
 ### Proyectos
 
-Resolver un caso de estudio escogiendo alguno de los temas de las unidades 3, 4 y 5. Los proyectos son individuales y deben entregarse también usando la plantilla de [RMarkdown](#documentos-reproducibles-con-rmarkdown). Deberán tener las siguientes secciones
+Resolver un caso de estudio escogiendo alguno de los temas de las unidades 3, 4 y 5. Los proyectos son individuales y deben entregarse también según la estructura que se les pida; pueden usar[RMarkdown](#documentos-reproducibles-con-rmarkdown). Deberán tener las siguientes secciones
 
 1. Introducción: describir un problema o una pregunta. Ver [este ejemplo]() si tienes dudas de cómo hacerlo.
 2. Datos: describir los datos que se van a usar, sus variables, si se hizo un tratamiento o tranformación (e.g., ingeniería de características). 
@@ -155,8 +164,14 @@ Para una introducción básica a esto, revisar el tutorial
 - [`R: control de flujo y funciones`](https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/main/R_tutorials/r_flujo_funciones.ipynb). Notar que está en forma de jupyter notebook. El código en las celdas se puede copiar a un script de `R` o, si se tiene instalado `IRkernel`, se puede correr directamente en jupyter seleccionando el kernel de `R`.
 - [`R Workflow`](http://hbiostat.org/rflow/) de Frank Harrell es un libro-curso en línea que va desde lo [básico](https://hbiostat.org/rflow/rbasics.html) hasta temas más avanzados como [simulación](https://hbiostat.org/rflow/sim.html) o [cómputo paralelo](https://hbiostat.org/rflow/parallel.html). Tiene una *desventaja*: para los temas avanzados, hay que familiarizarse con la librería del autor, [`rms`](https://cran.r-project.org/web/packages/rms/index.html), que proviene del libro *Regresion Modeling Strategies*. En el apartado 1.1 del libro menciona los repositorios usados.
 
+### Cargar datos (csv, xlsx) en R con RStudio
+
+- [Navegar en directorios y fijar el directorio de trabajo](https://www.youtube.com/watch?v=OJ4WBjV5o1I). Asume que se tiene instalado R y RStudio.
+- [Importar datos con R](https://www.youtube.com/watch?v=WWY8VPh6ryo) 
 
 ### Data wrangling con `{dplyr}` y `{tidyr}`
+
+Tutorial avanzado.
 
 En la [`esta`](https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/main/R_tutorials/data_wrangling_dplyr.ipynb) notebook se encuentra un tutorial sencillo de *data wrangling* usando los paquetes de `{dplyr}` y `{tidyr}`. Se cubren aspectos como transformación, enriquecimiento y limpieza de tal forma que tengamos un estándar llamado `tidy data`.
 
@@ -168,7 +183,7 @@ En [`esta`](https://nbviewer.org/github/jealcalat/Analisis_multivariado/blob/mai
 
 ### Documentos reproducibles con RMarkdown
 
-Consultar [esta plantilla de RMarkdown](R_tutorials/rmarkdown_plantilla.Rmd), que se usará para la entrega de tareas.
+Consultar [esta plantilla de RMarkdown](R_tutorials/rmarkdown_plantilla.Rmd), que se usará para la entrega de tareas *opcionalmente*. 
 
 ### Modelamiento con `{tidymodels}`
 
@@ -178,3 +193,13 @@ Consultar [esta plantilla de RMarkdown](R_tutorials/rmarkdown_plantilla.Rmd), qu
     - The MLW way
     - The OLS way
   - ANOVA
+
+## Tutoriales de MML
+
+Algunos tutoriales de matemáticas y estadística básica. El libro recomendable para matemáticas de ML es [Mathematics for Machine Learning](/refs/mml-book.pdf) de Deisenroth, Faisal y Ong.
+
+### Cálculo
+
+- [Este un curso de Cálculo para ML](https://www.youtube.com/watch?v=-J_GKa_2TPQ&list=PLiiljHvN6z193BBzS0Ln8NnqQmzimTW23&index=3). Para derivadas, es suficiente para tener la noción de derivada consultar los videos 3-8.
+- [En este video explican algunas reglas de derivación útiles.](https://www.youtube.com/watch?v=aVNa-J8iB5I).
+- [Este video es una introducción concisa de integración](https://www.youtube.com/watch?v=Ec-cGjh0Fr0)
