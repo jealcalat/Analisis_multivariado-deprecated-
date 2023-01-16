@@ -2,7 +2,6 @@
 title: "Primer Examen Parcial"
 subtitle: Análisis Estadístico Multivariado
 author: ITESO - DMAF
-date: Otoño 2022
 format:
   pdf: 
     include-in-header: 
@@ -141,9 +140,11 @@ $$
   \setlength{\parsep}{0pt}
   \item[a)] Encontrar las densidades condicionales de $x$ dado $y$ y de $y$ dado $x$, que están dadas por 
   $$
-    f_{x|y}(x\mid y)=\frac{f_{xy}(x,y)}{f_x(x)},\quad f_{y|x}(y\mid x)=\frac{f_{xy}(x,y)}{f_y(y)}
+    f_{x|y}(x\mid y)=\frac{f_{xy}(x,y)}{f_y(y)},\quad f_{y|x}(y\mid x)=\frac{f_{xy}(x,y)}{f_x(x)}
   $$
-  \item[b)] Demuestra que $X, Y$ \textit{no} son independientes. Para eso sírvete de la regla que se cunmple cuando son independientes $f_{xy}(x,y)=f_x(x)f_y(y)$.
+  \item[b)] Demuestra que $X, Y$ \textit{no} son independientes. Para eso sírvete de la regla que se cunmple cuando son independientes 
+  
+  $$f_{xy}(x,y)=f_x(x)f_y(y)$$
 \end{itemize}
 
 \item (15 puntos)
@@ -153,7 +154,7 @@ operación en operación conjunta. Denote con $X$ y $Y$ las duraciones aleatoria
 probabilidad conjunta está dada por
 
 $$
-  f_{xy}(x, y)= \frac{1}{8}x\exp\left[ -(x+y)/s \right]\ x,y > 0
+  f_{xy}(x, y)= \frac{1}{8}x\exp\left[ -(x+y)/2 \right]\ x,y > 0
 $$
 
 Nota: las mediciones son en cientos de horas.
