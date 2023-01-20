@@ -171,7 +171,7 @@ Nota: las mediciones son en cientos de horas.
 Como $X$ incluye el tiempo que un cliente espera en la fila, debemos tener $X \geq Y$. La distribución de valores observados puede ser modelada por la siguiente función de densidad de probabilidad conjunta
 
 $$
-  f_{xy}(x, y)= \exp\left( - x\right)\ 0\leq y\leq x < \infty
+  f_{xy}(x, y)= \exp\left( - x\right),\quad 0\leq y\leq x < \infty
 $$
 
 con el tiempo medido en minutos. 
