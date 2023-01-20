@@ -1,25 +1,37 @@
 ---
 title: "Primer Examen Parcial"
 subtitle: Análisis Estadístico Multivariado
-author: ITESO - DMAF
+author: |
+    | ITESO
+    | Departamento de Matemáticas y Física
 format:
   pdf: 
     include-in-header: 
       text: |
-        \usepackage{amsmath}
-        \usepackage{amsfonts}
-        \usepackage{amssymb}
+            \usepackage{amsmath}
+            \usepackage{amsfonts}
+            \usepackage{amssymb}
+            \usepackage{unicode-math,color}
+            \usepackage{color}
+            \setmathfont[Color=FF0000]{latinmodern-math.otf}
+            \setmathfont[range=\mathit/{greek,Greek},Color=blue]{latinmodern-math.otf} % sets greek letters to blue
     number-sections: true
     colorlinks: true
     number-depth: 0
 fig-pos: 'H'
 ---
 
+Nombre:
+
+Fecha:
+
 # Parte 1. Teoría
 
 # Ejemplo ilustrativo 1 (cálculo de probabilidades conjuntas)
 
 Sean $X, Y$ variables aleatorias continuas con función de densidad
+
+$\alpha$
 
 $$
   f_{xy}(x,y)=\frac{1}{2}x + \frac{3}{2}y\quad \text{para } 0 \leq x\leq 1, 0 \leq y \leq 1
@@ -224,7 +236,7 @@ e) ¿Cuál es la probabilidad de que dos clientes estén formados en la caja rá
 
 g) ¿$X_1$ y $X_2$ son independientes? Justificar la respuesta.
 
-\item (10 puntos). En la figura 1 se muestra una muestra bivariada con $\pmb{\mu}=(1, 1), \rho = -0.6, \sigma_1=2$ y $\sigma_2=8$. Los puntos azul y naranja tienen coordenadas p1=(`r p1`) y p2=(`r p2`) respectivamente. 
+\item (10 puntos). En la figura 1 se muestra una muestra bivariada con $\pmb{\mu}=(1, 1), \rho = -0.6, \sigma_1=2$ y $\sigma_2=8$. Los puntos azul y naranja tienen coordenadas $p_1=$(`r p1`) y $p_2=$(`r p2`) respectivamente. 
 
 \begin{figure}[H]
   \centering

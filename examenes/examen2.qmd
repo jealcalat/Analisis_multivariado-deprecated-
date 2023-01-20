@@ -8,9 +8,13 @@ format:
   pdf: 
     include-in-header: 
       text: |
-        \usepackage{amsmath}
-        \usepackage{amsfonts}
-        \usepackage{amssymb}
+            \usepackage{amsmath}
+            \usepackage{amsfonts}
+            \usepackage{amssymb}
+            \usepackage{unicode-math,color}
+            \usepackage{color}
+            \setmathfont[Color=FF0000]{latinmodern-math.otf}
+            \setmathfont[range=\mathit/{greek,Greek},Color=blue]{latinmodern-math.otf} % sets greek letters to blue
     number-sections: true
     colorlinks: true
     number-depth: 0
@@ -31,7 +35,7 @@ b) Con base a los datos que eligió, escriba un enunciado planteando el objetivo
 c) Obtenga el modelo de regresión simple y escriba su ecuación. De una descripción de cómo estos parámetros impactan sobre la variable dependiente.
 d) ¿Por qué es importante separar los datos en 80% para entrenamiento y 20% para prueba?
 e) De una interpretación de los resultados obtenidos (Summary)
-f) ¿Cuál sería el valor de T_tablas con el que contrastaría el valor de T_calculada si se tuviera un nivel de significancia del 0.05? 
+f) ¿Cuál sería el valor de $T_\text{tablas}$ con el que contrastaría el valor de $T_\text{calculada}$ si se tuviera un nivel de significancia del 0.05? 
 g) Indique si el modelo lineal se ajusta a los datos basado en las predicciones obtenidas. Justifique su respuesta.
 h) Si no existiera normalidad y homocedasticidad, ¿qué puede concluir de los resultados del análisis? ¿Qué solución propone ante la falta de normalidad y heterocedasticidad?
 i) ¿Qué son los “outliers”? ¿Cómo influyen en el análisis de regresión? ¿qué solución propone ante la presencia de estos valores?
@@ -50,7 +54,7 @@ c) Indique las variables que va a utilizar y especifique quién es la variable d
 d) Escriba un enunciado planteando el problema a resolver. (Plantear la H0 y H1 del problema a resolver).
 e) ¿Cuántos niveles tiene cada factor que eligió?
 f) Obtenga el modelo del ANOVA y de una interpretación de los resultados.
-g) ¿Cuál sería el valor de F_tablas con el que contrastaría el valor de F_calculada si se tuviera un nivel de significancia del 0.05?
+g) ¿Cuál sería el valor de $F_\text{tablas}$ con el que contrastaría el valor de $F_\text{calculada}$ si se tuviera un nivel de significancia del 0.05?
 h) ¿Para que sirven las pruebas Post-Hoc en el ANOVA?
 i) De ser necesario, incluya la prueba de Tukey y de la interpretación de los resultados.
 j) Conclusiones generales de análisis de la varianza que acaba de realizar.
