@@ -9,6 +9,10 @@ format:
         \usepackage{amsmath}
         \usepackage{amsfonts}
         \usepackage{amssymb}
+        \usepackage{unicode-math,color}
+        \usepackage{color}
+        \setmathfont[Color=FF0000]{latinmodern-math.otf}
+        \setmathfont[range=\mathit/{greek,Greek},Color=blue]{latinmodern-math.otf} % sets greek letters to blue
     number-sections: true
     colorlinks: true
     number-depth: 0

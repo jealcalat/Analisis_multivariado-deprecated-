@@ -1,3 +1,18 @@
+---
+title: "Calendario de AEM - P2023"
+format: 
+  pdf: 
+    documentclass: report
+    classoption: landscape
+    geometry:
+      - top=0mm
+      - bottom=0.25mm
+      - left=10mm
+      - right=5mm
+    fontfamily: libertinus
+    colorlinks: true
+---
+
 # Calendario de Análisis Estadístico Multivariado
 
 | Semana | Fecha         | Contenido                                                 | Anotaciones                                 |
