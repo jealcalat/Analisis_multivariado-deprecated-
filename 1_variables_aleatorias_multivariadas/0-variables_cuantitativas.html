@@ -96,6 +96,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="0-variables_cuantitativas_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="0-variables_cuantitativas_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="0-variables_cuantitativas_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
@@ -146,7 +149,7 @@ Tipos de variables (tomada de OpenInstro Statistics)
 <li>Mediana: <span class="math inline">\(\tilde{Y} = Y_{[N+1]/2}\)</span> si <span class="math inline">\(N\)</span> es impar; <span class="math inline">\(\tilde{Y} = (Y_{[N]/2} + Y_{[N/2 + 1]})/2\)</span> si <span class="math inline">\(N\)</span> es par.</li>
 <li>Moda: el valor</li>
 </ul>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mean_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(x)<span class="sc">/</span><span class="fu">length</span>(x)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
@@ -155,7 +158,7 @@ Tipos de variables (tomada de OpenInstro Statistics)
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sample size</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># if N is even</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (N <span class="sc">%%</span> <span class="dv">2</span> <span class="ot">=</span> <span class="dv">0</span>){</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (N <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>){</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># [] subsetting (the index of an element)</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># x[2] is the second value of x</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    (x[N <span class="sc">/</span> <span class="dv">2</span>] <span class="sc">+</span> x[(N <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>]) <span class="sc">/</span> <span class="dv">2</span></span>
@@ -170,25 +173,77 @@ Tipos de variables (tomada de OpenInstro Statistics)
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  u <span class="ot">&lt;-</span> <span class="fu">unique</span>(x)</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  tab <span class="ot">&lt;-</span> <span class="fu">tabulate</span>(<span class="fu">match</span>(x, u))</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  u[tab <span class="sc">==</span> <span class="fu">max</span>(tab)]</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>mad_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  ab_dev <span class="ot">&lt;-</span> <span class="fu">abs</span>(x <span class="sc">-</span> <span class="fu">mean</span>(x))</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">1</span><span class="sc">/</span>n) <span class="sc">*</span> <span class="fu">sum</span>(ab_dev)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="de-dispersión" class="level3">
 <h3 class="anchored" data-anchor-id="de-dispersión">De dispersión</h3>
 <ul>
-<li>Rango intercuartílico</li>
-<li>Varianza</li>
-<li>Desviación estándar</li>
-<li>Rango</li>
+<li>Rango intercuartílico, IQR: <span class="math inline">\(Q_3 - Q_1\)</span>.</li>
+<li>Varianza: <span class="math inline">\(s^2=\frac{1}{n-1}\sum_{i=1}^n (y_i - \bar y)^2\)</span></li>
+<li>Desviación estándar: <span class="math inline">\(s = \sqrt{s}\)</span>,</li>
+<li>Desviación media absoluta: <span class="math inline">\(\text{MAD} = \frac{1}{n-1}\sum_{i=1}^n \mid y_i - \bar y\mid\)</span></li>
+<li>Rango: <span class="math inline">\(\max(y) - \min(y)\)</span></li>
 </ul>
-</section>
-<section id="de-forma" class="level3">
-<h3 class="anchored" data-anchor-id="de-forma">De forma</h3>
-<ul>
-<li>Curtosis<br>
-</li>
-<li>Asimetría</li>
-</ul>
+<p>Ejercicio:</p>
+<p><span class="math inline">\(x=(9, 10, 11, 11, 12, 14, 16, 17, 19, 21, 25, 31, 32, 41, 61)\)</span></p>
+<p>Obtener: media, mediana, Q1, Q3, IQR, MAD y desviación estándar.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">19</span>, <span class="dv">21</span>, <span class="dv">25</span>, <span class="dv">31</span>, <span class="dv">32</span>, <span class="dv">41</span>, <span class="dv">61</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">median_fun</span>(x)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean_fun</span>(x)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(x, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(x) <span class="co"># o</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(<span class="fu">quantile</span>(x, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>)))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># mad</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mad_fun</span>(x)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+17
+</div>
+<div class="cell-output cell-output-display">
+22
+</div>
+<div class="cell-output cell-output-display">
+<style>
+.dl-inline {width: auto; margin:0; padding: 0}
+.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
+.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
+.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
+</style><dl class="dl-inline"><dt>25%</dt><dd>11.5</dd><dt>75%</dt><dd>28</dd></dl>
+</div>
+<div class="cell-output cell-output-display">
+16.5
+</div>
+<div class="cell-output cell-output-display">
+<strong>75%:</strong> 16.5
+</div>
+<div class="cell-output cell-output-display">
+10.6666666666667
+</div>
+<div class="cell-output cell-output-display">
+14.2978519865248
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="0-variables_cuantitativas_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="0-variables_cuantitativas_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
 </section>
 </section>
 </section>
