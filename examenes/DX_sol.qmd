@@ -58,7 +58,7 @@ b) ¿Qué valor tiene la primera derivada de una función cuando la función se 
   $$
   Encontrar
   $$
-      F(x,y)=\int_0^{x}\int_0^y\left( \frac{1}{2}u + \frac{3}{2}v\right)dvdu
+      F(x,y)=\int_0^{x}\int_0^y\left( \frac{1}{2}u + \frac{3}{2}v\right)\text{d}v\text{d}u
   $$
   R. $\frac{x^2y}{4} + \frac{3xy^2}{4}$
 \end{enumerate}
@@ -66,10 +66,15 @@ b) ¿Qué valor tiene la primera derivada de una función cuando la función se 
 # Estadística y probabilidad
 
 1. ¿Qué mide la correlación?
+R. **Dependencia lineal entre dos variables. La relación puede ser ser positiva o negativa**
 2. Menciona dos medidas de tendencia central.
+R. **Media, mediana**
 3. Menciona dos medidas de dispersión.
+R. **Desviación estándar, rango intercuartílico**
 4. ¿Qué es una variable aleatoria?
+R. **Una función que asigna un valor numérico al resultado de un experimento aleatorio. Si $\omega$ es uno de esos resultados (por ejemplo, el resultado de lanzar una moneda), y $X$ la variable aleatoria, la función es $X(\omega)\in \mathbb{R}$**.
 5. ¿Cuál es la diferencia entre funciones de densidad de probabilidad y funciones de masa de probabilidad?
+R. **Las funciones de densidad son funciones que asignan un valor $f(x)\in [0, 1]$ a una variable aleatoria continua. Las funciones de masa asignan una probabilidad $p(x)\in [0, 1]$ al resultado de una variable aleatoria discreta.**
 6. Respecto a la anterior pregunta, ¿con qué tipo de función (de masa o densidad) usarías cuál ecuación para obtener el valor esperado?
 
 \begin{enumerate}
@@ -80,8 +85,10 @@ b) ¿Qué valor tiene la primera derivada de una función cuando la función se 
   $$
     \mathbf{E}[x] = \sum_{i=1}^n x_ip_i
   $$
+  R. \textbf{De masa}
   \item ¿De masa o de densidad?
   $$
     \mathbf{E}[x] = \int xf(x)\text{d}x
   $$
+  R. \textbf{De densidad}. Lo sabemos porque hay que integrar para obtener una densidad,
 \end{enumerate}
