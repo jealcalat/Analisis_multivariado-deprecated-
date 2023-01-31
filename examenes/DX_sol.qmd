@@ -36,7 +36,7 @@ fig-pos: 'H'
   \item $$\frac{\text{d}}{\text{d}x}\left( \frac{1+x}{1-x} \right)$$
   R. $\frac{2}{(1-x)^2}$
   \item Sea la función de log-verosimilitud $l(\theta)=\log \theta^k + \log(1-\theta)^{n-k}$. Obtener $$\frac{\partial l(\theta)}{\partial \theta}$$
-  R. $\frac{k}{\theta} + \frac{n-k}{1-\theta}$
+  R. $\frac{k}{\theta} - \frac{n-k}{1-\theta}$
 \end{enumerate}
 
 2. a) ¿Cuál es la interpretación geométrica de la primera derivada? R. **Pendiente de la recta tangente de la función evaluada en $c$**
