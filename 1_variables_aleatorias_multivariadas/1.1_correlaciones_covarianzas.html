@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.280">
+<meta name="generator" content="quarto-1.2.313">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -158,6 +158,8 @@ Tidy data
 </figcaption>
 <p></p>
 </figure>
+<p><strong>Referencias</strong></p>
+<p>[1] Stevens, S. (1946). On the Theory of Scales of Measurement. Science, 103(2684), 677-680. doi: 10.1126/science.103.2684.677</p>
 <p><strong>Estadísticos</strong></p>
 <p>Son diferentes de los parámetros.</p>
 <ul>
@@ -191,6 +193,8 @@ Tidy data
 <p><span class="math display">\[
 \mathbf{p}^\top \mathbf{x} = \sum_{i=1}^n \frac{1}{n} x_i = \frac{1}{n} \sum_{i=1}^n x_i
 \]</span></p>
+<p><strong>Ejercicio</strong>:</p>
+<p>Sean los vectores <span class="math inline">\(\mathbf{x}=\{6, 1, 9\}\)</span> y <span class="math inline">\(\mathbf{y}=\{1, 8, 9\}\)</span>. Obtener el producto <span class="math inline">\(\mathbf{x}\cdot\mathbf{y}\)</span>.</p>
 <p><strong>Producto de dos matrices</strong></p>
 <p>Dadas dos matrices <span class="math inline">\(\mathbf{A} \in \mathbb{R}^{m \times n},\ \mathbf{B} \in \mathbb{R}^{n\times k}\)</span></p>
 <p><span class="math display">\[
@@ -256,11 +260,27 @@ Tidy data
   \underbrace{\mathbf{A}}_{m\times n}\underbrace{\mathbf{B}}_{n\times k} = \underbrace{\mathbf{C}}_{m\times k}
 \]</span></p>
 <p>Como se ilustró antes, para poder multiplicar <span class="math inline">\(\mathbf{A}\)</span> con <span class="math inline">\(\mathbf{B}\)</span>, las columnas del primero coinciden con las filas del segundo, 2 y 2 respectivamente. El resultado es una matriz con <span class="math inline">\(m\times k\)</span> filas y columnas.</p>
+<p><strong>Ejercicio</strong></p>
+<p>Sean la matriz</p>
+<p><span class="math display">\[
+  \textbf{X} = \begin{bmatrix}
+    42 &amp; 4\\
+    52 &amp; 5\\
+  \end{bmatrix}
+\]</span></p>
+<p>Obtener el producto de la matriz consigo su <em>transpuesta</em></p>
+<p><span class="math display">\[
+  \textbf{X}^\top = \begin{bmatrix}
+    42 &amp; 52\\
+    4 &amp; 5\\
+  \end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+  XX^\top=?
+\]</span></p>
 <hr>
 <p>En <code>R</code> el producto punto se obtiene con el comando <code>%*%</code>. Por ejemplo, para calcular el producto punto <span class="math inline">\(\mathbf{a}^\top \mathbf{b}\)</span> se obtiene como <code>a %*% b</code>, lo que es equivalente a <code>sum(a * b)</code>.</p>
 <p>La multiplicación de matrices también se obtiene con <code>%*%</code>. Así, <span class="math inline">\(\mathbf{A}\mathbf{B}\)</span> se obtiene <code>A %*% B</code>.</p>
-<p><strong>Referencias</strong></p>
-<p>[1] Stevens, S. (1946). On the Theory of Scales of Measurement. Science, 103(2684), 677-680. doi: 10.1126/science.103.2684.677</p>
 <div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ejemplo de producto punto</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># vector de resultados</span></span>
