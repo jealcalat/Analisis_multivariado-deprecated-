@@ -31,8 +31,6 @@ Fecha:
 
 Sean $X, Y$ variables aleatorias continuas con función de densidad
 
-$\alpha$
-
 $$
   f_{xy}(x,y)=\frac{1}{2}x + \frac{3}{2}y\quad \text{para } 0 \leq x\leq 1, 0 \leq y \leq 1
 $$
@@ -166,7 +164,7 @@ operación en operación conjunta. Denote con $X$ y $Y$ las duraciones aleatoria
 probabilidad conjunta está dada por
 
 $$
-  f_{xy}(x, y)= \frac{1}{8}x\exp\left[ -(x+y)/2 \right]\ x,y > 0
+  f_{xy}(x, y)= \frac{1}{8}x\exp\left[ -(x+y)/2 \right],\quad\text{ para } x,y > 0
 $$
 
 Nota: las mediciones son en cientos de horas.
@@ -211,7 +209,7 @@ b) $P(1/4\leq Y\leq 3/4)$
 
 c) $P(X\leq 3/4)$
 
-\item (15 puntos). Un supermercado cuenta tanto con una caja normal como con una rápida. La función de masa de probabilidad conjunta de X1 el número de clientes formados en la caja normal a una hora particular del día y de X2 el número de clientes formados en la caja rápida a la misma hora está dada por
+\item (15 puntos). Un supermercado cuenta tanto con una caja normal como con una rápida. La función de masa de probabilidad conjunta de $X_1$ el número de clientes formados en la caja normal a una hora particular del día y de $X_2$ el número de clientes formados en la caja rápida a la misma hora está dada por
 
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
@@ -223,6 +221,8 @@ $X_1$\backslash$X_2$ & 0    & 1    & 2    & 3    \\ \hline
 4             & 0    & 0.01 & 0.05 & 0.06 \\ \hline
 \end{tabular}
 \end{center}
+
+En donde $X_1$ son las filas y $X_2$ las columnas.
 
 a) Calcular $P(X_1 = 1, X_2 = 1)$
 
