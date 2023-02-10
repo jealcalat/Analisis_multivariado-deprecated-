@@ -17,6 +17,8 @@
 
 ### Función de verosimilitud
 
+- Comenzar con las definiciones [aquí](https://online.stat.psu.edu/stat415/lesson/1/1.1).
+
 - [Esta sección](https://online.stat.psu.edu/stat415/lesson/1/1.2) de la Penn State explica bien el concepto de función de verosimilitud.
 
 - Sección 8.5 de [Rice](/refs/John%20A.%20Rice%20-%20Mathematical%20Statistics%20and%20Data%20Analysis%203ed%20(Duxbury%20Advanced)%20%20-Duxbury%20Press%20(2006).pdf).
