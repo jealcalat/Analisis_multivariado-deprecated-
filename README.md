@@ -35,7 +35,10 @@ Fin: 15 de mayo de 2023
 
 ## Calendario del curso
 
-Para ver el calendario del curso, revisa el siguiente enlace: [Calendario del curso](listas/calendario_del_curso.md).
+Para ver el calendario del curso, revisa el siguiente enlace: [Calendario del curso](listas/calendario_del_curso.md). Las fechas se pueden reajustar de acuerdo a cómo avancemos. Para este curso es más importante entender los conceptos que abarcar un temario.
+
+Algunos recursos que he ido recopilando, como una recomendación que han hecho los propios alumnos, se encuentran en [Lecturas y recursos recomendados](lecturas_recursos.md). Estos mismos recursos y lecturas pueden ser usados para sus presentaciones.
+
 
 ## Temas del curso
 
