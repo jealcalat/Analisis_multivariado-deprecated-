@@ -1,0 +1,95 @@
+---
+title: "LOTUS"
+subtitle: Law of The Unconscious Statistitian
+author: |
+    | Emmanuel Alcalá
+    | UdG.
+format:
+  pdf: 
+    include-in-header: 
+      text: |
+            \usepackage{amsmath}
+            \usepackage{amsfonts}
+            \usepackage{amssymb}
+            \usepackage{unicode-math,color}
+            \usepackage{color}
+            \setmathfont[Color=FF0000]{latinmodern-math.otf}
+            \setmathfont[range=\mathit/{greek,Greek},Color=blue]{latinmodern-math.otf} % sets greek letters to blue
+    number-sections: true
+    colorlinks: true
+    number-depth: 0
+fig-pos: 'H'
+---
+
+## Ejemplo
+
+Sea $X = (0, 1, 2, 3)$ con distribución $p(x) = (1/8, 3/8, 3/8, 1/8)$.
+Calcular $\textbf{E}[Y]$ si $Y$ es la transformación $Y = (X - 1.5)^2$, usando la igualdad
+
+$$
+  \textbf{E}[g(x)] = \sum_{i=1}^n p(x)g(x)
+$$
+
+$$
+\textrm{E}[(X-1.5)^2] = (0 - 1.5)^2(1/8)+ (1 - 1.5)^2(3/8) + (2 - 1.5)^2(3/8) + (3 - 1.5)^2(1/8) = 0.75
+$$
+
+```{r}
+X <- c(0, 1, 2, 3)
+px <- c(1 / 8, 3 / 8, 3 / 8, 1 / 8)
+# g(x) = Y
+Y <- (X - 1.5)^2
+# media usando LOTUS
+sum(px * Y)
+# los valores de Y son 2.25, 0.25, 0.25, 2.25,
+# la probabilidad de que salga 2.25, P(y=2.25), es P(X=0) + P(X=3) = 1/8+1/8 = 2/8
+# por lo tanto, la probabilidad de obtener 2.25 es de 6/8
+newY <- c(2.25, 0.25)
+pY <- c(1 / 4, 3 / 4)
+sum(newY * pY)
+```
+
+## Ejemplo numérico
+
+
+```{r}
+#| fig-width: 6
+#| fig-height: 4
+library(sfsmisc)
+# fijar semilla aleatoria para reproducir resultado
+set.seed(966)
+# obtener variable aleatoria normal con media 0 y sd de 1
+rx <- rnorm(10000)
+rx2 <- rx^2
+# computamos la densidad de rx con la función density()
+# que implementa kernel density estimation
+den_rx <- density(rx)
+# usaremos den_rx para construir una función con métodos de interpolación
+fun_interpol <- approxfun(den_rx)
+# ahora encontraremos la densidad que tendrían nuestros puntos rx originales
+rx_den <- fun_interpol(rx)
+
+# graficamos el histograma y la densidad para corroborar
+par(las = 1)
+hist(rx, freq = FALSE, ylim = c(0, max(rx_den) * 1.1)) # freq FALSE para graficar densidad
+lines(den_rx, col = "red")
+# graficaremos los puntos rx_den que interpolamos para asegurarnos de que caen
+# en la línea de densidad roja
+points(rx, rx_den, cex = 0.6)
+
+# ahora usaremos integración numérica para obtener el valor esperado E[X], que es
+# la integral de x*f(x)dx, integrada en todo el rango de x
+integrate.xy(rx, rx * rx_den)
+# el anterior valor es próximo a la media con la variable original
+mean(rx)
+# ahora usaremos integración numérica para computar E[X^2], pero usando
+# la densidad de rx original (rx_den, calculada en la línea 13)
+integrate.xy(rx, rx_den * rx2)
+# corroboramos que el valor es próximo a la media calculada de forma tipica
+mean(rx2)
+```
+
+
+
+
+
