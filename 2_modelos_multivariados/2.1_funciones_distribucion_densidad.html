@@ -707,7 +707,7 @@ Dividido entre $1/(n-1)$ es $\frac{1}{5-1}0.4=0.1$ -->
 </div>
 <p>En la siguiente figura a la izquierda se representa una variable aleatoria normal con media 0 y desviación estándar de 1, conocida como distribución normal estándar, y representada como <span class="math inline">\(\mathcal{N}(\mu=0, \sigma = 1)\)</span> o simplemente <span class="math inline">\(\mathcal{N}(0, 1)\)</span>. Para la densidad de probabilidad normal, en R usamos <code>dnorm(x, mean, sd)</code>, que nos retorna la densidad en <code>x</code>.</p>
 <p>A la derecha se representa el área equivalente en la cdf, usando <code>pnorm</code>.</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="22">
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width=</span><span class="dv">7</span><span class="sc">*</span><span class="dv">2</span>, <span class="at">repr.plot.height=</span><span class="dv">5</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">las =</span> <span class="dv">1</span>, <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># graficar la curva usando la función de dnorm; curve crea in-situ 101 valores</span></span>
@@ -719,46 +719,47 @@ Dividido entre $1/(n-1)$ es $\frac{1}{5-1}0.4=0.1$ -->
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">to =</span> <span class="dv">3</span>,</span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"blue"</span>,</span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"p(x)"</span>,</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>from_x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">1.5</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>to_x <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># valores para x y y en el área sombreada</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>sx <span class="ot">&lt;-</span> <span class="fu">c</span>(from_x, <span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>), to_x)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>sy <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dnorm</span>(<span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>)), <span class="dv">0</span>)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># crear área sombreada con sx y sy</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  sx, sy,</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"#B3B3FF"</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">0</span>,</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">0</span>) <span class="sc">/</span> <span class="dv">2</span>,</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">expression</span>(<span class="fu">integral</span>(<span class="fu">p</span>(x) <span class="sc">*</span> dx, <span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>)),</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">0</span>,</span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">0</span>) <span class="sc">/</span> <span class="dv">3</span>,</span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="st">"= P(1.5) - P(-1.5)"</span>,</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co"># figura a la derecha, cdf</span></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(</span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pnorm</span>(x, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">to =</span> <span class="dv">3</span>, <span class="at">main =</span> <span class="st">" cdf gaussiana"</span>,</span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">'X'</span>, <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">Pr</span>(X <span class="sc">&lt;=</span> x)),</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">lwd =</span> <span class="dv">2</span></span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>from_x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">1.5</span> <span class="co"># en rigor, debería ser -Inf</span></span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>to_x <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>sx  <span class="ot">&lt;-</span> <span class="fu">c</span>(from_x, <span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>), to_x)</span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>sy  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">pnorm</span>(<span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>)), <span class="dv">0</span>)</span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(</span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>  sx, sy,</span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"#B3B3FF"</span></span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">'pdf gaussiana (normal)'</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>from_x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">1.5</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>to_x <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># valores para x y y en el área sombreada</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>sx <span class="ot">&lt;-</span> <span class="fu">c</span>(from_x, <span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>), to_x)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>sy <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dnorm</span>(<span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>)), <span class="dv">0</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co"># crear área sombreada con sx y sy</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  sx, sy,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"#B3B3FF"</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">0</span>,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">0</span>) <span class="sc">/</span> <span class="dv">2</span>,</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">expression</span>(<span class="fu">integral</span>(<span class="fu">p</span>(x) <span class="sc">*</span> dx, <span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>)),</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">0</span>,</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">0</span>) <span class="sc">/</span> <span class="dv">3</span>,</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="st">"= P(1.5) - P(-1.5)"</span>,</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="co"># figura a la derecha, cdf</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pnorm</span>(x, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>),</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">to =</span> <span class="dv">3</span>, <span class="at">main =</span> <span class="st">" cdf gaussiana"</span>,</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">'X'</span>, <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">Pr</span>(X <span class="sc">&lt;=</span> x)),</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">lwd =</span> <span class="dv">2</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>from_x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">1.5</span> <span class="co"># en rigor, debería ser -Inf</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>to_x <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>sx  <span class="ot">&lt;-</span> <span class="fu">c</span>(from_x, <span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>), to_x)</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>sy  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">pnorm</span>(<span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>)), <span class="dv">0</span>)</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>  sx, sy,</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"#B3B3FF"</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="2.1_funciones_distribucion_densidad_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
 </div>
@@ -772,35 +773,10 @@ Dividido entre $1/(n-1)$ es $\frac{1}{5-1}0.4=0.1$ -->
 0.866385597462284
 </div>
 </div>
-<p>El área que cubre <code>pnorm(1.5)</code> va desde <span class="math inline">\(-\infty\)</span> a 1.5, y el área de <code>pnorm(-1.5)</code> va de <span class="math inline">\(-\infty\)</span> a -1.5.</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width=</span><span class="dv">7</span>, <span class="at">repr.plot.height=</span><span class="dv">5</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">las =</span> <span class="dv">1</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dnorm</span>(x, <span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="sc">-</span><span class="dv">3</span>, <span class="at">to =</span> <span class="dv">3</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"blue"</span>,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"p(x)"</span>,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>from_x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10</span> <span class="co"># en rigor, debería ser -Inf</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>to_x <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>sx  <span class="ot">&lt;-</span> <span class="fu">c</span>(from_x, <span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>), to_x)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>sy  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dnorm</span>(<span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>)), <span class="dv">0</span>)</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  sx, sy,</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"#B3B3FF"</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fl">1.5</span>,</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">dnorm</span>(<span class="fl">1.5</span>, <span class="dv">0</span>),</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="st">'x=1.5'</span>,</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="2.1_funciones_distribucion_densidad_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
-</div>
-</div>
+<p>El área que cubre <code>pnorm(1.5)</code> va desde <span class="math inline">\(-\infty\)</span> a 1.5, y el área de <code>pnorm(-1.5)</code> va de <span class="math inline">\(-\infty\)</span> a -1.5. Matemáticamente, lo anterior se expresaría como</p>
+<p><span class="math display">\[
+  P(-1.5 &lt; X &lt; 1.5) = \int_{-1.5}^{1.5}\frac{1}{\sigma \sqrt{2\pi}} e\left\{\frac{-(x-\mu)^2}{2\sigma^2}\right\}\text{d}x
+\]</span></p>
 <p>En contraste con las <strong>VA</strong> discretas, la probabilidad de que una variable continua <span class="math inline">\(X\in \mathbb{R}\)</span> tome un valor particular, <span class="math inline">\(p(X = x)\)</span>, es 0. Es como integrar la función de densidad de la siguiente manera:</p>
 <p><span class="math display">\[
   Pr(a \leq X \leq a) = \int_a^b f(x)dx = P(a) - P(a)
@@ -814,12 +790,12 @@ Dividido entre $1/(n-1)$ es $\frac{1}{5-1}0.4=0.1$ -->
     \text{ \bf{regla del producto}}\quad\quad &amp;f(x, y) = f(y|x)f(x)
   \end{align*}
 \]</span></p>
-<p>En donde <span class="math inline">\(f(x)\)</span> es la función de probabilidad marginal, y se integra sobre todo <span class="math inline">\(y\)</span>.</p>
+<p>En donde <span class="math inline">\(f(x)\)</span> es la función de probabilidad marginal, y se integra <em>con respecto a</em> <span class="math inline">\(y\)</span>. Lo mismo si queremos encontrar la marginal de <span class="math inline">\(y\)</span> tenemos que integrar <span class="math inline">\(f(x,y)\)</span> <em>con respecto a</em> <span class="math inline">\(x\)</span>.</p>
 </section>
 </section>
 </section>
-<section id="función-de-densidad-de-probabilidad-conjunta" class="level2">
-<h2 class="anchored" data-anchor-id="función-de-densidad-de-probabilidad-conjunta">Función de densidad de probabilidad conjunta</h2>
+<section id="función-acumulada-de-probabilidad-conjunta" class="level2">
+<h2 class="anchored" data-anchor-id="función-acumulada-de-probabilidad-conjunta">Función acumulada de probabilidad conjunta</h2>
 <p>Sean <span class="math inline">\(X_1, X_2\)</span> variables aleatorias continuas con función de distribución conjunta <span class="math inline">\(F(x_1, x_2)\)</span>. La función de distribución bivariante <span class="math inline">\(F(x_1, x_2)\)</span> es</p>
 <p><span class="math display">\[
   F(x_1, x_2) = P(X_1 \leq x_1, X_2 \leq x_2),\quad -\infty &lt; x_1 &lt; \infty, -\infty &lt; x_2&lt;\infty
@@ -903,6 +879,87 @@ F(y_1=0.2, y_2=0.4)%
       &amp;= \int_{-\infty}^{0.4} \Bigg( y_1\Big|_0^{0.2} \Bigg)\text{d}y_2\\
       &amp;= \int_{-\infty}^{0.4} 0.2 \text{d}y_2 = 0.2y_2\Big|_0^{0.4} = 0.08
 \end{align}\]</span></p>
+<p><strong>Ejemplo de una normal</strong></p>
+<p>La temperatura promedio de una máquina es de 37°C, con una desviación estándar medida de 1.5. Suponiendo que la distribución de la temperatura puede ser aproximada por una normal, ¿qué tan probable es encontrar una temperatura de 35 o menos?</p>
+<p><em>Solución</em></p>
+<p>Queremos hallar la probabilidad <span class="math inline">\(P(X&lt;35)\)</span> sabiendo que <span class="math inline">\(X\sim \mathcal{N}(\mu=37, \sigma=1.5)\)</span>. Es decir</p>
+<p><span class="math display">\[
+  P(X&lt;35)=\int_{0}^{35}\frac{1}{1.5 \sqrt{2\pi}} e\left\{\frac{-(x-37)^2}{2(1.5)^2}\right\}\text{d}x
+\]</span></p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width=</span><span class="dv">7</span><span class="sc">*</span><span class="dv">2</span>, <span class="at">repr.plot.height=</span><span class="dv">5</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">las =</span> <span class="dv">1</span>, <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dnorm</span>(x, <span class="dv">37</span>, <span class="fl">1.5</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="dv">30</span>, </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">to =</span> <span class="dv">45</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"blue"</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"p(x)"</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">'pdf'</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>from_x <span class="ot">&lt;-</span> <span class="dv">30</span> <span class="co"># en rigor, debería ser -Inf</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>to_x <span class="ot">&lt;-</span> <span class="dv">35</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>sx  <span class="ot">&lt;-</span> <span class="fu">c</span>(from_x, <span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>), to_x)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>sy  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dnorm</span>(<span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>), <span class="dv">37</span>, <span class="fl">1.5</span>), <span class="dv">0</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  sx, sy,</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"#B3B3FF"</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">35</span><span class="sc">+</span><span class="dv">1</span>,</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">dnorm</span>(<span class="dv">35</span>, <span class="dv">37</span>, <span class="fl">1.5</span>),</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="st">'x=35'</span>,</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.5</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co"># figura a la derecha, cdf</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pnorm</span>(x, <span class="at">mean =</span> <span class="dv">37</span>, <span class="at">sd =</span> <span class="fl">1.5</span>),</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="dv">30</span>, <span class="at">to =</span> <span class="dv">45</span>, <span class="at">main =</span> <span class="st">" cdf"</span>,</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">'X'</span>, <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">Pr</span>(X <span class="sc">&lt;=</span> x)),</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">'blue'</span>, <span class="at">lwd =</span> <span class="dv">2</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>sx  <span class="ot">&lt;-</span> <span class="fu">c</span>(from_x, <span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>), to_x)</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>sy  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">pnorm</span>(<span class="fu">seq</span>(from_x, to_x, <span class="fl">0.01</span>), <span class="dv">37</span>, <span class="fl">1.5</span>), <span class="dv">0</span>)</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>  sx, sy,</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"#B3B3FF"</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">35</span><span class="sc">+</span><span class="dv">1</span>,</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">pnorm</span>(<span class="dv">35</span>, <span class="dv">37</span>, <span class="fl">1.5</span>),</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="st">'x=35'</span>,</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.5</span></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="2.1_funciones_distribucion_densidad_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>El área se obtiene en R con el siguiente código, que usa la cdf normal, <code>pnorm</code>. El primer argumento es el <em>cuantil</em> <code>q</code>, el valor en el eje <em>x</em> del cual queremos saber el área bajo la curva.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">35</span>, <span class="at">mean =</span> <span class="dv">37</span>, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿cuál sería la probabilidad de tener 37 o menos?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+0.0912112197258678
+</div>
+</div>
+<p>Equivalentemente, en R se puede integrar la pdf con integración numérica</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">integrate</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  dnorm, <span class="co"># el primer argumento de integrate es la función que se va a integrar</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mean =</span> <span class="dv">37</span>, <span class="co"># especificar ahora los argumentos de la función dnorm: media y sd</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fl">1.5</span>, </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="dv">0</span>, <span class="co"># límites de la integración</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> <span class="dv">35</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>0.09121122 with absolute error &lt; 6.7e-10</code></pre>
+</div>
+</div>
+<p>En Python se obtiene con</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>scipy.stats.norm(<span class="dv">37</span>, <span class="fl">1.5</span>).cdf(<span class="dv">35</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 
