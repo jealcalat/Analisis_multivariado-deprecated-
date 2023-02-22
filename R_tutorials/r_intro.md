@@ -1,5 +1,25 @@
 # R: una introducción rápida #
 
+## Instrucciones para instalar en Windows >10
+
+- [Descargar el archivo ejecutable](https://cran.r-project.org/bin/windows/base/).
+- Algunos programas requieren de RTools para poderse instalar. Descargar de [aquí](https://cran.r-project.org/bin/windows/Rtools/) para la versión de R que hayan descargado en el paso anterior (R >4.3).
+- RStudio es el IDE más popular para R. Se puede descargar de [acá](https://posit.co/download/rstudio-desktop/)
+
+## Para macOS y Linux
+
+- No tengo a la mano una macOS, por lo que me fío de las instrucciones oficiales en CRAN [aquí](https://cloud.r-project.org/bin/macosx/). RStudio se puede descargar de [acá](https://posit.co/download/rstudio-desktop/)
+
+- Para Linux dependerá de cada distro. En Arch Linux se puede con los comandos usuales
+
+```console
+sudo pacman -Syu
+sudo pacman -S r gcc-fortran
+yay -S rstudio-desktop-bin openblas-lapack
+```
+
+El paquete `openblas-lapack` es una implementación optimizada para múltiples hilos de [blas](https://en.wikipedia.org/wiki/OpenBLAS).
+
 <div class="alert alert-block alert-info"> <b>NOTA:</b> Modificado de <a href="https://github.com/karoliskoncevicius/tutorial_r_introduction"> karoliskoncevicius</a> </div>
 
 Este artículo se enfoca en conceptos específicos de R como vectorización, reciclaje, creación de subconjuntos, matrices y objetos data.frame.
