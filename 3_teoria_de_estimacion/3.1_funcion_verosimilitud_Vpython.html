@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>funcion_verosimilitud_vpython</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="3.1_funcion_verosimilitud_Vpython_files/libs/clipboard/clipboard.min.js"></script>
+<script src="3.1_funcion_verosimilitud_Vpython_files/libs/quarto-html/quarto.js"></script>
+<script src="3.1_funcion_verosimilitud_Vpython_files/libs/quarto-html/popper.min.js"></script>
+<script src="3.1_funcion_verosimilitud_Vpython_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="3.1_funcion_verosimilitud_Vpython_files/libs/quarto-html/anchor.min.js"></script>
+<link href="3.1_funcion_verosimilitud_Vpython_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="3.1_funcion_verosimilitud_Vpython_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="3.1_funcion_verosimilitud_Vpython_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="3.1_funcion_verosimilitud_Vpython_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="3.1_funcion_verosimilitud_Vpython_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="teoría-de-la-estimación" class="level1">
+<h1>3. Teoría de la estimación</h1>
+</section>
+<section id="función-de-verosimilitud" class="level1">
+<h1>3.1. Función de verosimilitud</h1>
+<p align="right">
+Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl=en&amp;user=3URusCgAAAAJ&amp;view_op=list_works&amp;sortby=pubdate">Google Scholar</a>
+</p>
+<p align="left">
+<br> <a href="https://jealcalat.github.io/Analisis_multivariado/">Regresar a la página del curso</a>
+</p>
+<hr>
+<p>Algunas funciones de probabilidad y densidad y su definición en python</p>
+<p>Las siguientes funciones se importan desde scipy.stats</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> <span class="op">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Función</th>
+<th>Nombre</th>
+<th>Comando en Python</th>
+<th>Argumentos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(p(x)=\binom{n}{k}p^k(1-p)^{n-k}\)</span></td>
+<td>Binomial</td>
+<td>`<code>| $n$=size, $k$=x, $p$=prob | | $p(x) = \frac{{e^{ - \lambda } \lambda ^x }}{x!}$ | Poisson    |</code>dpois(x, lambda)<code>|$x$=x, $\lambda$=lambda | | $p(x)=\frac{1}{b-a}$  |  Uniforme  |</code>dunif(x, min, max)<code>| $x$=x, $a$=min, $b$=max| | $p(x)=\frac{1}{\sigma\sqrt{2\pi \sigma}}\exp\left\{-\frac{(x-\mu)^2}{2\sigma^2} \right\} $  |  Normal    |</code>dnorm(x, mean, sd)`</td>
+<td><span class="math inline">\(x\)</span>=x, <span class="math inline">\(\mu\)</span>=mean, <span class="math inline">\(\sigma\)</span>=sd</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p(x)=\lambda e^{-\lambda x};\ p(x)=\frac{1}{\lambda}e^{-x/\lambda}\)</span></td>
+<td>exponencial</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>λ <span class="op">=</span> <span class="dv">1</span><span class="op">/</span><span class="dv">60</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">600</span>, <span class="dv">200</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>rv <span class="op">=</span> expon(loc<span class="op">=</span><span class="dv">0</span>, scale<span class="op">=</span><span class="dv">1</span><span class="op">/</span>λ)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>ax.plot(x, rv.pdf(x), <span class="st">'k-'</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'frozen pdf'</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">'best'</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"$\exp$"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>np.mean(rv.rvs(<span class="dv">1000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>59.81825780911792</code></pre>
+</div>
+</div>
+<section id="por-qué" class="level2">
+<h2 class="anchored" data-anchor-id="por-qué">¿Por qué?</h2>
+<blockquote class="blockquote">
+<p><strong>Modelos de probabilidad</strong> ¿Cuál es la probabilidad de observar los <em>datos</em> dado los <em>parámetros</em> que conocemos?</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>Modelos estadísticos</strong>: ¿Cuáles son los valores más <em>plausibles</em> de los <em>parámetros</em> dado los <em>datos</em> que observamos? (Notar que no dice “más probables”).</p>
+</blockquote>
+<figure class="figure">
+<p align="center">
+<img src="img/2022-08-29-21-59-31.png" width="40%" class="figure-img">
+</p><figcaption class="figure-caption">
+Probabildad vs estadística
+</figcaption>
+<p></p>
+</figure>
+<p><strong>Ejemplo:</strong> ¿Cuán probable es que obtengamos 9 “Caras” (1) si lanzamos una moneda “justa” ( <span class="math inline">\(p=0.5\)</span> ) 10 veces?</p>
+<p>La pregunta es sobre 10 lanzamientos, y cada uno de ellos es un experimento aleatorio, que da lugar a una VA discreta cuyos valores solo pueden ser dos, <span class="math inline">\(\{0,1\}\)</span> (por ejemplo). A cada uno de estos lanzamientos le llamamos <em>ensayo de Bernoulli</em> (un ensayo con resultados de tipo éxito/fracaso).</p>
+<p>La VA discreta que resulta de los 10 lanzamientos tiene <em>distribución binomial</em>, que se usa para modelar el número de éxitos (e.g., valores en los que <span class="math inline">\(X=1\)</span>) en una muestra aleatoria <em>con reemplazo</em> de tamaño <span class="math inline">\(n\)</span>.</p>
+<p>Su distribución es</p>
+<p><span class="math display">\[
+  p(k, n, \theta) = \Pr(X = k) = \binom{n}{k}\theta^k(1-\theta)^{n-k}
+\]</span></p>
+<p>En donde <span class="math inline">\(\binom{n}{k}\)</span> es el coeficiente binomial</p>
+<p><span class="math display">\[
+  \binom{n}{k} = \frac{n!}{k!(n-k)!}
+\]</span></p>
+<p><span class="math inline">\(n\)</span> es el tamaño de la muestra (el total de ensayos), <span class="math inline">\(k\)</span> el número de éxitos, y <span class="math inline">\(\theta\)</span> un parámetro de la distribución que define la probabilidad de éxito (y por lo tanto, define la forma de la distribución y el valor más probable). Por ejemplo, si nuestra moneda es justa, tendrá una <span class="math inline">\(\theta=0.5\)</span>.</p>
+<p>La media de una distribución binomial es <span class="math inline">\(n\times \theta\)</span>, esto significa que si lanzamos 10 veces una moneda con <span class="math inline">\(\theta=0.5\)</span>, el valor más probable de éxitos será <span class="math inline">\(0.5\times 10 = 5\)</span>.</p>
+<p>En R podríamos obtener la probabilidad que buscamos de la siguiente manera:</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dbinom(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="dv">9</span>,  <span class="co"># k éxitos</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    size<span class="op">=</span><span class="dv">10</span>,  <span class="co"># ensayos de bernoulli</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    prob<span class="op">=</span><span class="fl">0.5</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+0.009765625
+</div>
+</div>
+<p>Es decir, la probabilidad de tener 9 éxitos, dado que <span class="math inline">\(\theta=0.5, n=10\)</span>, es de apenas ~0.01, una probabilidad muy baja.</p>
+<p>¿Cuál sería la probabilidad de conseguir 6 éxitos bajo las mismas asunciones?</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dbinom(x<span class="op">=</span><span class="dv">6</span>, size<span class="op">=</span><span class="dv">10</span>, prob<span class="op">=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+0.205078125
+</div>
+</div>
+<p>¿Y dos éxitos?</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dbinom(x<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span><span class="dv">10</span>, prob<span class="op">=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+0.0439453125
+</div>
+</div>
+<p>La distribución de la binomial con estos parámetros tiene la siguiente forma</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>par(las<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>options(<span class="bu">repr</span>.plot.width<span class="op">=</span><span class="dv">7</span>, <span class="bu">repr</span>.plot.height<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>exitos <span class="op">&lt;</span> <span class="op">-</span> <span class="dv">0</span>: <span class="dv">10</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>plot(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    exitos,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    dbinom(exitos, size<span class="op">=</span><span class="dv">10</span>, prob<span class="op">=</span><span class="fl">.5</span>),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">type</span><span class="op">=</span><span class="st">"h"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    xlab<span class="op">=</span><span class="st">"k"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    ylab<span class="op">=</span>expression(p(x <span class="op">==</span> k, n, theta))</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>La probabilidad de 9 éxitos es menor a la probabilidad de 2 y de 6 éxitos.</p>
+<p>Valgan estos dos ejemplos para asumir lo siguiente:</p>
+<blockquote class="blockquote">
+<p>Si la distribución tiene fijo un parámetro (<span class="math inline">\(\theta=0.5\)</span>), es más probable una cantidad de éxitos que otra (e.g., 6 éxitos vs 9 éxitos).</p>
+</blockquote>
+<p>Ahora, supongamos que desconocemos <span class="math inline">\(\theta\)</span>, pero obtenemos 9 éxitos en 10 lanzamientos.</p>
+<ol type="1">
+<li>¿Hay alguna forma de estimar el valor de <span class="math inline">\(\theta\)</span> que originó, o pudo haber originado, este resultado?</li>
+<li>Si tenemos la hipótesis de que <span class="math inline">\(\theta\neq 0.5\)</span>, ¿hay una forma en la que podamos obtener evidencia de esta hipótesis?</li>
+</ol>
+<p>A ambas la respuesta es sí, pero para contestarlo, necesitamos la función de verosimilitud.</p>
+</section>
+<section id="función-de-verosimilitud-ltheta-mid-mathbfx" class="level2">
+<h2 class="anchored" data-anchor-id="función-de-verosimilitud-ltheta-mid-mathbfx">Función de verosimilitud <span class="math inline">\(L(\theta \mid \mathbf{x})\)</span></h2>
+<p>La letra <span class="math inline">\(L\)</span> proviene de <em>likelihood</em>, que en español se traduce normalmente como verosimilitud o inlcuso como <em>credibilidad</em>.</p>
+<p>Si tenemos una muestra aleatoria <span class="math inline">\(X_1, X_2, \dots, X_n\)</span>, la función de verosimilitud se define como la función de densidad conjunta</p>
+<p><span class="math display">\[
+  L(\theta \mid \mathbf{x}) = f(x_1, x_2, \dots, x_n;\theta)
+\]</span></p>
+<p>Abreviaremos <span class="math inline">\(L(\theta)\)</span> simplemente como <span class="math inline">\(L(\theta)\)</span></p>
+<blockquote class="blockquote">
+<p>Nota: <em>parece</em> que estamos definiendo la función de verosimilitud como la función de densidad conjunta, pero hay una diferencia importante. La función de densidad conjunta toma como fijo <span class="math inline">\(\theta\)</span>, y lo que varía es <span class="math inline">\(\mathbf{x}\)</span>, pero en la función de verosimilitud <span class="math inline">\(\mathbf{x}\)</span> ya fue observado, por lo que es fijo, y consideramos que <span class="math inline">\(\theta\)</span> varía sobre todos los posibles valores.</p>
+</blockquote>
+<p>Si <span class="math inline">\(X_1, X_2, \dots, X_n\)</span> son muestras independientes e idénticamente distribuidas (i.i.d), la función de densidad conjunta es</p>
+<p><span class="math display">\[
+  f(X_1, X_2, \dots, X_n \mid \theta)=f(X_1\mid \theta)\times f(X_2\mid \theta)\times\cdots \times f(X_n\mid \theta) = \prod_{i=1}^{n}f(X_i\mid \theta) \tag{1}
+\]</span></p>
+<p>Notar que la función de densidad conjunta es equivalente al producto de la función de densidad de cada variable. Esto proviene de la definición de independencia: <span class="math inline">\(A\)</span> y <span class="math inline">\(B\)</span> son independientes <em>sii</em> <span class="math inline">\(P(A, B)=P(A)P(B)\)</span>.</p>
+<p>Y la función de verosimilitud</p>
+<p><span class="math display">\[
+  L(\theta) = \prod_{i=1}^{n}f(X_i\mid \theta) \tag{2}
+\]</span></p>
+<p>Para algunos problemas, la función de log-verosimilitud, <span class="math inline">\(\mathcal{l}(\theta)\)</span> es más conveniente, dado que es más sencillo de trabajar con sumas que con productos y, además, la transformación logarítmica es monotónica.</p>
+<p><span class="math display">\[
+  \mathcal{l}(\theta) = \log \prod_{i=1}^{n}f(X_i\mid \theta) = \sum_{i=1}^{n}f(X_i\mid \theta)\tag{3}
+\]</span></p>
+<p>La función de verosimilitud puede ser usada para cuantificar la evidencia que tenemos en favor de una hipótesis. Retomando el ejemplo de lanzamientos de monedas, ¿qué tan <em>creíble</em> o verosímil es que 9 de 10 lanzamientos hayan sido caras (éxitos) <em>dado que</em> <span class="math inline">\(\theta=0.5\)</span>? ¿Es menos, o más creíble, haber obtenido 9/10 con un <span class="math inline">\(\theta=0.5\)</span>?</p>
+<p>Obtendremos primero la verosimilitud <span class="math inline">\(L(\theta=0.5)\)</span> para esta distribución.</p>
+<p>Considera una muestra aleatoria de <span class="math inline">\(n=10\)</span> ensayos de Bernoulli <span class="math inline">\(x_1,\dots, n_{10}\)</span>, cada uno con distribución</p>
+<p><span class="math display">\[
+  f(x) = \theta^x(1-\theta)^{1-x}\quad \text{ con } x = 0,1
+\]</span></p>
+<p>La función de verosimilitud es</p>
+<p><span class="math display">\[
+  L(\theta) =f(x_1,\ldots,x_{10};\theta)= \prod_{i=1}^n\theta^{x_i}(1-\theta)^{1-x_i}=
+  \theta^{\sum_i x_i}(1-\theta)^{n-\sum_i x_i}
+\]</span></p>
+<p>Dado que <span class="math inline">\(\sum_{i=1}^{10} x_i = 9\)</span>, y <span class="math inline">\(n=10\)</span>, <span class="math inline">\(L(\theta)=\theta^9(1-\theta)^{10-9}\)</span></p>
+<p>Para <span class="math inline">\(\theta=0.5\)</span>, <span class="math inline">\(L(\theta=0.5)=0.5^9(1-0.5)=0.00097\)</span>.</p>
+<p>Para <span class="math inline">\(\theta=0.9\)</span>,<span class="math inline">\(L(\theta=0.9)=0.9^9(1-0.9)=0.038\)</span>.</p>
+<p>Si obtenemos la razón de ambas, <span class="math inline">\(L(\theta_2)/L(\theta_1)\)</span> obtenemos un valor que nos dice cuántas veces más verosímil es <span class="math inline">\(\theta_2\)</span> vs <span class="math inline">\(\theta_1\)</span>.</p>
+<p>Gráficamente se vería así</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cargar algunas funciones personalizadas del script utilities.r</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># la función like_binom_plot que crea el gráfico de verosimilitud para la</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># binomial se encuentra en ese script</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>source(<span class="st">"../r_scripts/utilities.r"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>par(mgp<span class="op">=</span>c(<span class="fl">1.2</span>, <span class="fl">0.25</span>, <span class="dv">0</span>))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>options(<span class="bu">repr</span>.plot.width<span class="op">=</span><span class="dv">7</span>, <span class="bu">repr</span>.plot.height<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>k <span class="op">&lt;</span> <span class="op">-</span> <span class="dv">9</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>n <span class="op">&lt;</span> <span class="op">-</span> <span class="dv">10</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>theta_1 <span class="op">&lt;</span> <span class="op">-</span> <span class="fl">0.5</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>theta_2 <span class="op">&lt;</span> <span class="op">-</span> <span class="fl">0.9</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>like_binom_plot(k, n, theta_2, theta_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="máxima-verosimilitud" class="level1">
+<h1>3.2 Máxima verosimilitud</h1>
+<p>Hasta aquí la motivación del uso de las funciones de verosimilitud. Ahora veamos más formalmente la técnica para estimar parámetros, la estimación por máxima verosimilitud (EMV, y en inglés MLE).</p>
+<p>El problema de la MLE consiste en lo siguiente. Sea <span class="math inline">\(X_1, X_2, \dots, X_n\)</span> una muestra aleatoria de variables i.i.d. con distribución conjunta <span class="math inline">\(L(\theta\mid X_1,\dots,X_n)\)</span>. El estimador de máxima verosimilitud de <span class="math inline">\(\theta\)</span> es la solución al problema de optimización</p>
+<p><span class="math display">\[
+  \theta^* = \argmax L(\theta\mid X_1,\dots,X_n ) \tag{4}
+\]</span></p>
+<p>En donde <span class="math inline">\(\theta^*\)</span> constituye el valor del argumento <span class="math inline">\(\theta\)</span> que maximiza <span class="math inline">\(L\)</span>, es decir, el valor que maximiza la verosimilitud.</p>
+<p>Caveat: este método impone una restricción fuerte, que es asumir que los datos siguen una distribución específica.</p>
+<section id="mle-para-binomial-obteniendo-theta" class="level2">
+<h2 class="anchored" data-anchor-id="mle-para-binomial-obteniendo-theta">3.2.1 MLE para binomial; obteniendo <span class="math inline">\(\theta\)</span></h2>
+<p>Como vimos gráficamente, <span class="math inline">\(L\)</span> para una binomial es cóncava. Podemos usar herramientas de cálculo para obtener <span class="math inline">\(\theta^*\)</span>. Volvamos al ejemplo inicial, en donde usamos 10 lanzamientos y obtuvimos 9 éxitos. Vimos que podemos modelar este problema como 10 ensayos de Bernoulli independientes, que es lo mismo que una función de distribución Binomial.</p>
+<p><span class="math display">\[
+  p(X=k) = \binom{n}{k}\theta^k(1-\theta)^{n-k}
+\]</span></p>
+<p>La función de verosimilitud es la función de distribución conjunta. Para <span class="math inline">\(X_1, X_2, \dots, X_n\)</span> <em>i.i.d.</em></p>
+<p><span class="math display">\[
+  L(\theta \mid X_1, X_2,\dots, X_n)=f(X_1, X_2, \dots, X_n\mid \theta) = \prod_{i=1}^nf(x_i\mid \theta)
+\]</span></p>
+<p>Y para la Binomial, como vimos, se convierte en</p>
+<p><span class="math display">\[
+  L(\theta) = \theta^k (1-\theta)^{n-k}
+\]</span></p>
+<p>En donde <span class="math inline">\(k\)</span> son los éxitos, o <span class="math inline">\(\sum_i x_i\)</span>.</p>
+<p>Si <span class="math inline">\(L(\theta \mid X_1,...,X_n)\)</span> es cóncava, el criterio de la primera derivada nos bastaría para encontrar <span class="math inline">\(\theta^*\)</span>. Recordando la definición geométrica de la primera derivada, sabemos que encontramos un máximo o mínimo en donde la pendiente de una función es 0. Por lo tanto, queremos encontrar en dónde</p>
+<p><span class="math display">\[
+  \frac{\text{d}L(\theta)}{\text{d}\theta}=0\tag{5}
+\]</span></p>
+<p>Antes de proseguir, podemos ver que en este caso transformar a <span class="math inline">\(\log\)</span> <span class="math inline">\(L(\theta)\)</span> podría simplificar las derivaciones. Dado que la transformación logarítmica es estrictamente creciente (monotónica), encontrar un máximo en <span class="math inline">\(L\)</span> es lo mismo que encontrarlo en <span class="math inline">\(\log(L)\)</span></p>
+<p><span class="math display">\[
+  \log(L(\theta)) = l(\theta) = \log \left [ \theta^k (1-\theta)^{n-k} \right]=\log\theta^k + \log(1-\theta)^{n-k}
+\]</span></p>
+<p>Ahora encontramos la primera derivada de <span class="math inline">\(l(\theta)\)</span></p>
+<p><span class="math display">\[
+  \frac{\text{d}l(\theta)}{\text{d}\theta} = \frac{\theta^k}{\text{d}\theta}+\frac{(1-\theta)^{n-k}}{\text{d}\theta}=k\text{d}\frac{\log(\theta)}{\text{d}\theta}+(n-k)\frac{\text{d}\log(1-\theta)}{\text{d}\theta}=\frac{k}{\theta}-\frac{n-k}{1-\theta}\tag{6}
+\]</span></p>
+<p>Igualar (6) a 0 y resolver para <span class="math inline">\(\theta\)</span>.</p>
+<p><span class="math display">\[
+  \frac{k}{\theta}=\frac{1-\theta}{n-k}\Longrightarrow  n\theta-k\theta=k-k\theta\Longrightarrow n\theta=k\Longrightarrow \theta=\frac{k}{n}
+\]</span></p>
+<p>Dado que <span class="math inline">\(k=\sum_i x_i\)</span>, es decir, la suma de los valores de <span class="math inline">\(x_i\)</span>, entonces</p>
+<p><span class="math display">\[
+  \hat \theta = \frac{1}{n}\sum_{i=1}^nx_i \tag{7}
+\]</span></p>
+<p>En donde <span class="math inline">\(\hat \theta\)</span> es nuestro <em>sample proportion</em>, proporción muestral (por eso lleva el gorrito).</p>
+<p>Para nuestor ejemplo,</p>
+<p><span class="math display">\[
+  \hat\theta=\frac{9}{10}=0.9
+\]</span></p>
+<p>NOTA: El criterio de la primera derivada solo es una condición necesaria, no suficiente, para encontrar un máximo. Este método nos revela candidatos <em>posibles</em> a MLE.</p>
+<section id="encontrando-el-mle-en-r-para-una-binomial" class="level3">
+<h3 class="anchored" data-anchor-id="encontrando-el-mle-en-r-para-una-binomial">3.2.2 Encontrando el MLE en R para una binomial</h3>
+<p>Vamos a hacer una primera aproximación numérica usando grid-search</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear función de log verosimilitud para la binomial</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>l <span class="op">&lt;</span> <span class="op">-</span> function(p, n, k) {</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    ell <span class="op">&lt;</span> <span class="op">-</span> k <span class="op">*</span> log(p) <span class="op">+</span> (n <span class="op">-</span> k) <span class="op">*</span> log(<span class="dv">1</span> <span class="op">-</span> p) <span class="op">+</span> log(choose(<span class="dv">10</span>, <span class="dv">9</span>))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(ll<span class="op">=</span>ell)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the log-likelihood function for some arbitrary values</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>l(p<span class="op">=</span><span class="fl">0.5</span>, n<span class="op">=</span><span class="dv">10</span>, k<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>l(p<span class="op">=</span><span class="fl">0.7</span>, n<span class="op">=</span><span class="dv">10</span>, k<span class="op">=</span><span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+-4.62888671260541
+</div>
+<div class="cell-output cell-output-display">
+-2.11146220678048
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>grid_size <span class="op">&lt;</span> <span class="op">-</span> <span class="fl">0.05</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>grid_vec <span class="op">&lt;</span> <span class="op">-</span> seq(<span class="dv">0</span>, <span class="dv">1</span>, grid_size)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">&lt;</span> <span class="op">-</span> <span class="dv">10</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>k <span class="op">&lt;</span> <span class="op">-</span> <span class="dv">9</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>log_lik <span class="op">&lt;</span> <span class="op">-</span> l(grid_vec, n, k)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plot(</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    grid_vec,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    log_lik,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    ylab<span class="op">=</span>expression(l(theta)),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    xlab<span class="op">=</span>expression(theta),</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">type</span><span class="op">=</span><span class="st">"l"</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>max_ll_index <span class="op">&lt;</span> <span class="op">-</span> which.<span class="bu">max</span>(log_lik)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>arg_max <span class="op">&lt;</span> <span class="op">-</span> grid_vec[max_ll_index]</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>arg_max</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># graficar</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>points(</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    arg_max,</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    log_lik[max_ll_index],</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    pch<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    cex<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+0.9
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>En la práctica, este método puede ser muy costoso. Imaginar, por ejemplo, que se tiene que hacer una búsqueda para estimar 2 parámetros. Tendríamos que hacer combinaciones del grid de ambos parámetros. Este suele ser el método de fuerza bruta que se usa, en ocasiones, como primera aproximación o cuando no nos funciona ninguna otra cosa.</p>
+<p>Es más eficiente usar un algoritmo de optimización, como <code>optimize()</code>. Tiene los siguientes argumentos:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">optimize</span>(f, interval, ..., <span class="at">lower =</span> <span class="fu">min</span>(interval), <span class="at">upper =</span> <span class="fu">max</span>(interval),</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">maximum =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">tol =</span> .Machine<span class="sc">$</span>double.eps<span class="sc">^</span><span class="fl">0.25</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>f   </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>the <span class="cf">function</span> to be optimized. The <span class="cf">function</span> is either minimized or maximized over its first argument depending on the value of maximum.</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>interval    </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>a vector containing the end<span class="sc">-</span>points of the interval to be searched <span class="cf">for</span> the minimum.</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>... </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>additional named or unnamed arguments to be passed to f.</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>lower   </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>the lower end point of the interval to be searched.</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>upper   </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>the upper end point of the interval to be searched.</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>maximum </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>logical. Should we maximize or <span class="fu">minimize</span> (the default)?</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>tol </span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>the desired accuracy.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>binom_mle <span class="op">&lt;</span> <span class="op">-</span> function(k, n) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    L <span class="op">&lt;</span> <span class="op">-</span> function(theta) log(dbinom(k, n, theta))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># usar solo interval entre 0 y 1 para theta</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># dado que buscamos un máximo, declaramos TRUE</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    mle <span class="op">&lt;</span> <span class="op">-</span> optimize(L, interval<span class="op">=</span>c(<span class="dv">0</span>, <span class="dv">1</span>), maximum<span class="op">=</span>TRUE)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    mle</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>mle_theta <span class="op">&lt;</span> <span class="op">-</span> binom_mle(<span class="dv">9</span>, <span class="dv">10</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>mle_theta</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># retorna dos valores: el valor que maximiza, y la fn objetivo (L)</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># maximum corresponde al MLE, theta_hat. El valor de la objetivo</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># variará en con respecto al valor encontrado antes porque omitimos el coeficiente binomial</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<dl>
+    <dt>$maximum</dt>
+        <dd>0.899999352051599</dd>
+    <dt>$objective</dt>
+        <dd>-0.948244640943761</dd>
+</dl>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plot(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    grid_vec,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    log_lik,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">type</span><span class="op">=</span><span class="st">"l"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    ylab<span class="op">=</span>expression(l(theta)),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    xlab<span class="op">=</span>expression(theta)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>points(</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    arg_max,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    log_lik[max_ll_index],</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    pch<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    cex<span class="op">=</span><span class="dv">2</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>abline(v<span class="op">=</span>mle_theta$maximum)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>points(</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    mle_theta$maximum,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    mle_theta$obj,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    col<span class="op">=</span><span class="st">"blue"</span>,</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    cex<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="mle-para-normal-obteniendo-mu-con-sigma-conocida" class="level2">
+<h2 class="anchored" data-anchor-id="mle-para-normal-obteniendo-mu-con-sigma-conocida">3.2 MLE para normal; obteniendo <span class="math inline">\(\mu\)</span> con <span class="math inline">\(\sigma\)</span> conocida</h2>
+<p>Si <span class="math inline">\(L\)</span> es diferenciable en <span class="math inline">\(\theta_i\)</span>, candidatos posibles para MLE son los valores <span class="math inline">\((\theta_1^*, \theta_2^*, \dots, \theta_k^*)\)</span> que son la solución a</p>
+<p><span class="math display">\[
+  \frac{\partial L(\theta)}{\partial\theta}=0
+\]</span></p>
+<p>De nuevo, esto solo es una condición necesaria, no suficiente, para encontrar MLEs. Por ello menciono “candidatos posibles”.</p>
+<p>Sea <span class="math inline">\(X_1, \dots, X_n\)</span> una <em>i.i.d.</em> normalmente distribuida con media <span class="math inline">\(\theta\)</span> y varianza de 1, es decir <span class="math inline">\(X_i \sim \mathcal{N}(\theta, 1)\)</span>, y sea <span class="math inline">\(L(\theta)\)</span> la función de verosimilitud</p>
+<p><span class="math display">\[
+  L(\theta)=\prod_{i=1}^n\frac{1}{(2\pi)^{1/2}}\exp \left\{ -\frac{1}{2}(x_i-\theta)^2 \right\}=\frac{1}{(2\pi)^{n/2}}\exp \left\{ -\frac{1}{2}\left(\sum_{i=1}^n(x_i-\theta)\right)^2 \right\}
+\]</span></p>
+<p>Hallar <span class="math inline">\(\theta^*=\argmax L(\theta)\)</span></p>
+<p>Pasos: 1. log-transformar para obtener una versión más sencilla. 2. Obtener <span class="math inline">\(l'(\theta)\)</span>. 3. Igualar a 0 y resolver para <span class="math inline">\(\theta\)</span>.</p>
+<p>Paso 1</p>
+<p><span class="math display">\[
+  l(\theta) = \log \left[ \frac{1}{(2\pi)^{n/2}}\exp \left\{ -\frac{1}{2}\left(\sum_{i=1}^n(x_i-\theta)\right)^2 \right\} \right]=\log\frac{1}{(2\pi)^{n/2}}+\log\left[\exp \left\{ -\frac{1}{2}\left(\sum_{i=1}^n(x_i-\theta)\right)^2 \right\}\right]
+\]</span></p>
+<p>Dado que <span class="math inline">\(\log(\exp^x)=x\)</span></p>
+<p><span class="math display">\[
+  l(\theta)=\log\frac{1}{(2\pi)^{n/2}}-\frac{1}{2}\left(\sum_{i=1}^n(x_i-\theta)\right)^2
+\]</span></p>
+<p>Paso 2</p>
+<p>Ahora econtramos la primera derivada con respecto a <span class="math inline">\(\theta\)</span></p>
+<p><span class="math display">\[
+  l'(\theta)=\frac{\text{d}}{\text{d}\theta}\log\frac{1}{(2\pi)^{n/2}}-\frac{1}{2}\frac{\text{d}}{\text{d}\theta}\sum_{i=1}^n(x_i-\theta)^2
+\]</span></p>
+<p>Dado que el primer término no depende de <span class="math inline">\(\theta\)</span>, se elimina. Para el segundo término, notando que una derivada de una sumatoria es la suma de sus derivadas, y usando la regla <span class="math inline">\(du^n/du=ndu\)</span> nos queda</p>
+<p><span class="math display">\[
+  l'(\theta)= 0 - \frac{1}{2}\left(2\sum_{i=1}^n(x_i-\theta)(-1)\right)=\sum_{i=1}^n(x_i-\theta)
+\]</span></p>
+<p>Paso 3</p>
+<p>Ahora igualamos a 0y resolvemos para <span class="math inline">\(\theta\)</span></p>
+<p><span class="math display">\[
+  \sum_{i=1}^n(x_i-\theta)=0\Longrightarrow \sum_{i=1}^nx_i=\sum_{i=1}^n\theta
+\]</span></p>
+<p>Notar que la n-suma de una constante <span class="math inline">\(\theta\)</span> es <span class="math inline">\(n\theta\)</span>.</p>
+<p><span class="math display">\[
+  \sum_{i=1}^nx_i=\sum_{i=1}^n\theta=n\theta\Longrightarrow \hat\theta=\frac{1}{n}\sum_{i=1}^nx_i
+\]</span></p>
+<hr>
+<p><strong>Ejercicio de práctica solos:</strong></p>
+<p>Encontrar <span class="math inline">\(\theta_1\)</span> y <span class="math inline">\(\theta_2\)</span> tal que <span class="math inline">\(\hat \theta_1=\bar x, \hat \theta_2 = \hat\sigma^2\)</span> para la distribución normal</p>
+<p><span class="math display">\[
+  f(x_i;\theta_1, \theta_2)=\frac{1}{(\theta_2 2\pi)^{1/2}} \exp\left\{ -\frac{1}{2\theta_2}(x_i-\theta_1)^2 \right\}
+\]</span></p>
+<p>Nota: la distribución normal a veces es parametrizada con la desviación estándar, <span class="math inline">\(\sigma\)</span>, y a veces con la varianza, <span class="math inline">\(\sigma^2\)</span>. Esto se puede notar en los denominadores de ambos términos de la función que acabo de colocar.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
