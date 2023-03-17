@@ -1,8 +1,8 @@
 # %% Import libraries
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression  # minimos cuadrados
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import minimize
+from scipy.optimize import minimize  # para minimizar -log-vero
 import statsmodels.api as sm
 
 # Define the linear model
@@ -12,6 +12,8 @@ def linear_model(x, b0, b1):
     return b0 + b1 * x
 
 # Define the negative log-likelihood function
+
+# params es un vector de longitud 3
 
 
 def neg_log_likelihood(params, x):
@@ -36,7 +38,10 @@ np.random.seed(0)
 num_samples = 100
 x = np.linspace(0, 10, num_samples)
 sigma = 1
-y = 3 + 2 * x + np.random.normal(0, sigma, num_samples)
+b0_real = 3
+b1_real = 2
+epsilon = np.random.normal(0, sigma, num_samples)
+y = b0_real + b1_real * x + epsilon
 
 # Plot the data
 plt.scatter(x, y)
@@ -45,14 +50,22 @@ plt.ylabel('y')
 plt.show()
 
 # Initialize parameters
-b0 = 0
+b0 = 0  # valores iniciales para la funcion minimze
 b1 = 0
 sigma = 1
 
 # Run the minimization algorithm
-result = minimize(neg_log_likelihood, [b0, b1, sigma], args=(x),
+# segungo argumento de minimize son los parametros iniciales
+
+result = minimize(neg_log_likelihood, [b0, b1, sigma], args=(x,),
                   method='Nelder-Mead',
                   bounds=[(None, None), (None, None), (0, None)])
+
+result.x
+
+residuales = y - result.x[0] - result.x[1] * x
+
+np.mean(residuales)
 
 # Print the optimal parameters and the minimum negative log-likelihood
 print("Estimates: ----")
