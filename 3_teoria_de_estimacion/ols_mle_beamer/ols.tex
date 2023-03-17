@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\title{Mínimos cuadrados ordinarios para regresión lineal simple}
+\author{Tú}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introducción}
+
+La regresión lineal simple es un método utilizado para modelar la relación entre dos variables cuantitativas, una variable independiente $X$ y una variable dependiente $Y$. En este método, se supone que la relación entre las dos variables es lineal, es decir, que los valores de $Y$ pueden ser explicados por una combinación lineal de los valores de $X$. El objetivo de la regresión lineal es encontrar la ecuación de la línea recta que mejor se ajusta a los datos.
+
+En este documento, explicaremos el método de mínimos cuadrados ordinarios (MCO), que es una técnica comúnmente utilizada para estimar los parámetros de la línea de regresión.
+
+\section{Método de mínimos cuadrados ordinarios}
+
+El método de mínimos cuadrados ordinarios consiste en encontrar la línea recta que minimiza la suma de los cuadrados de las desviaciones entre los valores observados de la variable dependiente $Y$ y los valores predichos por la línea de regresión. En otras palabras, se busca la línea que mejor se ajusta a los datos en términos de la suma de los errores al cuadrado.
+
+Supongamos que tenemos $n$ pares de observaciones $(x_1,y_1), (x_2,y_2), ..., (x_n,y_n)$. La ecuación de la línea de regresión es de la forma:
+
+\begin{equation}
+y = \beta_0 + \beta_1 x
+\end{equation}
+
+donde $\beta_0$ es la intersección en $y$ y $\beta_1$ es la pendiente de la línea.
+
+El objetivo del método de mínimos cuadrados ordinarios es encontrar los valores de $\beta_0$ y $\beta_1$ que minimizan la siguiente función de error:
+
+\begin{equation}
+S = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2
+\end{equation}
+
+Esta función se llama la suma de cuadrados residual o error cuadrático. El método de mínimos cuadrados ordinarios consiste en encontrar los valores de $\beta_0$ y $\beta_1$ que minimizan $S$.
+
+\subsection{Cálculo de los estimadores MCO}
+
+Para encontrar los valores de $\beta_0$ y $\beta_1$ que minimizan $S$, necesitamos calcular las derivadas parciales de $S$ con respecto a $\beta_0$ y $\beta_1$ y establecerlas a cero. Podemos obtener las siguientes ecuaciones:
+
+\begin{align}
+\frac{\partial S}{\partial \beta_0} &= -2 \sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i) = 0 \
+\frac{\partial S}{}
+\end{align}
+
+Después de igualar las derivadas parciales a cero, podemos resolver para $\beta_0$ y $\beta_1$:
+
+\begin{align}
+\beta_1 &= \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2} \
+\beta_0 &= \bar{y} - \beta_1 \bar{x}
+\end{align}
+
+donde $\bar{x}$ y $\bar{y}$ son las medias de las variables $x$ e $y$, respectivamente.
+
+Estos valores de $\beta_0$ y $\beta_1$ se llaman los estimadores de mínimos cuadrados ordinarios (MCO) de los parámetros de la línea de regresión. Una vez que se han estimado los valores de $\beta_0$ y $\beta_1$, la ecuación de la línea de regresión se convierte en:
+
+\begin{equation}
+\hat{y} = \hat{\beta_0} + \hat{\beta_1} x
+\end{equation}
+
+donde $\hat{y}$ es la predicción de $y$ y $\hat{\beta_0}$ y $\hat{\beta_1}$ son los valores estimados de $\beta_0$ y $\beta_1$, respectivamente.
+
+\subsection{Coeficiente de determinación}
+
+El coeficiente de determinación $R^2$ es una medida de la proporción de la variabilidad de la variable dependiente $Y$ que se explica por la variable independiente $X$ en la línea de regresión. $R^2$ se define como:
+
+\begin{equation}
+R^2 = \frac{\sum_{i=1}^n (\hat{y_i} - \bar{y})^2}{\sum_{i=1}^n (y_i - \bar{y})^2}
+\end{equation}
+
+donde $\hat{y_i}$ es la predicción de $y_i$ dada por la ecuación de la línea de regresión y $\bar{y}$ es la media de las observaciones de $y$.
+
+El valor de $R^2$ varía entre 0 y 1. Un valor de $R^2$ cercano a 1 indica que la línea de regresión ajusta bien los datos, es decir, que la variable independiente $X$ explica una gran parte de la variabilidad de la variable dependiente $Y$. Por otro lado, un valor de $R^2$ cercano a 0 indica que la línea de regresión no ajusta bien los datos, es decir, que la variable independiente $X$ no explica mucha variabilidad de la variable dependiente $Y$.
+
+\section{Conclusión}
+
+En este documento, hemos presentado el método de mínimos cuadrados ordinarios para la regresión lineal simple. Este método es una técnica comúnmente utilizada para estimar los parámetros de la línea de regresión. En particular, hemos discutido cómo calcular los estimadores MCO de los parámetros de la línea de regresión y cómo calcular el coeficiente de determinación $R^2$. Este método es una herramienta importante en la estadística y en otras áreas donde se busca modelar la relación entre dos variables
+
+También es importante señalar que el método de mínimos cuadrados ordinarios tiene algunas limitaciones y supuestos que deben tenerse en cuenta al utilizarlo. En particular, el método asume que la relación entre la variable independiente $X$ y la variable dependiente $Y$ es lineal y que los errores tienen una distribución normal y constante en todas las observaciones. Si estos supuestos no se cumplen, los resultados de la regresión pueden no ser confiables y se debe considerar el uso de métodos alternativos.
+
+En resumen, la regresión lineal simple y el método de mínimos cuadrados ordinarios son herramientas importantes en la estadística y en otras áreas donde se busca modelar la relación entre dos variables. Aunque el método tiene algunas limitaciones y supuestos que deben tenerse en cuenta, es una técnica ampliamente utilizada y útil para analizar datos y hacer predicciones.
+
+\end{document}
