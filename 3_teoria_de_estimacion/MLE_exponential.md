@@ -40,8 +40,7 @@ Tomando la derivada de la función de log-verosimilitud con respecto a λ y esta
 
 $\frac{d}{d\lambda}\ln L(\lambda | x_1, x_2, x_3, x_4, x_5) = \frac{5}{\lambda} - 6.3 = 0$
 
-Solving for λ, we get:
+Solucionando para $\lambda$ tenemos:
 
 $\hat{\lambda}_{MLE} = \frac{5}{6.3} \approx 0.7937$
 
-Therefore, the maximum likelihood estimate of λ for this sample is 0.7937.

@@ -55,8 +55,7 @@ theta, cost_history = gradient_descent(X, y, theta, alpha, num_iter)
 # Print the final parameters and cost
 print(theta)
 print(cost_history[-1])
-```
 
-Source: Conversation with Bing, 3 / 14 / 2023(1) Implementing logistic regression from scratch in Python. https: // developer.ibm.com / articles / implementing - logistic - regression - from-scratch - in-python Accessed 3 / 14 / 2023.
-(2) How To Implement Logistic Regression From Scratch in Python. https: // machinelearningmastery.com / implement - logistic - regression - stochastic - gradient - descent - scratch - python / Accessed 3 / 14 / 2023.
-(3) Logistic Regression from scratch - Python | Kaggle. https: // www.kaggle.com / code / jeppbautista / logistic - regression - from-scratch - python Accessed 3 / 14 / 2023.
+# %%
+
+plt.plot(cost_history)
