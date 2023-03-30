@@ -1,6 +1,0 @@
-\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
-\beamer@sectionintoc {2}{Equations}{4}{0}{2}
-\beamer@sectionintoc {3}{Sum of Squares Decomposition}{5}{0}{3}
-\beamer@sectionintoc {4}{Relation with Linear Model}{6}{0}{4}
-\beamer@sectionintoc {5}{Numerical Example}{7}{0}{5}
-\beamer@sectionintoc {6}{Interpretation of Results}{9}{0}{6}
