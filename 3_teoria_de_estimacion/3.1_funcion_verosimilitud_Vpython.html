@@ -176,37 +176,38 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <p><strong>Algunos ejemplos de uso de las funciones y su visualización</strong></p>
 <p>Las líneas muestran la densidad/masa de probabilidad teórica, y los histogramas son calculados a partir de muestras aleatorias usando <code>fn.rvs</code> para las distintas funciones, con los parámetros definidos o, en caso de que no, los que vienen por defecto.</p>
 <p><em>Uniforme</em></p>
-<div class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">4</span>]</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">50</span>), dpi<span class="op">=</span><span class="dv">200</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(x, uniform.pdf(x),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>           <span class="st">'r-'</span>, lw<span class="op">=</span><span class="dv">2</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">'uniform pdf'</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> uniform.rvs(size<span class="op">=</span><span class="dv">1000</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(r, density<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="st">'auto'</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>           histtype<span class="op">=</span><span class="st">'stepfilled'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">'histogram'</span>)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlim([x[<span class="dv">0</span>], x[<span class="op">-</span><span class="dv">1</span>]])</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlabel(<span class="st">'x'</span>)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_ylabel(<span class="st">'$f(x)$'</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="st">'best'</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># con loc y scale</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>loc <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>scale <span class="op">=</span> <span class="dv">11</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(loc, loc <span class="op">+</span> scale, <span class="dv">2000</span>)</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(x, uniform.pdf(x, loc, scale),</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>           <span class="st">'r-'</span>, lw<span class="op">=</span><span class="dv">2</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">'uniform pdf'</span>)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> uniform.rvs(size<span class="op">=</span><span class="dv">1000</span>, loc<span class="op">=</span>loc, scale<span class="op">=</span>scale)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(r, density<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="st">'auto'</span>,</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>           histtype<span class="op">=</span><span class="st">'stepfilled'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">'histogram'</span>)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_xlim([x[<span class="dv">0</span>] <span class="op">-</span> <span class="fl">0.1</span>, x[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> <span class="fl">0.1</span>])</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_xlabel(<span class="st">'x'</span>)</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_ylabel(<span class="st">'$f(x)$'</span>)</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="st">'best'</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">4</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">50</span>), dpi<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(x, uniform.pdf(x),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>           <span class="st">'r-'</span>, lw<span class="op">=</span><span class="dv">2</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">'uniform pdf'</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> uniform.rvs(size<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(r, density<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="st">'auto'</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>           histtype<span class="op">=</span><span class="st">'stepfilled'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">'histogram'</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlim([x[<span class="dv">0</span>], x[<span class="op">-</span><span class="dv">1</span>]])</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlabel(<span class="st">'x'</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_ylabel(<span class="st">'$f(x)$'</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="st">'best'</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># con loc y scale</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>loc <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>scale <span class="op">=</span> <span class="dv">11</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(loc, loc <span class="op">+</span> scale, <span class="dv">2000</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].plot(x, uniform.pdf(x, loc, scale),</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>           <span class="st">'r-'</span>, lw<span class="op">=</span><span class="dv">2</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">'uniform pdf'</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> uniform.rvs(size<span class="op">=</span><span class="dv">1000</span>, loc<span class="op">=</span>loc, scale<span class="op">=</span>scale)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].hist(r, density<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="st">'auto'</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>           histtype<span class="op">=</span><span class="st">'stepfilled'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">'histogram'</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_xlim([x[<span class="dv">0</span>] <span class="op">-</span> <span class="fl">0.1</span>, x[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> <span class="fl">0.1</span>])</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_xlabel(<span class="st">'x'</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_ylabel(<span class="st">'$f(x)$'</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="st">'best'</span>, frameon<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
 </div>
@@ -215,7 +216,7 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 </div>
 </div>
 <p><em>Exponencial</em></p>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>λ <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">60</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">600</span>, <span class="dv">200</span>)</span>
@@ -236,12 +237,12 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>desviación estándar: 63.55;
-media: 60.27</code></pre>
+<pre><code>desviación estándar: 59.44;
+media: 60.13</code></pre>
 </div>
 </div>
 <p><em>Normal</em></p>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">200</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>rv <span class="op">=</span> norm()</span>
@@ -272,7 +273,7 @@ media: 60.27</code></pre>
 <p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>desviación estándar: 1.96</code></pre>
+<pre><code>desviación estándar: 2.06</code></pre>
 </div>
 </div>
 <section id="por-qué" class="level2">
@@ -305,55 +306,44 @@ Probabildad vs estadística
 <p><span class="math inline">\(n\)</span> es el tamaño de la muestra (el total de ensayos), <span class="math inline">\(k\)</span> el número de éxitos, y <span class="math inline">\(\theta\)</span> un parámetro de la distribución que define la probabilidad de éxito (y por lo tanto, define la forma de la distribución y el valor más probable). Por ejemplo, si nuestra moneda es justa, tendrá una <span class="math inline">\(\theta=0.5\)</span>.</p>
 <p>La media de una distribución binomial es <span class="math inline">\(n\times \theta\)</span>, esto significa que si lanzamos 10 veces una moneda con <span class="math inline">\(\theta=0.5\)</span>, el valor más probable de éxitos será <span class="math inline">\(0.5\times 10 = 5\)</span>.</p>
 <p>En python podríamos obtener la probabilidad que buscamos de la siguiente manera:</p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>k<span class="op">=</span><span class="dv">9</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>n<span class="op">=</span><span class="dv">10</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>p<span class="op">=</span><span class="fl">0.5</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>binom.pmf(k, n, p).<span class="bu">round</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>0.01</code></pre>
 </div>
 </div>
 <p>Es decir, la probabilidad de tener 9 éxitos, dado que <span class="math inline">\(\theta=0.5, n=10\)</span>, es de apenas ~0.01, una probabilidad muy baja.</p>
 <p>¿Cuál sería la probabilidad de conseguir 6 éxitos bajo las mismas asunciones?</p>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>k<span class="op">=</span><span class="dv">6</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>n<span class="op">=</span><span class="dv">10</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>p<span class="op">=</span><span class="fl">0.5</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>binom.pmf(k, n, p).<span class="bu">round</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>0.205</code></pre>
 </div>
 </div>
 <p>¿Y dos éxitos?</p>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>binom.pmf(<span class="dv">2</span>, n, p).<span class="bu">round</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>0.044</code></pre>
 </div>
 </div>
 <p>La distribución de la binomial con estos parámetros tiene la siguiente forma</p>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># par(las=1)</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># options(repr.plot.width=7, repr.plot.height=5)</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># exitos &lt; - 0:10</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     exitos,</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     dbinom(exitos, size=10, prob=.5),</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     type="h",</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     xlab="k",</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     ylab=expression(p(x == k, n, theta))</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>n<span class="op">=</span><span class="dv">10</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>p<span class="op">=</span><span class="fl">0.5</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>k<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">11</span>, <span class="dv">1</span>)</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>rv <span class="op">=</span> binom(n, p)</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>ax.vlines(k, <span class="dv">0</span>, rv.pmf(k), colors<span class="op">=</span><span class="st">'k'</span>, linestyles<span class="op">=</span><span class="st">'-'</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'$k$'</span>)</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'$p(k;n,p)$'</span>)</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>n<span class="op">=</span><span class="dv">10</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>p<span class="op">=</span><span class="fl">0.5</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>k<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">11</span>, <span class="dv">1</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>rv <span class="op">=</span> binom(n, p)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>ax.vlines(k, <span class="dv">0</span>, rv.pmf(k), colors<span class="op">=</span><span class="st">'k'</span>, linestyles<span class="op">=</span><span class="st">'-'</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'$k$'</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'$p(k;n,p)$'</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
 </div>
@@ -410,7 +400,7 @@ Probabildad vs estadística
 <p>Para <span class="math inline">\(\theta=0.9\)</span>,<span class="math inline">\(L(\theta=0.9)=0.9^9(1-0.9)=0.038\)</span>.</p>
 <p>Si obtenemos la razón de ambas, <span class="math inline">\(L(\theta_2)/L(\theta_1)\)</span> obtenemos un valor que nos dice cuántas veces más verosímil es <span class="math inline">\(\theta_2\)</span> vs <span class="math inline">\(\theta_1\)</span>.</p>
 <p>Gráficamente se vería así</p>
-<div class="cell" data-execution_count="8">
+<div class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># éxitos obtenidos</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>k<span class="op">=</span><span class="dv">9</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cantidad de ensayos</span></span>
@@ -487,7 +477,7 @@ Probabildad vs estadística
 <section id="encontrando-el-mle-en-r-para-una-binomial" class="level3">
 <h3 class="anchored" data-anchor-id="encontrando-el-mle-en-r-para-una-binomial">3.2.2 Encontrando el MLE en R para una binomial</h3>
 <p>Vamos a hacer una primera aproximación numérica usando grid-search</p>
-<div class="cell" data-execution_count="9">
+<div class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math <span class="im">as</span> m</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> Bounds</span>
@@ -509,7 +499,7 @@ Probabildad vs estadística
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>ax.plot(grid_vals, log_like)</span>
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>ax.scatter(grid_vals[arg_max], log_like[arg_max], c<span class="op">=</span><span class="st">'red'</span>)</span>
 <span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>ax.text(grid_vals[arg_max] <span class="op">*</span> <span class="fl">0.8</span>, log_like[arg_max] <span class="op">*</span> <span class="fl">2.8</span>,</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>         s<span class="op">=</span><span class="ss">f'$</span><span class="ch">\\</span><span class="ss">argmax\ l(</span><span class="ch">\\</span><span class="ss">theta)=</span><span class="ch">{{</span><span class="sc">{</span><span class="bu">round</span>(grid_vals[arg_max], <span class="dv">3</span>)<span class="sc">}</span><span class="ch">}}</span><span class="ss">$'</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>         s<span class="op">=</span><span class="ss">f'argmax $ l(</span><span class="ch">\\</span><span class="ss">theta)=</span><span class="ch">{{</span><span class="sc">{</span><span class="bu">round</span>(grid_vals[arg_max], <span class="dv">3</span>)<span class="sc">}</span><span class="ch">}}</span><span class="ss">$'</span>)</span>
 <span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'$</span><span class="ch">\\</span><span class="st">theta$'</span>)</span>
 <span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'$l(</span><span class="ch">\\</span><span class="st">theta)$'</span>)</span>
 <span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
@@ -523,7 +513,7 @@ Probabildad vs estadística
 <span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f'L(θ=0.9) = </span><span class="sc">{</span>binom_pmf(p<span class="op">=</span><span class="fl">0.9</span>, n<span class="op">=</span><span class="dv">10</span>, k<span class="op">=</span><span class="dv">9</span>)<span class="sc">.</span><span class="bu">round</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="ss">'</span></span>
 <span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_10710/2493164721.py:7: RuntimeWarning: divide by zero encountered in log
+<pre><code>/tmp/ipykernel_346954/1486032310.py:7: RuntimeWarning: divide by zero encountered in log
   return k * np.log(p) + (n - k) * np.log(1 - p) + np.log(m.comb(n, k))</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -537,7 +527,7 @@ L(θ=0.9) = -0.95</code></pre>
 </div>
 <p>En la práctica, este método puede ser muy costoso. Imaginar, por ejemplo, que se tiene que hacer una búsqueda para estimar 2 parámetros. Tendríamos que hacer combinaciones del grid de ambos parámetros. Este suele ser el método de fuerza bruta que se usa, en ocasiones, como primera aproximación o cuando no nos funciona ninguna otra cosa.</p>
 <p>Es más eficiente usar un algoritmo de optimización, como <code>minimize</code> de <code>scipy.optimize</code>. En vez de maximizar, minimizaremos, por lo que la función cóncava la convertiremos en convexa multiplicando por -1.</p>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># multiplicar por menos 1 la función de log-verosimilitud</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> binom_pmf2(p, n, k):</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    ll <span class="op">=</span> k <span class="op">*</span> np.log(p) <span class="op">+</span> (n <span class="op">-</span> k) <span class="op">*</span> np.log(<span class="dv">1</span> <span class="op">-</span> p) <span class="op">+</span> np.log(m.comb(n, k))</span>
@@ -557,7 +547,7 @@ L(θ=0.9) = -0.95</code></pre>
 <span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>ax.plot(grid_vals, binom_pmf2(grid_vals, n, k))</span>
 <span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>ax.scatter(res.x, res.fun, c<span class="op">=</span><span class="st">'red'</span>)</span>
 <span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>ax.text(res.x <span class="op">*</span> <span class="fl">0.8</span>, res.fun <span class="op">*</span> <span class="fl">2.8</span>,</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>         s<span class="op">=</span><span class="ss">f'$</span><span class="ch">\\</span><span class="ss">argmax\ l(</span><span class="ch">\\</span><span class="ss">theta)=</span><span class="ch">{{</span><span class="sc">{</span><span class="bu">round</span>(res.x[<span class="dv">0</span>], <span class="dv">3</span>)<span class="sc">}</span><span class="ch">}}</span><span class="ss">$'</span>)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>         s<span class="op">=</span><span class="ss">f'argmax $l(</span><span class="ch">\\</span><span class="ss">theta)=</span><span class="ch">{{</span><span class="sc">{</span><span class="bu">round</span>(res.x[<span class="dv">0</span>], <span class="dv">3</span>)<span class="sc">}</span><span class="ch">}}</span><span class="ss">$'</span>)</span>
 <span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'$</span><span class="ch">\\</span><span class="st">theta$'</span>)</span>
 <span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'$l(</span><span class="ch">\\</span><span class="st">theta)$'</span>)</span>
 <span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
@@ -565,8 +555,12 @@ L(θ=0.9) = -0.95</code></pre>
 <span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
 <span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f'argmax = </span><span class="sc">{</span>res<span class="sc">.</span>x<span class="sc">.</span><span class="bu">round</span>(<span class="dv">3</span>)[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span></span>
 <span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_346954/3986847583.py:3: RuntimeWarning: divide by zero encountered in log
+  ll = k * np.log(p) + (n - k) * np.log(1 - p) + np.log(m.comb(n, k))</code></pre>
+</div>
 <div class="cell-output cell-output-display">
-<p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+<p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>argmax = 0.9</code></pre>
@@ -620,6 +614,166 @@ L(θ=0.9) = -0.95</code></pre>
   f(x_i;\theta_1, \theta_2)=\frac{1}{(\theta_2 2\pi)^{1/2}} \exp\left\{ -\frac{1}{2\theta_2}(x_i-\theta_1)^2 \right\}
 \]</span></p>
 <p>Nota: la distribución normal a veces es parametrizada con la desviación estándar, <span class="math inline">\(\sigma\)</span>, y a veces con la varianza, <span class="math inline">\(\sigma^2\)</span>. Esto se puede notar en los denominadores de ambos términos de la función que acabo de colocar.</p>
+<hr>
+<p>Ejercicio de MLE para la exponencial usando Python</p>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate some data</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> expon.rvs(scale<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the negative likelihood function for the exponential</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neg_log_likelihood(params, data):</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>np.<span class="bu">sum</span>(np.log(expon.pdf(data, scale<span class="op">=</span>params[<span class="dv">0</span>])))</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Minimize the negative log-likelihood function</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># define the bounds for the parameter, lambda &gt; 0</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> minimize(neg_log_likelihood, [<span class="dv">1</span>], args<span class="op">=</span>(data,),</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>                  method<span class="op">=</span><span class="st">'Nelder-Mead'</span>, </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>                  bounds<span class="op">=</span>[(<span class="dv">0</span>, np.inf)])</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the estimated parameter</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Estimated scale: </span><span class="sc">{</span>result<span class="sc">.</span>x[<span class="dv">0</span>]<span class="sc">.</span><span class="bu">round</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'mean = </span><span class="sc">{</span>np<span class="sc">.</span>mean(data)<span class="sc">.</span><span class="bu">round</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated scale: 2.011
+mean = 2.011</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.hist(data, bins<span class="op">=</span><span class="dv">30</span>)<span class="op">;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>plt.axvline(result.x[<span class="dv">0</span>], c<span class="op">=</span><span class="st">'red'</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$x$'</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'$p(x;</span><span class="ch">\\</span><span class="st">lambda)$'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<pre><code>Text(0, 0.5, '$p(x;\\lambda)$')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Si queremos saber qué tan frecuentemente podría ocurrir el parámetro que estimamos, podemos hacer una simulación de Monte Carlo. Esto es, simular muchos datos y ver cuántas veces el parámetro que estimamos aparece. En cada una de las simulaciones obtenemos la media (<span class="math inline">\(\lambda_{sim}\)</span>) y luego graficamos la distribución de <span class="math inline">\(\lambda_{sim}\)</span>.</p>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simular n veces una exponencial con los parámetros estimados, obtener la media</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># de cada simulación y graficar el histograma de las medias</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>n_sim <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>lambda_est <span class="op">=</span> result.x[<span class="dv">0</span>]</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_sim):</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> expon.rvs(scale<span class="op">=</span>lambda_est, size<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>        means <span class="op">=</span> np.mean(data)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>        means <span class="op">=</span> np.append(means, np.mean(data))</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>plt.hist(means, bins<span class="op">=</span><span class="dv">30</span>)<span class="op">;</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>plt.axvline(lambda_est, c<span class="op">=</span><span class="st">'red'</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>plt.text(lambda_est, <span class="dv">35</span>, s<span class="op">=</span><span class="ss">f'$</span><span class="ch">\\</span><span class="ss">hat</span><span class="ch">\\</span><span class="ss">lambda=</span><span class="sc">{</span>lambda_est<span class="sc">.</span><span class="bu">round</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="ss">$'</span>, c<span class="op">=</span><span class="st">'k'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$</span><span class="ch">\\</span><span class="st">bar{</span><span class="ch">\\</span><span class="st">lambda}$'</span>)</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'frequency'</span>)</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="co"># la media de las medias es igual a la media de la muestra</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>np.mean(means)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<pre><code>2.015047341922172</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p><strong>Ejemplo de un modelo de mezclas gaussianas</strong></p>
+<p>Un modelo de mezcla gaussiana es un modelo probabilístico que supone que todos los puntos de datos se generan a partir de una mezcla de un número finito de pdfs gaussianas con parámetros desconocidos. El modelo se define matemáticamente de la siguiente manera:</p>
+<p><span class="math display">\[ p(x; \mu_k, \Sigma_k, \pi_k) = \sum_{k=1}^{K} \pi_k \mathcal{N}(x|\mu_k, \Sigma_k) \]</span></p>
+<p>donde <span class="math inline">\(x\)</span> es un punto de datos, <span class="math inline">\(\pi_k\)</span> es el coeficiente de mezcla para la <span class="math inline">\(k\)</span>-ésima componente gaussiana (en otras palabras, es la proporción del total de una mezcla que pertenece al <span class="math inline">\(k\)</span> componente), y debe sumar 1 (es decir, <span class="math inline">\(\sum_{k=1}^n \pi_k = 1\)</span>); <span class="math inline">\(\mu_k\)</span> es la media de la <span class="math inline">\(k\)</span>-ésima componente gaussiana, <span class="math inline">\(\Sigma_k\)</span> es la matriz de covarianza del <span class="math inline">\(k\)</span>-ésimo componente gaussiano, y <span class="math inline">\(\mathcal{N}(x|\mu_k, \Sigma_k)\)</span> es la función de densidad de probabilidad de la distribución gaussiana multivariada con media <span class="math inline">\(\mu_k\)</span> y matriz de covarianza <span class="math inline">\(\Sigma_k\)</span>. Si cada una de las <span class="math inline">\(k\)</span> componentes es univariada, el modelo se reduce a</p>
+<p><span class="math display">\[ p(x;\mu_k, \sigma^2_k, \pi_k) = \pi_1 \mathcal{N}(x|\mu_1, \sigma_1^2) + \pi_2 \mathcal{N}(x|\mu_2, \sigma_2^2),\quad \text{con k=\{1, 2\}} \]</span></p>
+<p>donde <span class="math inline">\(x\)</span> es un punto de datos, <span class="math inline">\(\pi_1\)</span> y <span class="math inline">\(\pi_2\)</span> son los coeficientes de mezcla de los dos componentes gaussianos, <span class="math inline">\(\mu_1\)</span> y <span class="math inline">\(\mu_2\)</span> son las medias de los dos componentes gaussianos y <span class="math inline">\(\sigma_1 ^2\)</span> y <span class="math inline">\(\sigma_2^2\)</span> son las varianzas de los dos componentes gaussianos.</p>
+<p>Los parámetros <span class="math inline">\(\mu_k, \sigma^2_k, \pi_k\)</span> de un modelo de mezcla gaussiana se pueden estimar utilizando la estimación de máxima verosimilitud (MLE). La función de verosimilitud para un modelo de mezcla gaussiana está dada por:</p>
+<p><span class="math display">\[ L(\theta) = \prod_{i=1}^{N} p(x_i|\theta) = \prod_{i=1}^{N} \sum_{k=1}^{K} \pi_k \mathcal{N}(x_i|\mu_k, \Sigma_k) \]</span></p>
+<p>donde <span class="math inline">\(\theta=(\mu_k, \sigma^2_k, \pi_k)\)</span> representa los parámetros del modelo, <span class="math inline">\(x_i\)</span> es el <span class="math inline">\(i\)</span>-ésimo punto de datos y <span class="math inline">\(N\)</span> es el número total de puntos de datos. El enfoque MLE implica encontrar los valores de <span class="math inline">\(\theta\)</span> que maximizan la función de probabilidad <span class="math inline">\(L(\theta)\)</span>.</p>
+<div class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar mezcla de dos distribuciones normales</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">13</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>mu1 <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>mu2 <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>sigma1 <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>sigma2 <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># corresponden a pi_1 y pi_2</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> [<span class="fl">0.6</span>, <span class="fl">0.4</span>]</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># cada muestra es una mezcla con tamaño n * pi_k, por lo que n = n * pi_1 + n * pi_2</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>samples1 <span class="op">=</span> norm.rvs(loc<span class="op">=</span>mu1, scale<span class="op">=</span>sigma1, size<span class="op">=</span><span class="bu">int</span>(n <span class="op">*</span> weights[<span class="dv">0</span>]))</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>samples2 <span class="op">=</span> norm.rvs(loc<span class="op">=</span>mu2, scale<span class="op">=</span>sigma2, size<span class="op">=</span><span class="bu">int</span>(n <span class="op">*</span> weights[<span class="dv">1</span>]))</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> np.concatenate([samples1, samples2])</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>plt.hist(samples1, bins<span class="op">=</span><span class="dv">90</span>)<span class="op">;</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>plt.hist(samples2, bins<span class="op">=</span><span class="dv">90</span>)<span class="op">;</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'$p(x; \mu, \sigma)$'</span>)</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'muestra de mezcla de dos normales'</span>)</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'$N(2,1)$'</span>, <span class="st">'$N(7,2)$'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="43">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7f866dae8700&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-15-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the mixture model as a sum of two Gaussian distributions</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mixture_pdf(x, mu1, mu2, sigma1, sigma2, weight1):</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> weight1 <span class="op">*</span> norm.pdf(x, mu1, sigma1) <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> weight1) <span class="op">*</span> norm.pdf(x, mu2, sigma2)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the negative log-likelihood function for the mixture model</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> neg_log_likelihood(params, x):</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    mu1, mu2, sigma1, sigma2, weight1 <span class="op">=</span> params</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>np.<span class="bu">sum</span>(np.log(mixture_pdf(x, mu1, mu2, sigma1, sigma2, weight1)))</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># inicializar los parámetros</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>mu1_hat <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>mu2_hat <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>sigma1_hat <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>sigma2_hat <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>weight1_hat <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> [mu1_hat, mu2_hat, sigma1_hat, sigma2_hat, weight1_hat]</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="co"># minimizar la función de log-verosimilitud negativa para encontrar los parámetros</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="co"># el argumento de bounds es una tupla de límites inferior y superior para cada parámetro</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> minimize(neg_log_likelihood, params,</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>               args<span class="op">=</span>(samples,), method<span class="op">=</span><span class="st">'Nelder-Mead'</span>,</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>               bounds<span class="op">=</span>((<span class="va">None</span>, <span class="va">None</span>), (<span class="va">None</span>, <span class="va">None</span>), (<span class="dv">0</span>, <span class="va">None</span>), (<span class="dv">0</span>, <span class="va">None</span>), (<span class="dv">0</span>, <span class="dv">1</span>)))</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the estimated parameters and log-likelihood</span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Estimated mu1: </span><span class="sc">{</span>res<span class="sc">.</span>x[<span class="dv">0</span>]<span class="sc">.</span><span class="bu">round</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Estimated mu2: </span><span class="sc">{</span>res<span class="sc">.</span>x[<span class="dv">1</span>]<span class="sc">.</span><span class="bu">round</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Estimated sigma1: </span><span class="sc">{</span>res<span class="sc">.</span>x[<span class="dv">2</span>]<span class="sc">.</span><span class="bu">round</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Estimated sigma2: </span><span class="sc">{</span>res<span class="sc">.</span>x[<span class="dv">3</span>]<span class="sc">.</span><span class="bu">round</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Estimated weight1: </span><span class="sc">{</span>res<span class="sc">.</span>x[<span class="dv">4</span>]<span class="sc">.</span><span class="bu">round</span>(<span class="dv">3</span>)<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated mu1: 7.032
+Estimated mu2: 1.982
+Estimated sigma1: 2.143
+Estimated sigma2: 0.947
+Estimated weight1: 0.396</code></pre>
+</div>
+</div>
+<p>Ahora graficamos la mezcla con los parámetros que encontramos con MLE</p>
+<div class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluamos el pdf de la mezcla con los parámetros estimados en un grid</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># usando np.linspace(-5, 15, 1000) generamos 1000 valores equiespaciados entre -5 y 15</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># y metemos los parámetros estimados en res.x en el orden en que aparecen en la función</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>pdf_mezcla <span class="op">=</span> mixture_pdf(np.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">1000</span>), <span class="op">*</span>res.x)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>plt.hist(samples, bins<span class="op">=</span><span class="dv">90</span>, density<span class="op">=</span><span class="va">True</span>)<span class="op">;</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>plt.plot(np.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">1000</span>), pdf_mezcla)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ahora usaremos los parámetros verdaderos</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>plt.plot(np.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">1000</span>), mixture_pdf(np.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">1000</span>), mu1, mu2, sigma1, sigma2, weights[<span class="dv">0</span>]))</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>plt.legend([<span class="st">'pdf estimada'</span>, <span class="st">'pdf verdadera'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7f866d843e50&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.1_funcion_verosimilitud_Vpython_files/figure-html/cell-17-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Podemos ver que la mezcla de dos gaussianas es una buena aproximación a los datos, dado que la función con los parámetros estimados casi se sobrepone a la función de los parámetros verdaderos.</p>
+<p>Este mismo método se puede usar para estimar los parámetros de un problema de clustering, que veremos más tarde. Un cluster es un conjunto de puntos de datos que son similares entre sí. El problema de clustering es encontrar grupos de puntos de datos que son similares entre sí, es decir, en un cluster podemos asumir que los datos provienen de la misma distribución bivariada. El problema de clustering se puede resolver usando un modelo de mezcla gaussiana, donde cada componente gaussiana representa un cluster. El número de componentes gaussianas en el modelo de mezcla gaussiana es igual al número de clusters. El problema de clustering se puede resolver usando el método de máxima verosimilitud (MLE) para estimar los parámetros del modelo de mezcla gaussiana. El método MLE implica encontrar los valores de los parámetros que maximizan la función de probabilidad de los datos.</p>
 </section>
 </section>
 

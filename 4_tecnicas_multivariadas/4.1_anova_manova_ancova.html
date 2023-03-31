@@ -123,7 +123,7 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <br> <a href="https://jealcalat.github.io/Analisis_multivariado/">Regresar a la página del curso</a>
 </p>
 <hr>
-<div class="cell" data-execution_count="121">
+<div class="cell" data-execution_count="79">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
@@ -195,7 +195,7 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <h3 class="anchored" data-anchor-id="procedimiento-del-análisis-de-varianza">Procedimiento del análisis de varianza</h3>
 <p>El procedimiento de ANOVA trata de analizar la variación en un conjunto de respuestas y asignar esta variación a los diferentes factores. El procedimiento de ANOVA se puede resumir en los siguientes pasos:</p>
 <p>Paso 1: Se establece la hipótesis nula y la hipótesis alternativa. La hipótesis nula es que no hay diferencia entre los grupos. La hipótesis alternativa es que hay diferencia entre los grupos. Matemáticamente, se expresa así:</p>
-<p><span class="math display">\[H_0: \mu_1 = \mu_2 = \cdots = \mu_k\]</span> <span class="math display">\[H_a: \mu_i \neq \mu_j\]</span></p>
+<p><span class="math display">\[H_0: \mu_1 = \mu_2 = \cdots = \mu_k\]</span> <span class="math display">\[H_a: \text{al menos una } \mu_i \neq \mu_j \text{ para } i\neq j\]</span></p>
 <p>Donde <span class="math inline">\(\mu_i\)</span> es la media de la respuesta en el grupo <span class="math inline">\(i\)</span> y <span class="math inline">\(k\)</span> es el número de factores.</p>
 <p>Paso 2: Se calcula la suma de cuadrados total (SST).</p>
 <p><span class="math display">\[SST = \sum_{i=1}^k\sum_{j=1}^{n_i}=(y_{ij} - \bar{y})^2\]</span></p>
@@ -216,9 +216,9 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <p>El valor F proviene de una distribución F con <span class="math inline">\(k-1\)</span> y <span class="math inline">\(n-k\)</span> grados de libertad. Se usa la distribución F porque la varianza entre los grupos y la varianza dentro de los grupos tienen distribuciones <span class="math inline">\(\chi^2\)</span> con <span class="math inline">\(k-1\)</span> y <span class="math inline">\(n-k\)</span> grados de libertad, respectivamente. La distribución F se define como la razón de dos variables aleatorias con distribución <span class="math inline">\(\chi^2\)</span>.</p>
 <p>Paso 6: Se calcula el p-valor. El p-valor es la probabilidad de obtener un valor de F mayor o igual al valor de F observado, suponiendo que <span class="math inline">\(H_0\)</span> es verdadera. Si el p-valor es menor que el nivel de significancia, se rechaza <span class="math inline">\(H_0\)</span> y se acepta <span class="math inline">\(H_a\)</span>. Si el p-valor es mayor que el nivel de significancia, no se rechaza <span class="math inline">\(H_0\)</span>.</p>
 <p>Paso 7: Se toma una decisión. Si el p-valor es menor que el nivel de significancia, se rechaza la hipótesis nula y se acepta la hipótesis alternativa. Si el p-valor es mayor que el nivel de significancia, no se rechaza la hipótesis nula.</p>
-<div class="cell" data-execution_count="122">
+<div class="cell" data-execution_count="80">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>one_way_anova_plot(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="122">
+<div class="cell-output cell-output-display" data-execution_count="80">
 <pre><code>(&lt;Figure size 800x500 with 1 Axes&gt;, &lt;AxesSubplot:&gt;)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -229,7 +229,7 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <section id="ejemplo-numérico" class="level3">
 <h3 class="anchored" data-anchor-id="ejemplo-numérico">Ejemplo numérico</h3>
 <p>Supongamos que se quiere estudiar el efecto del tipo de fertilizante en la producción de maíz. Se toman muestras de maíz en tres tipos de fertilizantes: A, B y C. Para cada tipo de fertilizante se tomaron 20 muestras. En total, nuestra N total es 60.</p>
-<div class="cell" data-execution_count="123">
+<div class="cell" data-execution_count="81">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set the seed</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># number of points for each group</span></span>
@@ -248,7 +248,7 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># The model is y = beta0 + beta1 * group_b + beta2 * group_c</span></span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.join(pd.get_dummies(df.group, prefix<span class="op">=</span><span class="st">"group"</span>, drop_first<span class="op">=</span><span class="va">True</span>).astype(np.float64))</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="123">
+<div class="cell-output cell-output-display" data-execution_count="81">
 
 <div>
 
@@ -303,22 +303,33 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 </div>
 </div>
 </div>
-<div class="cell" data-execution_count="124">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot de anova de una vía para a, b, c</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> {<span class="st">'a'</span>: <span class="st">'red'</span>, <span class="st">'b'</span>: <span class="st">'blue'</span>, <span class="st">'c'</span>: <span class="st">'green'</span>}</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, group <span class="kw">in</span> df.groupby(<span class="st">'group'</span>):</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add the group data</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    group.plot(ax<span class="op">=</span>ax, kind<span class="op">=</span><span class="st">'scatter'</span>, x<span class="op">=</span><span class="st">'group'</span>, y<span class="op">=</span><span class="st">'y'</span>, label<span class="op">=</span>key, color<span class="op">=</span>colors[key])</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add the group mean</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    plt.axhline(group.y.mean(), color<span class="op">=</span>colors[key], linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="establecer-la-hipótesis-nula-y-la-hipótesis-alternativa" class="level2">
+<h2 class="anchored" data-anchor-id="establecer-la-hipótesis-nula-y-la-hipótesis-alternativa">Establecer la hipótesis nula y la hipótesis alternativa</h2>
+<p>La hipótesis nula es que no hay diferencia entre los grupos. La hipótesis alternativa es que hay diferencia entre los grupos</p>
+<p><span class="math display">\[\begin{align*}
+H_0: &amp;\mu_{a} = \mu_b = \mu_c\\
+H_A: &amp;\mu_A \neq \mu_B \text{ o } \mu_B \neq \mu_C \text{ o } \mu_A \neq \mu_C
+\end{align*}\]</span></p>
+<div class="cell" data-execution_count="82">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># graficar los valores de cada grupo</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> {<span class="st">'a'</span>: <span class="st">'red'</span>, <span class="st">'b'</span>: <span class="st">'blue'</span>, <span class="st">'c'</span>: <span class="st">'green'</span>}</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, group <span class="kw">in</span> df.groupby(<span class="st">'group'</span>):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add the group data</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    group.plot(ax<span class="op">=</span>ax, kind<span class="op">=</span><span class="st">'scatter'</span>, x<span class="op">=</span><span class="st">'group'</span>, y<span class="op">=</span><span class="st">'y'</span>, label<span class="op">=</span>key, color<span class="op">=</span>colors[key])</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add the group mean</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    plt.axhline(group.y.mean(), color<span class="op">=</span>colors[key], linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="4.1_anova_manova_ancova_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="146">
+</section>
+<section id="calcular-la-suma-de-cuadrados-total-sst-la-suma-de-cuadrados-entre-los-grupos-ssg-y-la-suma-de-cuadrados-dentro-de-los-grupos-ssw" class="level2">
+<h2 class="anchored" data-anchor-id="calcular-la-suma-de-cuadrados-total-sst-la-suma-de-cuadrados-entre-los-grupos-ssg-y-la-suma-de-cuadrados-dentro-de-los-grupos-ssw">Calcular la suma de cuadrados total (SST), la suma de cuadrados entre los grupos (SSG) y la suma de cuadrados dentro de los grupos (SSW)</h2>
+<div class="cell" data-execution_count="83">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the model using the formula notation</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> smf.ols(<span class="st">"y ~ 1 + group_b + group_c"</span>, df).fit()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain the SST, SSG and SSW. MSE is the mean of the squared residuals, </span></span>
@@ -331,84 +342,108 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>SSG <span class="op">=</span> res.mse_model <span class="op">*</span> <span class="dv">2</span></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># The SSW degrees of freedom is the number of points minus the number of groups.</span></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>SSW <span class="op">=</span> res.mse_resid <span class="op">*</span> (num_points <span class="op">*</span> <span class="dv">3</span> <span class="op">-</span> <span class="dv">3</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># the following is equivalent to the above</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># SST = np.sum((df.y - df.y.mean()) ** 2)</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># SSG = np.sum((df.y.mean() - df[["group_b", "group_c"]].dot(res.params[1:])) ** 2)</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># SSW = SST - SSG</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the F-statistic recomputing the MSG and MSW</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>MSG <span class="op">=</span> SSG <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>MSW <span class="op">=</span> SSW <span class="op">/</span> (num_points <span class="op">*</span> <span class="dv">3</span> <span class="op">-</span> <span class="dv">3</span>)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>F_stat <span class="op">=</span> MSG <span class="op">/</span> MSW</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co"># note that the F-statistic is the same as the one obtained from the model using </span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co"># F_stat = res.mse_model/ res.mse_resid</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the p-value using the F distribution with 2 and 3 * num_points - 3 degrees of freedom</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>p_val <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> stats.f.cdf(F_stat, <span class="dv">2</span>, <span class="dv">3</span> <span class="op">*</span> num_points <span class="op">-</span> <span class="dv">3</span>)</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co"># print the F-statistic and the p-value in scientific format</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"F-statistic: </span><span class="sc">{:.3f}</span><span class="st">, p-value: </span><span class="sc">{:.1e}</span><span class="st">"</span>.<span class="bu">format</span>(F_stat, p_val))</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the F distribution for the null and add the F_stat in blue and the F_critical at 5% in red.</span></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co"># The null is that the groups have the same mean, so the F-statistic should be close to 1.</span></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>F_critical <span class="op">=</span> stats.f.ppf(<span class="fl">0.95</span>, <span class="dv">2</span>, <span class="dv">3</span> <span class="op">*</span> num_points <span class="op">-</span> <span class="dv">3</span>)</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>F_quantiles <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>F_pdf <span class="op">=</span> stats.f.pdf(F_quantiles, <span class="dv">2</span>, <span class="dv">3</span> <span class="op">*</span> num_points <span class="op">-</span> <span class="dv">3</span>)</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>plt.plot(F_quantiles, F_pdf, label<span class="op">=</span><span class="st">"F distribution"</span>)</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>plt.axvline(F_stat, color<span class="op">=</span><span class="st">"b"</span>, label<span class="op">=</span><span class="st">"F-statistic"</span>)</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>plt.axvline(F_critical, color<span class="op">=</span><span class="st">"r"</span>, label<span class="op">=</span><span class="st">"F-critical"</span>)</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"F-distribution for the null hypothesis"</span>)</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"F-statistic"</span>)</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Density"</span>)</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="co"># annotate the text of the F-critical and F-statistic values vertically within bbox</span></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>plt.text(F_critical<span class="op">*</span><span class="fl">1.05</span>, <span class="fl">0.1</span>, <span class="ss">f'F-critical = </span><span class="sc">{</span>F_critical<span class="sc">.</span><span class="bu">round</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="ss">'</span>, </span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>         rotation<span class="op">=</span><span class="dv">90</span>, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'none'</span>, edgecolor<span class="op">=</span><span class="st">'r'</span>,boxstyle<span class="op">=</span><span class="st">'round'</span>), alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>plt.text(F_stat<span class="op">*</span><span class="fl">1.03</span>, <span class="fl">0.1</span>, <span class="ss">f'F-statistic = </span><span class="sc">{</span>F_stat<span class="sc">.</span><span class="bu">round</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="ss">'</span>, </span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>         rotation<span class="op">=</span><span class="dv">90</span>, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'none'</span>, edgecolor<span class="op">=</span><span class="st">'b'</span>,boxstyle<span class="op">=</span><span class="st">'round'</span>), alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># the following is equivalent to the above</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># SST = np.sum((df.y - df.y.mean()) ** 2)</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># SSG = np.sum((df.y.mean() - df[["group_b", "group_c"]].dot(res.params[1:])) ** 2)</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># SSW = SST - SSG</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="calcular-la-varianza-entre-los-grupos-msg-y-la-varianza-dentro-de-los-grupos-msw-y-calcular-el-estadístico-f" class="level2">
+<h2 class="anchored" data-anchor-id="calcular-la-varianza-entre-los-grupos-msg-y-la-varianza-dentro-de-los-grupos-msw-y-calcular-el-estadístico-f">Calcular la varianza entre los grupos (MSG) y la varianza dentro de los grupos (MSW), y calcular el estadístico F</h2>
+<div class="cell" data-execution_count="84">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the F-statistic recomputing the MSG and MSW</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>MSG <span class="op">=</span> SSG <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>MSW <span class="op">=</span> SSW <span class="op">/</span> (num_points <span class="op">*</span> <span class="dv">3</span> <span class="op">-</span> <span class="dv">3</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>F_stat <span class="op">=</span> MSG <span class="op">/</span> MSW</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># note that the F-statistic is the same as the one obtained from the model using </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># F_stat = res.mse_model/ res.mse_resid</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"F-statistic: "</span>, F_stat.<span class="bu">round</span>(<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>F-statistic:  5.79</code></pre>
+</div>
+</div>
+</section>
+<section id="calcular-el-f-crítico-comparar-con-el-estadístico-f-y-tomar-una-decisión" class="level2">
+<h2 class="anchored" data-anchor-id="calcular-el-f-crítico-comparar-con-el-estadístico-f-y-tomar-una-decisión">Calcular el F crítico, comparar con el estadístico F y tomar una decisión</h2>
+<div class="cell" data-execution_count="85">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the p-value using the F distribution with 2 and 3 * num_points - 3 degrees of freedom</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>p_val <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> stats.f.cdf(F_stat, <span class="dv">2</span>, <span class="dv">3</span> <span class="op">*</span> num_points <span class="op">-</span> <span class="dv">3</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># print the F-statistic and the p-value in scientific format</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"F-statistic: </span><span class="sc">{:.3f}</span><span class="st">, p-value: </span><span class="sc">{:.1e}</span><span class="st">"</span>.<span class="bu">format</span>(F_stat, p_val))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the F distribution for the null and add the F_stat in blue and the F_critical at 5% in red.</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The null is that the groups have the same mean, so the F-statistic should be close to 1.</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>F_critical <span class="op">=</span> stats.f.ppf(<span class="fl">0.95</span>, <span class="dv">2</span>, <span class="dv">3</span> <span class="op">*</span> num_points <span class="op">-</span> <span class="dv">3</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>F_quantiles <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>F_pdf <span class="op">=</span> stats.f.pdf(F_quantiles, <span class="dv">2</span>, <span class="dv">3</span> <span class="op">*</span> num_points <span class="op">-</span> <span class="dv">3</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plt.plot(F_quantiles, F_pdf, label<span class="op">=</span><span class="st">"F distribution"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>plt.axvline(F_stat, color<span class="op">=</span><span class="st">"b"</span>, label<span class="op">=</span><span class="st">"F-statistic"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>plt.axvline(F_critical, color<span class="op">=</span><span class="st">"r"</span>, label<span class="op">=</span><span class="st">"F-critical"</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"F-distribution for the null hypothesis"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"F-statistic"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Density"</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># annotate the text of the F-critical and F-statistic values vertically within bbox</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>plt.text(F_critical<span class="op">*</span><span class="fl">1.05</span>, <span class="fl">0.1</span>, <span class="ss">f'F-critical = </span><span class="sc">{</span>F_critical<span class="sc">.</span><span class="bu">round</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="ss">'</span>, </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>         rotation<span class="op">=</span><span class="dv">90</span>, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'none'</span>, edgecolor<span class="op">=</span><span class="st">'r'</span>,boxstyle<span class="op">=</span><span class="st">'round'</span>), alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>plt.text(F_stat<span class="op">*</span><span class="fl">1.03</span>, <span class="fl">0.1</span>, <span class="ss">f'F-statistic = </span><span class="sc">{</span>F_stat<span class="sc">.</span><span class="bu">round</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="ss">'</span>, </span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>         rotation<span class="op">=</span><span class="dv">90</span>, bbox<span class="op">=</span><span class="bu">dict</span>(facecolor<span class="op">=</span><span class="st">'none'</span>, edgecolor<span class="op">=</span><span class="st">'b'</span>,boxstyle<span class="op">=</span><span class="st">'round'</span>), alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>F-statistic: 5.792, p-value: 5.1e-03</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="146">
-<pre><code>&lt;matplotlib.legend.Legend at 0x7f117560e0a0&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="85">
+<pre><code>&lt;matplotlib.legend.Legend at 0x7f25adf84040&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="4.1_anova_manova_ancova_files/figure-html/cell-6-output-3.png" class="img-fluid"></p>
+<p><img src="4.1_anova_manova_ancova_files/figure-html/cell-8-output-3.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="126">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the SST as the sum of SSG and SSW</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"SST: </span><span class="sc">{:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(SST))</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"SSG + SSW: </span><span class="sc">{:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(SSG <span class="op">+</span> SSW))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="86">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print the SST as the sum of SSG and SSW</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"SST: </span><span class="sc">{:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(SST))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"SSG + SSW: </span><span class="sc">{:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(SSG <span class="op">+</span> SSW))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>SST: 383.954
 SSG + SSW: 383.954</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="128">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># los valores que regresa el modelo son los mismos que los que se calculan a mano.</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Imprimir res.fvalue, res.f_pvalue</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>res.fvalue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="128">
+<div class="cell" data-execution_count="87">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># los valores que regresa el modelo son los mismos que los que se calculan a mano.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Imprimir res.fvalue, res.f_pvalue</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>res.fvalue</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="87">
 <pre><code>5.792086672196458</code></pre>
 </div>
 </div>
 <p>Si el F-stat es mayor que el F-critico, entonces rechazamos la hipótesis nula. En este caso, el F-stat es 5.79 y el F-critico es 3.16. Por lo tanto, rechazamos la hipótesis nula y aceptamos la hipótesis alternativa. Esto significa que hay una diferencia significativa entre los tipos de fertilizante.</p>
+</section>
+<section id="comparación-múltiple-para-el-análisis-de-varianza" class="level2">
+<h2 class="anchored" data-anchor-id="comparación-múltiple-para-el-análisis-de-varianza">Comparación múltiple para el análisis de varianza</h2>
 <p>Notar que aún no sabemos cuál grupo es diferente. El análisis de varianza nos dice que hay una diferencia significativa entre los grupos, pero no nos dice cuál grupo es diferente.Para saberlo, se debe realizar un análisis de comparación de medias.</p>
 <p>Para la comparación múltiple podemos usar el HSD (honest significant difference) de Tukey. Consiste en comparar cada grupo con el resto de los grupos. Si el p-valor, ajustado por el método de Tukey, es menor que el nivel de significancia, se rechaza la hipótesis nula y se acepta la hipótesis alternativa. Si el p-valor es mayor que el nivel de significancia, no se rechaza la hipótesis nula. El análisis de Tukey realiza un ajuste para las comparaciones múltiples de tal forma que mantenga el nivel de significancia global en el nivel de significancia elegido (e.g., 0.05).</p>
-<p>Otra forma de probar las hipótesis es calcular el HSD de Tukey y compararlo con el HSD crítico. El HSD crítico se calcula con la siguiente fórmula:</p>
+<p>Otra forma de probar las hipótesis es calcular el HSD crítico, y usarlo para comparar las diferencias de medias entre grupos. Si la diferencia de medias entre grupos es mayor que el HSD crítico, se rechaza la hipótesis nula y se acepta la hipótesis alternativa. Si la diferencia de medias entre grupos es menor que el HSD crítico, no se rechaza la hipótesis nula. El HSD crítico se calcula como:</p>
 <p><span class="math display">\[\mathrm{HSD}_\text{critical value}=q_{\text{crit}}\sqrt{\frac{\mathrm{MSE}}{n}}\]</span></p>
+<p>La comparación de medias se realiza de la siguiente forma:</p>
 <p><span class="math display">\[
 \left|\overline{y}_{i}-\overline{y}_{j}\right|&gt;\mathrm{HSD}_\text{critical value}
 \]</span></p>
-<p>En donde <span class="math inline">\(\hat{y}_{i}\)</span> es la media de las respuestas en el grupo <span class="math inline">\(i\)</span>, <span class="math inline">\(\hat{y}_{j}\)</span> es la media de las respuestas en el grupo <span class="math inline">\(j\)</span>, <span class="math inline">\(n\)</span> es el número réplicas por grupo, <span class="math inline">\(MSE\)</span> es el error cuadrático medio y <span class="math inline">\(q_{\text{crit}}\)</span> es el valor crítico de la distribución de rango estudentizada.</p>
-<p>El <span class="math inline">\(q_{\text{crit}}\)</span> es el valor crítico de la distribución de rango estudentizada. Es difícil calcular manualmente el <span class="math inline">\(q_{\text{crit}}\)</span>. Por lo tanto, se puede usar la tabla de Tukey para obtener el <span class="math inline">\(q_{\text{crit}}\)</span>.</p>
-<div class="cell" data-execution_count="147">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain the group means</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">"group"</span>).y.mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="147">
+<p>En donde <span class="math inline">\(\bar{y}_{i}\)</span> es la media de las respuestas en el grupo <span class="math inline">\(i\)</span>, <span class="math inline">\(\bar{y}_{j}\)</span> es la media de las respuestas en el grupo <span class="math inline">\(j\)</span>, <span class="math inline">\(n\)</span> es el número réplicas por grupo, <span class="math inline">\(MSE\)</span> es el error cuadrático medio y <span class="math inline">\(q_{\text{crit}}\)</span> es el valor crítico de la distribución de rango estudentizada.</p>
+<p>Es difícil calcular manualmente el <span class="math inline">\(q_{\text{crit}}\)</span>. Se puede usar la tabla de Tukey para obtener el <span class="math inline">\(q_{\text{crit}}\)</span>, o se puede usar alguna función para obtenerlo. Por ejemplo, la función <code>studentized_range</code> de <code>scipy.stats</code>. Los parámetros de la distribución de rango estudentizada son <span class="math inline">\(k\)</span> y <span class="math inline">\(\nu\)</span>, donde <span class="math inline">\(k\)</span> es el número de grupos y <span class="math inline">\(\nu\)</span> es el número de grados de libertad. El número de grados de libertad se calcula como <span class="math inline">\(N-k\)</span>. En nuestro ejemplo, <span class="math inline">\(k=3\)</span> y <span class="math inline">\(\nu=n\times 3 - k = 57\)</span>.</p>
+<div class="cell" data-execution_count="88">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> studentized_range <span class="im">as</span> sr</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sr.ppf(<span class="fl">0.95</span>, <span class="dv">3</span>, <span class="dv">3</span> <span class="op">*</span> <span class="dv">20</span> <span class="op">-</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="88">
+<pre><code>3.403189192594075</code></pre>
+</div>
+</div>
+<p>Primero, veamos cuáles son las medias de cada grupo:</p>
+<div class="cell" data-execution_count="89">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain the group means</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">"group"</span>).y.mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="89">
 <pre><code>group
 a    15.228835
 b    16.437643
@@ -416,27 +451,33 @@ c    13.892119
 Name: y, dtype: float64</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="150">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain the group means by using the model</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>group_a_mean <span class="op">=</span> res.params[<span class="dv">0</span>]</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>group_b_mean <span class="op">=</span> res.params[<span class="dv">0</span>] <span class="op">+</span> res.params[<span class="dv">1</span>]</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>group_c_mean <span class="op">=</span> res.params[<span class="dv">0</span>] <span class="op">+</span> res.params[<span class="dv">2</span>]</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># print the group means</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"group a mean: </span><span class="sc">{:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(group_a_mean))</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"group b mean: </span><span class="sc">{:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(group_b_mean))</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"group c mean: </span><span class="sc">{:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(group_c_mean))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Las medias también las podemos estimar usando los coeficientes estimados de la regresión. Recordar que:</p>
+<p><span class="math display">\[
+\bar{y}_b = \beta_0 + \beta_1 \bar{x}_b
+\]</span></p>
+<p>Para el grupo B <span class="math inline">\(x_b = 1\)</span>, por lo que su media es <span class="math inline">\(\bar{y}_b = \beta_0 + \beta_1\)</span>. Y así por el estilo para los otros grupos.</p>
+<div class="cell" data-execution_count="90">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain the group means by using the model</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>group_a_mean <span class="op">=</span> res.params[<span class="dv">0</span>]</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>group_b_mean <span class="op">=</span> res.params[<span class="dv">0</span>] <span class="op">+</span> res.params[<span class="dv">1</span>]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>group_c_mean <span class="op">=</span> res.params[<span class="dv">0</span>] <span class="op">+</span> res.params[<span class="dv">2</span>]</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># print the group means</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"group a mean: </span><span class="sc">{:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(group_a_mean))</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"group b mean: </span><span class="sc">{:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(group_b_mean))</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"group c mean: </span><span class="sc">{:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(group_c_mean))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>group a mean: 15.229
 group b mean: 16.438
 group c mean: 13.892</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="153">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># multiple comparison test using Tukey's HSD</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.multicomp <span class="im">as</span> multi</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>tukey <span class="op">=</span> multi.pairwise_tukeyhsd(df.y, df.group, alpha<span class="op">=</span><span class="fl">0.05</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>tukey.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="153">
+<p>La prueba de Tukey se puede realizar usando la función <code>pairwise_tukeyhsd</code> de <code>statsmodels.stats.multicomp</code>. Los parámetros de la función son los datos, los grupos y el nivel de significancia. En nuestro ejemplo, los datos son los datos de producción de maíz, los grupos son los tipos de fertilizante y el nivel de significancia es 0.05.</p>
+<div class="cell" data-execution_count="91">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># multiple comparison test using Tukey's HSD</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.stats.multicomp <span class="im">as</span> multi</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>tukey <span class="op">=</span> multi.pairwise_tukeyhsd(df.y, df.group, alpha<span class="op">=</span><span class="fl">0.05</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>tukey.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="91">
 
 <table class="simpletable">
 <caption>Multiple Comparison of Means - Tukey HSD, FWER=0.05</caption>
@@ -455,85 +496,91 @@ group c mean: 13.892</code></pre>
 </tbody></table>
 </div>
 </div>
-<div class="cell" data-execution_count="183">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the critical hsd is</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>hsd <span class="op">=</span> tukey.q_crit <span class="op">*</span> np.sqrt(res.mse_resid <span class="op">/</span> num_points)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>hsd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="183">
-<pre><code>1.8005222230290598</code></pre>
+<div class="cell" data-execution_count="92">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the critical hsd is</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>hsd <span class="op">=</span> sr.ppf(<span class="fl">0.95</span>, <span class="dv">3</span>, <span class="dv">3</span> <span class="op">*</span> <span class="dv">20</span> <span class="op">-</span> <span class="dv">3</span>) <span class="op">*</span> np.sqrt(res.mse_resid <span class="op">/</span> num_points)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># note that the critical hsd is the same as the one obtained from the model using tukey.q_crit</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Critical hsd: </span><span class="sc">{:.3f}</span><span class="st">"</span>.<span class="bu">format</span>(hsd))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Critical hsd: 1.801</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="184">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>res.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="184">
-
-<table class="simpletable">
-<caption>OLS Regression Results</caption>
-<tbody><tr>
-  <th>Dep. Variable:</th>            <td>y</td>        <th>  R-squared:         </th> <td>   0.169</td>
-</tr>
-<tr>
-  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.140</td>
-</tr>
-<tr>
-  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   5.792</td>
-</tr>
-<tr>
-  <th>Date:</th>             <td>Tue, 28 Mar 2023</td> <th>  Prob (F-statistic):</th>  <td>0.00513</td>
-</tr>
-<tr>
-  <th>Time:</th>                 <td>19:22:23</td>     <th>  Log-Likelihood:    </th> <td> -135.27</td>
-</tr>
-<tr>
-  <th>No. Observations:</th>      <td>    60</td>      <th>  AIC:               </th> <td>   276.5</td>
-</tr>
-<tr>
-  <th>Df Residuals:</th>          <td>    57</td>      <th>  BIC:               </th> <td>   282.8</td>
-</tr>
-<tr>
-  <th>Df Model:</th>              <td>     2</td>      <th>                     </th>     <td> </td>   
-</tr>
-<tr>
-  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>   
-</tr>
-</tbody></table>
-<table class="simpletable">
-<tbody><tr>
-      <td></td>         <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P&gt;|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
-</tr>
-<tr>
-  <th>Intercept</th> <td>   15.2288</td> <td>    0.529</td> <td>   28.784</td> <td> 0.000</td> <td>   14.169</td> <td>   16.288</td>
-</tr>
-<tr>
-  <th>group_b</th>   <td>    1.2088</td> <td>    0.748</td> <td>    1.616</td> <td> 0.112</td> <td>   -0.289</td> <td>    2.707</td>
-</tr>
-<tr>
-  <th>group_c</th>   <td>   -1.3367</td> <td>    0.748</td> <td>   -1.787</td> <td> 0.079</td> <td>   -2.835</td> <td>    0.162</td>
-</tr>
-</tbody></table>
-<table class="simpletable">
-<tbody><tr>
-  <th>Omnibus:</th>       <td> 1.813</td> <th>  Durbin-Watson:     </th> <td>   1.897</td>
-</tr>
-<tr>
-  <th>Prob(Omnibus):</th> <td> 0.404</td> <th>  Jarque-Bera (JB):  </th> <td>   1.306</td>
-</tr>
-<tr>
-  <th>Skew:</th>          <td>-0.110</td> <th>  Prob(JB):          </th> <td>   0.520</td>
-</tr>
-<tr>
-  <th>Kurtosis:</th>      <td> 2.311</td> <th>  Cond. No.          </th> <td>    3.73</td>
-</tr>
-</tbody></table><br><br>Notes:<br>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+<p>En la columna <code>meandiff</code> se muestra la diferencia de medias entre grupos. En la columna <code>p-adj</code> se muestra el p-valor ajustado por el método de Tukey. En la columna <code>reject</code> se muestra si se rechaza o no la hipótesis nula. Considerando el <code>p-adj</code> y el <code>reject</code>, podemos concluir que la única diferencia significativa es entre el grupo B y el grupo C. También podemos ver que la diferencia absoluta entre las medias de los grupos B y C es mayor que el HSD crítico.</p>
+<p>De los resultados, podemos concluir que el tipo de fertilizante C produce menos maíz que B, y que no tenemos evidencia para decir que el tipo de fertilizante A es diferente al tipo de fertilizante B, aunque se ve una tendencia a que el tipo de fertilizante A produce menos maíz que el tipo de fertilizante B.</p>
+<p>Gráficamente, podemos representar los resultados de la siguiente forma:</p>
+<div class="cell" data-execution_count="148">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_boxplots_with_significance(df, x_col, y_col, tukey, alpha<span class="op">=</span><span class="fl">0.05</span>, xlabel<span class="op">=</span><span class="va">None</span>, ylabel<span class="op">=</span><span class="va">None</span>, title<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Plots boxplots of y_col for each group in x_col in df.</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Adds horizontal lines between groups with significant differences.</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co">    df : pandas.DataFrame</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co">        Dataframe containing the data.</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co">    x_col : str</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co">        Name of column containing the groups.</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co">    y_col : str</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="co">        Name of column containing the y values.</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="co">    alpha : float, optional</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co">        The significance level to use for the statistical tests. Default is 0.05.</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co">    tukey : statsmodels.stats.multicomp.TukeyHSDResults</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="co">        The results of the Tukey HSD test.</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="co">    xlabel : str, optional</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="co">        The label for the x-axis</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="co">    ylabel : str, optional</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="co">        The label for the y-axis</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="co">    title : str, optional</span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="co">        The title for the plot</span></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create the boxplot</span></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> sns.boxplot(x<span class="op">=</span>x_col, y<span class="op">=</span>y_col, data<span class="op">=</span>df)</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(xlabel)</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(ylabel)</span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title)</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract the pairwise comparisons from the summary</span></span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>    pairs <span class="op">=</span> tukey.summary().data[<span class="dv">1</span>:]</span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add the horizontal lines and asterisks for significant differences</span></span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>    groups <span class="op">=</span> df[x_col].unique()</span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>    ypos <span class="op">=</span> df[y_col].<span class="bu">max</span>() <span class="op">*</span> <span class="fl">1.1</span></span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the xtick positions</span></span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>    xtick_pos <span class="op">=</span> ax.get_xticks()</span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> pair <span class="kw">in</span> pairs:</span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the group names</span></span>
+<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a>        group1 <span class="op">=</span> pair[<span class="dv">0</span>]</span>
+<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a>        group2 <span class="op">=</span> pair[<span class="dv">1</span>]</span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the pvalue, corresponding to the fourth column of the summary</span></span>
+<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a>        pvalue <span class="op">=</span> <span class="bu">float</span>(pair[<span class="dv">3</span>])</span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> pvalue <span class="op">&lt;</span> alpha:</span>
+<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a>            ypos_sig <span class="op">=</span> df[y_col].<span class="bu">max</span>() <span class="op">*</span> <span class="fl">1.1</span></span>
+<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a>            <span class="co"># get the index of the group names in the groups array</span></span>
+<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a>            idx1 <span class="op">=</span> np.where(groups <span class="op">==</span> group1)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb25-49"><a href="#cb25-49" aria-hidden="true" tabindex="-1"></a>            idx2 <span class="op">=</span> np.where(groups <span class="op">==</span> group2)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb25-50"><a href="#cb25-50" aria-hidden="true" tabindex="-1"></a>            <span class="co"># get the xtick positions for the specific pair of groups</span></span>
+<span id="cb25-51"><a href="#cb25-51" aria-hidden="true" tabindex="-1"></a>            xpos <span class="op">=</span> [xtick_pos[idx1], xtick_pos[idx2]]</span>
+<span id="cb25-52"><a href="#cb25-52" aria-hidden="true" tabindex="-1"></a>            <span class="co"># plot the line if significant</span></span>
+<span id="cb25-53"><a href="#cb25-53" aria-hidden="true" tabindex="-1"></a>            plt.plot(xpos, [ypos_sig, ypos_sig], lw<span class="op">=</span><span class="fl">1.5</span>, c<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb25-54"><a href="#cb25-54" aria-hidden="true" tabindex="-1"></a>            <span class="co"># plot the asterisk if significant</span></span>
+<span id="cb25-55"><a href="#cb25-55" aria-hidden="true" tabindex="-1"></a>            plt.text((xtick_pos[idx1]<span class="op">+</span>xtick_pos[idx2])<span class="op">/</span><span class="dv">2</span>, ypos_sig<span class="op">*</span><span class="fl">1.01</span>, <span class="st">"*"</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb25-56"><a href="#cb25-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb25-57"><a href="#cb25-57" aria-hidden="true" tabindex="-1"></a>            ypos <span class="op">=</span> ypos <span class="op">*</span> <span class="fl">0.97</span></span>
+<span id="cb25-58"><a href="#cb25-58" aria-hidden="true" tabindex="-1"></a>            idx1 <span class="op">=</span> np.where(groups <span class="op">==</span> group1)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb25-59"><a href="#cb25-59" aria-hidden="true" tabindex="-1"></a>            idx2 <span class="op">=</span> np.where(groups <span class="op">==</span> group2)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb25-60"><a href="#cb25-60" aria-hidden="true" tabindex="-1"></a>            xpos <span class="op">=</span> [xtick_pos[idx1], xtick_pos[idx2]]</span>
+<span id="cb25-61"><a href="#cb25-61" aria-hidden="true" tabindex="-1"></a>            plt.plot(xpos, [ypos, ypos], lw<span class="op">=</span><span class="fl">1.5</span>, c<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb25-62"><a href="#cb25-62" aria-hidden="true" tabindex="-1"></a>            plt.text((xtick_pos[idx1]<span class="op">+</span>xtick_pos[idx2])<span class="op">/</span><span class="dv">2</span>, ypos <span class="op">*</span> <span class="fl">1.015</span>, <span class="st">"ns"</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb25-63"><a href="#cb25-63" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb25-64"><a href="#cb25-64" aria-hidden="true" tabindex="-1"></a>plot_boxplots_with_significance(df, <span class="st">"group"</span>, <span class="st">"y"</span>, </span>
+<span id="cb25-65"><a href="#cb25-65" aria-hidden="true" tabindex="-1"></a>                                tukey<span class="op">=</span>tukey, alpha<span class="op">=</span><span class="fl">0.05</span>, </span>
+<span id="cb25-66"><a href="#cb25-66" aria-hidden="true" tabindex="-1"></a>                                xlabel<span class="op">=</span><span class="st">"Tipo de fertilizante"</span>, </span>
+<span id="cb25-67"><a href="#cb25-67" aria-hidden="true" tabindex="-1"></a>                                ylabel<span class="op">=</span><span class="st">"Toneladas de maíz"</span>, </span>
+<span id="cb25-68"><a href="#cb25-68" aria-hidden="true" tabindex="-1"></a>                                title<span class="op">=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="4.1_anova_manova_ancova_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-</section>
-</section>
-<section id="manova" class="level2">
-<h2 class="anchored" data-anchor-id="manova">4.2. MANOVA</h2>
-</section>
-<section id="ancova" class="level2">
-<h2 class="anchored" data-anchor-id="ancova">4.3. ANCOVA</h2>
 </section>
 </section>
 
