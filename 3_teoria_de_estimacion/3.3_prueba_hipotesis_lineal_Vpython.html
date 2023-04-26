@@ -96,6 +96,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="3.3_prueba_hipotesis_lineal_Vpython_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="3.3_prueba_hipotesis_lineal_Vpython_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="3.3_prueba_hipotesis_lineal_Vpython_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
@@ -133,7 +136,7 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <p><span class="math inline">\(\text{E}(y) = \beta_0 + \beta_1 \text{E}(x)\)</span></p>
 <p>Esta ecuación representa el valor esperado de la variable de resultado <span class="math inline">\(y\)</span>, dado un valor específico de la variable predictora <span class="math inline">\(x\)</span>. Muestra que el valor esperado de <span class="math inline">\(y\)</span> es una función lineal de <span class="math inline">\(x\)</span>, con intersección <span class="math inline">\(\beta_0\)</span> y pendiente <span class="math inline">\(\beta_1\)</span>.</p>
 <p>Tener en cuenta que esta ecuación asume que la variable predictora <span class="math inline">\(x\)</span> es fija y no aleatoria. Si <span class="math inline">\(x\)</span> es una variable aleatoria, necesitaríamos tomar la expectativa de ambos lados de la ecuación usando la distribución apropiada de <span class="math inline">\(x\)</span>.</p>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %% Import libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression  <span class="co"># minimos cuadrados</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -162,7 +165,7 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <p><span class="math display">\[
   y_i - (\beta_0 + \beta_1 x_i) \sim \text{Normal}(0, \sigma)
 \]</span></p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the linear model</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -190,7 +193,7 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> nll</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate some data for simple linear regression</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">0</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>num_samples <span class="op">=</span> <span class="dv">100</span></span>
@@ -210,7 +213,7 @@ Autor: Emmanuel Alcalá <br> <a href="https://scholar.google.com.mx/citations?hl
 <p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize parameters</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>b0 <span class="op">=</span> <span class="dv">0</span>  <span class="co"># valores iniciales para la funcion minimze</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> <span class="dv">0</span></span>
@@ -252,7 +255,7 @@ Mean of epsilon_hat: -4.952848</code></pre>
 &amp;\hat{\beta_0} &amp;= 3.21;\ \hat{\beta_1} &amp;= 1.97
 \end{align*}\]</span></p>
 <p>Este <em>error</em> se considera un error de muestreo. Si repitiéramos el proceso de tomar una muestra, ajustar el modelo, obtener los parámetros, volver a tomar una muestra, etc., obtendríamos una distribución de los estimadores (llamada, justamente, la distribución muestral del estimador). Si repetimos el proceso un número de veces muy grande, la media de la distribución muestral del estimador es igual al estimador del parámetro.</p>
-<div class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simularemos el proceso de obtener n_sims muestras de la población, y</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># por cada muestra obtendremos los estimadores. Solo para mostrar el concepto</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># guardaremos únicamente el slope y obtendremos su media</span></span>
@@ -281,24 +284,24 @@ Mean of epsilon_hat: -4.952848</code></pre>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co"># la media debe ser más próxima al parámetro real</span></span>
 <span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>np.mean(slopes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_5362/2592438919.py:22: RuntimeWarning: divide by zero encountered in double_scalars
+<pre><code>/tmp/ipykernel_9720/2592438919.py:22: RuntimeWarning: divide by zero encountered in double_scalars
   nll = -np.sum(np.log(1 / (np.sqrt(2 * np.pi) * sigma)) -
-/tmp/ipykernel_5362/2592438919.py:23: RuntimeWarning: divide by zero encountered in true_divide
+/tmp/ipykernel_9720/2592438919.py:23: RuntimeWarning: divide by zero encountered in true_divide
   0.5 * ((y - y_pred) / sigma)**2)
-/tmp/ipykernel_5362/2592438919.py:22: RuntimeWarning: invalid value encountered in subtract
+/tmp/ipykernel_9720/2592438919.py:22: RuntimeWarning: invalid value encountered in subtract
   nll = -np.sum(np.log(1 / (np.sqrt(2 * np.pi) * sigma)) -</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>2.003600888040519</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="8">
+<div class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># podemos obtener un histograma de las medias para visualizar qué tan frecuentemente</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># encontramos un estimador próximo al estimador real</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>plt.hist(slopes, bins<span class="op">=</span><span class="dv">90</span>)<span class="op">;</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>b1_real, c<span class="op">=</span><span class="st">'r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>&lt;matplotlib.lines.Line2D at 0x7f00e6946760&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>&lt;matplotlib.lines.Line2D at 0x7f98c6ffbaf0&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-7-output-2.png" class="img-fluid"></p>
@@ -322,7 +325,7 @@ Mean of epsilon_hat: -4.952848</code></pre>
 <p><span class="math inline">\(H_0: \beta = 0\)</span></p>
 <p>Si el valor <span class="math inline">\(p\)</span> es menor que el nivel de significancia, podemos rechazar la hipótesis nula de que la pendiente es cero y concluir que la pendiente es estadísticamente significativa. En otras palabras, estimamos la probabilidad de que la pendiente sea 0 <em>bajo la hipótesis nula</em>. Si esta probabilidad es muy baja, tenemos evidencia de que la pendiente no es 0. Definiendo un umbral de decisión (e.g., 0.05), decidimos que la pendiente es estadísticamente significativa si el valor <span class="math inline">\(p\)</span> es menor que el umbral de decisión, es decir, si <span class="math inline">\(p\)</span> &lt; 0.05.</p>
 <p>En estadística, el nivel de significación (a menudo denominado <span class="math inline">\(\alpha\)</span>) es un umbral que se utiliza para determinar si los resultados de una prueba estadística o un intervalo de confianza son estadísticamente significativos o no.</p>
-<div class="cell" data-execution_count="40">
+<div class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Este código realiza una regresión lineal en un conjunto de datos y luego realiza un remuestreo con bootstrapping en los datos para encontrar un valor p para la pendiente de regresión.</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># El código usa una función para realizar el remuestreo y la regresión.</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># La función se llama en un bucle for para realizar 1000 remuestreos.</span></span>
@@ -407,7 +410,7 @@ P-value of the slope: 0.0</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> normaltest</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>normaltest(residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Si el valor p de la prueba de normalidad es menor que el nivel de significancia, se rechaza la hipótesis nula de que los residuales se distribuyen normalmente. Es decir, los residuales no se distribuyen normalmente. Sabemos que esto es así porque simulamos el error epsilon con una distribución exponencial.</p>
-<div class="cell" data-execution_count="57">
+<div class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> normaltest</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> t</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> linregress</span>
@@ -433,7 +436,7 @@ P-value of the normality test: 0.0</code></pre>
 </div>
 </div>
 <p>Notar que el intervalo de confianza paramétrico es diferente al intervalo no paramétrico.</p>
-<div class="cell" data-execution_count="39">
+<div class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># haremos un gráfico de dos paneles con subplots</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>ax1.hist(slopes, bins<span class="op">=</span><span class="dv">90</span>)<span class="op">;</span></span>
@@ -441,15 +444,15 @@ P-value of the normality test: 0.0</code></pre>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>ax1.axvline(model.coef_[<span class="dv">0</span>], <span class="dv">0</span>, c<span class="op">=</span><span class="st">'k'</span>)</span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>ax2.hist(residuales, bins<span class="op">=</span><span class="dv">90</span>)<span class="op">;</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>ax2.axvline(np.mean(residuales), c<span class="op">=</span><span class="st">'r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="39">
-<pre><code>&lt;matplotlib.lines.Line2D at 0x7f00d53bb2e0&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>&lt;matplotlib.lines.Line2D at 0x7f98c719dc10&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-11-output-2.png" class="img-fluid"></p>
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Si el intervalo de confianza no contiene al 0, podemos concluir que la hipótesis nula es falsa.</p>
-<div class="cell" data-execution_count="11">
+<div class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># function that plots the null distribution and the actual slope on the histogram </span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_null_distribution(slopes, slope):</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate a histogram of the null distribution </span></span>
@@ -468,7 +471,7 @@ P-value of the normality test: 0.0</code></pre>
 <span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>plot_null_distribution(null_slopes, model.coef_[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>En el gráfico anterior, podemos ver que el verdadero valor de la pendiente está muy alejado del centro de la distribución nula. Es decir, bajo la hipótesis nula de que la pendiente es cero, <em>es muy raro</em> observar un valor como el observado.</p>
@@ -477,45 +480,788 @@ P-value of the normality test: 0.0</code></pre>
 </section>
 <section id="regresión-lineal-múltiple" class="level2">
 <h2 class="anchored" data-anchor-id="regresión-lineal-múltiple">Regresión lineal múltiple</h2>
-<p>La regresión lineal múltiple es una extensión de la regresión lineal simple. En lugar de ajustar una línea recta a los datos, ajustamos una hiperplano. En la regresión lineal múltiple, la variable de respuesta es continua y hay más de una variable predictora. En vez de la pendiente, tenemos una matriz de coeficientes de pendiente, y en vez de la intersección, tenemos un término de intersección.</p>
-<div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate some random data</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>n_features <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randn(n_samples, n_features)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.dot(X, np.array([<span class="fl">1.5</span>, <span class="dv">2</span>, <span class="dv">3</span>])) <span class="op">+</span> np.random.randn(n_samples)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(X, y)</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the coefficients</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.coef_)</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.intercept_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>La regresión lineal múltiple es una extensión de la regresión lineal simple. En lugar de ajustar una línea recta a los datos, ajustamos una hiperplano. En la regresión lineal múltiple, la variable de respuesta es continua y hay más de una variable predictora. En vez de la pendiente, tenemos una matriz de coeficientes de pendiente, y en vez de la intersección, tenemos un término de intersección. La forma general del modelo es:</p>
+<p><span class="math display">\[
+  y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p + \epsilon
+\]</span></p>
+<p>en donde <span class="math inline">\(y\)</span> es la variable dependiente, <span class="math inline">\(x_1, x_2, \dots, x_p\)</span> son las variables independientes, <span class="math inline">\(\beta_0, \beta_1, \beta_2, \dots, \beta_p\)</span> son los coeficientes del modelo (también conocidos como pesos o parámetros de regresión), y <span class="math inline">\(\epsilon\)</span> es el término de error (también conocido como residual).</p>
+<p>El objetivo de la regresión lineal múltiple es estimar los valores de los coeficientes <span class="math inline">\(\beta_0, \beta_1, \beta_2, \dots, \beta_p\)</span> que mejor se ajustan a los datos, minimizando la suma de los errores cuadráticos entre los valores predichos y los valores reales de los dependientes. variable. Normalmente, esto se realiza mediante un método como el de mínimos cuadrados ordinarios (OLS) o la estimación de máxima verosimilitud (MLE).</p>
+<p>Para determinar qué predictores incluir en el modelo, se pueden utilizar métodos como la regresión por pasos o técnicas de regularización como la regresión de cresta o la regresión de lazo. Además, para evaluar el rendimiento del modelo, se pueden utilizar métricas como el error cuadrático medio o el coeficiente de determinación <span class="math inline">\(R^2\)</span>.</p>
+<p>A continuación, usaremos el conjunto de datos <code>california_housing</code> de la librería <code>sklearn.datasets</code> para predecir el precio de las viviendas en California en función de las características de las viviendas. El conjunto de datos contiene 20.640 observaciones y 9 variables. Las variables son:</p>
+<ul>
+<li><code>MedInc</code>: ingreso medio de los residentes de la zona donde se encuentra la vivienda.</li>
+<li><code>HouseAge</code>: edad media de las viviendas en la zona.</li>
+<li><code>AveRooms</code>: número promedio de habitaciones por vivienda.</li>
+<li><code>AveBedrms</code>: número promedio de habitaciones por vivienda.</li>
+<li><code>Population</code>: población de la zona.</li>
+<li><code>AveOccup</code>: número promedio de personas que ocupan las viviendas.</li>
+<li><code>Latitude</code>: latitud de la zona.</li>
+<li><code>Longitude</code>: longitud de la zona.</li>
+<li><code>Target</code> o <code>MedHouseVal</code>: precio medio de las viviendas en la zona.</li>
+</ul>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_california_housing</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display_html</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> chain,cycle</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> display_side_by_side(<span class="op">*</span>args,titles<span class="op">=</span>cycle([<span class="st">''</span>])):</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    html_str<span class="op">=</span><span class="st">''</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> df,title <span class="kw">in</span> <span class="bu">zip</span>(args, chain(titles,cycle([<span class="st">'&lt;/br&gt;'</span>])) ):</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        html_str<span class="op">+=</span><span class="st">'&lt;th style="text-align:center"&gt;&lt;td style="vertical-align:top"&gt;'</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        html_str<span class="op">+=</span><span class="ss">f'&lt;h2 style="text-align: center;"&gt;</span><span class="sc">{</span>title<span class="sc">}</span><span class="ss">&lt;/h2&gt;'</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        html_str<span class="op">+=</span>df.to_html().replace(<span class="st">'table'</span>,<span class="st">'table style="display:inline"'</span>)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        html_str<span class="op">+=</span><span class="st">'&lt;/td&gt;&lt;/th&gt;'</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    display_html(html_str,raw<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>california_housing <span class="op">=</span> fetch_california_housing(as_frame<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co"># california_housing es un diccionario con las siguientes claves:</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(california_housing.frame.info())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1.62477719 1.87716588 3.15198967]
--0.01701784349774005</code></pre>
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 20640 entries, 0 to 20639
+Data columns (total 9 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   MedInc       20640 non-null  float64
+ 1   HouseAge     20640 non-null  float64
+ 2   AveRooms     20640 non-null  float64
+ 3   AveBedrms    20640 non-null  float64
+ 4   Population   20640 non-null  float64
+ 5   AveOccup     20640 non-null  float64
+ 6   Latitude     20640 non-null  float64
+ 7   Longitude    20640 non-null  float64
+ 8   MedHouseVal  20640 non-null  float64
+dtypes: float64(9)
+memory usage: 1.4 MB
+None</code></pre>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_null_distribution(slopes, slope):</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate a histogram of the null distribution </span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    plt.hist(slopes, bins<span class="op">=</span><span class="dv">25</span>, density<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the actual slope on the histogram </span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    plt.axvline(x<span class="op">=</span>slope, color<span class="op">=</span><span class="st">'red'</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># label the axes and show the plot </span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Slope under the null'</span>)</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'PDF'</span>)</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">'Null distribution of slope'</span>)</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># put a label on the actual slope</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    plt.text(slope<span class="op">*</span><span class="fl">1.01</span>, <span class="fl">0.5</span>, <span class="ss">f'Actual slope:</span><span class="sc">{</span>slope<span class="sc">}</span><span class="ss">'</span>, rotation<span class="op">=</span><span class="dv">90</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># asignamos a X las variables explicativas y a y la variable dependiente</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> california_housing.data</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> california_housing.target</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary statistics of the dataset</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># y as dataframe</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> pd.DataFrame(y)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>display_side_by_side(X.describe(), y.describe(), titles<span class="op">=</span>[<span class="st">'Caracteristicas'</span>, <span class="st">'Target'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<h2 style="text-align: center;" class="anchored">Caracteristicas</h2><table style="display:inline" class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>MedInc</th>
+      <th>HouseAge</th>
+      <th>AveRooms</th>
+      <th>AveBedrms</th>
+      <th>Population</th>
+      <th>AveOccup</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+      <td>20640.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>3.870671</td>
+      <td>28.639486</td>
+      <td>5.429000</td>
+      <td>1.096675</td>
+      <td>1425.476744</td>
+      <td>3.070655</td>
+      <td>35.631861</td>
+      <td>-119.569704</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.899822</td>
+      <td>12.585558</td>
+      <td>2.474173</td>
+      <td>0.473911</td>
+      <td>1132.462122</td>
+      <td>10.386050</td>
+      <td>2.135952</td>
+      <td>2.003532</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.499900</td>
+      <td>1.000000</td>
+      <td>0.846154</td>
+      <td>0.333333</td>
+      <td>3.000000</td>
+      <td>0.692308</td>
+      <td>32.540000</td>
+      <td>-124.350000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>2.563400</td>
+      <td>18.000000</td>
+      <td>4.440716</td>
+      <td>1.006079</td>
+      <td>787.000000</td>
+      <td>2.429741</td>
+      <td>33.930000</td>
+      <td>-121.800000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>3.534800</td>
+      <td>29.000000</td>
+      <td>5.229129</td>
+      <td>1.048780</td>
+      <td>1166.000000</td>
+      <td>2.818116</td>
+      <td>34.260000</td>
+      <td>-118.490000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>4.743250</td>
+      <td>37.000000</td>
+      <td>6.052381</td>
+      <td>1.099526</td>
+      <td>1725.000000</td>
+      <td>3.282261</td>
+      <td>37.710000</td>
+      <td>-118.010000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>15.000100</td>
+      <td>52.000000</td>
+      <td>141.909091</td>
+      <td>34.066667</td>
+      <td>35682.000000</td>
+      <td>1243.333333</td>
+      <td>41.950000</td>
+      <td>-114.310000</td>
+    </tr>
+  </tbody>
+</table><h2 style="text-align: center;" class="anchored">Target</h2><table style="display:inline" class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>MedHouseVal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>20640.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>2.068558</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1.153956</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.149990</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>1.196000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>1.797000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>2.647250</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>5.000010</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the distribution of the target variable</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>sns.histplot(y, kde<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of Median Home Values'</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Median Home Value ($1000s)'</span>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the correlation between the features</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>corr <span class="op">=</span> X.corr()</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, annot<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Correlation Matrix'</span>)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the relationship between the features and the target variable</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">15</span>))</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, feature <span class="kw">in</span> <span class="bu">enumerate</span>(X.columns):</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i <span class="op">//</span> <span class="dv">3</span>, i <span class="op">%</span> <span class="dv">3</span>]</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>i <span class="op">//</span> <span class="dv">3</span><span class="sc">,</span> i <span class="op">%</span> <span class="dv">3</span><span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>    sns.regplot(x<span class="op">=</span>X[feature], y<span class="op">=</span>y, ax<span class="op">=</span>ax, scatter_kws<span class="op">=</span>{<span class="st">'alpha'</span>: <span class="fl">0.1</span>}, line_kws<span class="op">=</span>{<span class="st">'color'</span>: <span class="st">'red'</span>})</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f'</span><span class="sc">{</span>feature<span class="sc">}</span><span class="ss"> vs. Median Home Value'</span>)</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(feature)</span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">'Median Home Value ($1000s)'</span>)</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(0, 0)
+(0, 1)
+(0, 2)
+(1, 0)
+(1, 1)
+(1, 2)
+(2, 0)
+(2, 1)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-14-output-4.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># joint the target variable with the features</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.concat([X, y], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sort correlations of target with features</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>df[df.columns[<span class="dv">1</span>:]].corr()[<span class="st">'MedHouseVal'</span>][:].sort_values(ascending<span class="op">=</span><span class="va">False</span>).to_frame()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>MedHouseVal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>MedHouseVal</th>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>AveRooms</th>
+      <td>0.151948</td>
+    </tr>
+    <tr>
+      <th>HouseAge</th>
+      <td>0.105623</td>
+    </tr>
+    <tr>
+      <th>AveOccup</th>
+      <td>-0.023737</td>
+    </tr>
+    <tr>
+      <th>Population</th>
+      <td>-0.024650</td>
+    </tr>
+    <tr>
+      <th>Longitude</th>
+      <td>-0.045967</td>
+    </tr>
+    <tr>
+      <th>AveBedrms</th>
+      <td>-0.046701</td>
+    </tr>
+    <tr>
+      <th>Latitude</th>
+      <td>-0.144160</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create linear regression model</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression()</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># # Compute cross-validation score</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># scores = cross_val_score(model, california_housing.data, california_housing.target, cv=5, scoring='neg_mean_squared_error')</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># # Compute mean squared error</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># mse = -np.mean(scores)</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"Mean squared error: {mse}")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="comparación-de-modelos" class="level3">
+<h3 class="anchored" data-anchor-id="comparación-de-modelos">Comparación de modelos</h3>
+<p>Para comparar diferentes modelos, usaremos el criterio de información de Akaike (AIC). El AIC es una medida de la calidad de un modelo estadístico para un conjunto de datos dado. Es una medida de la bondad de ajuste de un modelo, donde un modelo con un menor AIC es mejor que un modelo con un AIC más alto. El AIC se define como:</p>
+<p><span class="math display">\[
+  AIC = -2 \log(L) + 2k
+\]</span></p>
+<p>En donde <span class="math inline">\(L\)</span> es la verosimilitud del modelo y <span class="math inline">\(k\)</span> es el número de parámetros del modelo. El AIC penaliza los modelos con un número mayor de parámetros, por lo que un modelo con un AIC más bajo es preferible a un modelo con un AIC más alto, todo lo demás siendo igual.</p>
+<p>En el caso de la regresión lineal, la verosimilitud se maximiza cuando se minimiza la suma de los errores cuadráticos (RSS).</p>
+<p>La función de verosimilitud se puede escribir como:</p>
+<p><span class="math display">\[
+  L = \prod_{i=1}^n \frac{1}{\sqrt{2 \pi \sigma^2}} \exp \left( -\frac{(y_i - \hat{y}_i)^2}{2 \sigma^2} \right)
+\]</span></p>
+<p>Y la log-verosimilitud se puede escribir como:</p>
+<p><span class="math display">\[
+  \log(L) = -\frac{n}{2} \log(2 \pi \sigma^2) - \frac{1}{2 \sigma^2} \sum_{i=1}^n (y_i - \hat{y}_i)^2
+\]</span></p>
+<p>Dado que la función de verosimilitud original contiene varianza desconocida <span class="math inline">\(\sigma^2\)</span>, en lugar de la verosisimilitud, se usa el error cuadrático medio (MSE) como medida de la bondad de ajuste del modelo. El MSE se puede escribir como:</p>
+<p><span class="math display">\[
+  MSE = \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2 = RSS / n
+\]</span> Que no es otra cosa sino el error cuadrático medio (MSE) de los residuales. Por lo tanto, el AIC se puede escribir como:</p>
+<p><span class="math display">\[
+  AIC = -2 \log(L) + 2k = n \log(MSE) + 2k
+\]</span></p>
+<p>Para comparar entre diferentes modelos, podemos obtener el AIC para cada modelo y elegir el modelo con el AIC más bajo.</p>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>X.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>MedInc</th>
+      <th>HouseAge</th>
+      <th>AveRooms</th>
+      <th>AveBedrms</th>
+      <th>Population</th>
+      <th>AveOccup</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>8.3252</td>
+      <td>41.0</td>
+      <td>6.984127</td>
+      <td>1.023810</td>
+      <td>322.0</td>
+      <td>2.555556</td>
+      <td>37.88</td>
+      <td>-122.23</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>8.3014</td>
+      <td>21.0</td>
+      <td>6.238137</td>
+      <td>0.971880</td>
+      <td>2401.0</td>
+      <td>2.109842</td>
+      <td>37.86</td>
+      <td>-122.22</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7.2574</td>
+      <td>52.0</td>
+      <td>8.288136</td>
+      <td>1.073446</td>
+      <td>496.0</td>
+      <td>2.802260</td>
+      <td>37.85</td>
+      <td>-122.24</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5.6431</td>
+      <td>52.0</td>
+      <td>5.817352</td>
+      <td>1.073059</td>
+      <td>558.0</td>
+      <td>2.547945</td>
+      <td>37.85</td>
+      <td>-122.25</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3.8462</td>
+      <td>52.0</td>
+      <td>6.281853</td>
+      <td>1.081081</td>
+      <td>565.0</td>
+      <td>2.181467</td>
+      <td>37.85</td>
+      <td>-122.25</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit different linear regression models to the data</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># model1: MedInc, HouseAge, AveRooms</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model2: AveBedrms, Population, AveOccup</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># model3: Latitude, Longitude, HouseAge</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># model4: All features</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>m1_cols <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>]</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>m2_cols <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">0</span>]</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>m3_cols <span class="op">=</span> [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">0</span>]</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>m4_cols <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>]</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_aic(y, X, selected_columns):</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    X_selected <span class="op">=</span> X.iloc[:, selected_columns]</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> sm.OLS(y, sm.add_constant(X_selected)).fit()</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    k <span class="op">=</span> <span class="bu">len</span>(selected_columns) <span class="op">+</span> <span class="dv">1</span>  <span class="co"># Add 1 for the constant term</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    mse <span class="op">=</span> mean_squared_error(y, model.predict(sm.add_constant(X_selected)))</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(y)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    aic <span class="op">=</span> n <span class="op">*</span> np.log(mse) <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># aic = 2 * k - 2 * model.llf</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> aic</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>aic_vector <span class="op">=</span> []</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>dic_models <span class="op">=</span> {<span class="st">'model1'</span>: m1_cols, <span class="st">'model2'</span>: m2_cols, <span class="st">'model3'</span>: m3_cols, <span class="st">'model4'</span>: m4_cols}</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> model_name, columns <span class="kw">in</span> dic_models.items():</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>    aic <span class="op">=</span> compute_aic(y, X, columns)</span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>    aic_vector.append(aic)</span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>model_name<span class="sc">}</span><span class="ss"> AIC: </span><span class="sc">{</span>aic<span class="sc">}</span><span class="ss">, Columns: </span><span class="sc">{</span>columns<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>model1 AIC: -8960.382137463946, Columns: [0, 1, 2, 5]
+model2 AIC: -7373.877664102756, Columns: [3, 5, 0]
+model3 AIC: -12686.075356533185, Columns: [6, 7, 1, 0]
+model4 AIC: -13308.241039423, Columns: [0, 1, 2, 3, 4, 5, 6, 7]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sort the AIC from lowest to highest</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>sorted_aic <span class="op">=</span> <span class="bu">sorted</span>(<span class="bu">zip</span>(dic_models.keys(), aic_vector), key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="dv">1</span>])</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>sorted_aic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="66">
+<pre><code>[('model4', -13308.241039423),
+ ('model3', -12686.075356533185),
+ ('model1', -8960.382137463946),
+ ('model2', -7373.877664102756)]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="67">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'---------------------'</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Model with lowest AIC: </span><span class="sc">{</span>sorted_aic[<span class="dv">0</span>][<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, AIC: </span><span class="sc">{</span>sorted_aic[<span class="dv">0</span>][<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># print model variables for m4</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Variables for model with lowest AIC: </span><span class="sc">{</span>X<span class="sc">.</span>columns[dic_models[sorted_aic[<span class="dv">0</span>][<span class="dv">0</span>]]]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>---------------------
+Model with lowest AIC: model4, AIC: -13308.24
+Variables for model with lowest AIC: Index(['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup',
+       'Latitude', 'Longitude'],
+      dtype='object')</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit the model with the lowest AIC</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y, sm.add_constant(X.iloc[:, dic_models[sorted_aic[<span class="dv">0</span>][<span class="dv">0</span>]]])).fit()</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># print the model summary</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="68">
+
+<table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tbody><tr>
+  <th>Dep. Variable:</th>       <td>MedHouseVal</td>   <th>  R-squared:         </th> <td>   0.606</td> 
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.606</td> 
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   3970.</td> 
+</tr>
+<tr>
+  <th>Date:</th>             <td>Tue, 18 Apr 2023</td> <th>  Prob (F-statistic):</th>  <td>  0.00</td>  
+</tr>
+<tr>
+  <th>Time:</th>                 <td>21:02:35</td>     <th>  Log-Likelihood:    </th> <td> -22624.</td> 
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td> 20640</td>      <th>  AIC:               </th> <td>4.527e+04</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td> 20631</td>      <th>  BIC:               </th> <td>4.534e+04</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     8</td>      <th>                     </th>     <td> </td>    
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>    
+</tr>
+</tbody></table>
+<table class="simpletable">
+<tbody><tr>
+       <td></td>         <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P&gt;|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>const</th>      <td>  -36.9419</td> <td>    0.659</td> <td>  -56.067</td> <td> 0.000</td> <td>  -38.233</td> <td>  -35.650</td>
+</tr>
+<tr>
+  <th>MedInc</th>     <td>    0.4367</td> <td>    0.004</td> <td>  104.054</td> <td> 0.000</td> <td>    0.428</td> <td>    0.445</td>
+</tr>
+<tr>
+  <th>HouseAge</th>   <td>    0.0094</td> <td>    0.000</td> <td>   21.143</td> <td> 0.000</td> <td>    0.009</td> <td>    0.010</td>
+</tr>
+<tr>
+  <th>AveRooms</th>   <td>   -0.1073</td> <td>    0.006</td> <td>  -18.235</td> <td> 0.000</td> <td>   -0.119</td> <td>   -0.096</td>
+</tr>
+<tr>
+  <th>AveBedrms</th>  <td>    0.6451</td> <td>    0.028</td> <td>   22.928</td> <td> 0.000</td> <td>    0.590</td> <td>    0.700</td>
+</tr>
+<tr>
+  <th>Population</th> <td>-3.976e-06</td> <td> 4.75e-06</td> <td>   -0.837</td> <td> 0.402</td> <td>-1.33e-05</td> <td> 5.33e-06</td>
+</tr>
+<tr>
+  <th>AveOccup</th>   <td>   -0.0038</td> <td>    0.000</td> <td>   -7.769</td> <td> 0.000</td> <td>   -0.005</td> <td>   -0.003</td>
+</tr>
+<tr>
+  <th>Latitude</th>   <td>   -0.4213</td> <td>    0.007</td> <td>  -58.541</td> <td> 0.000</td> <td>   -0.435</td> <td>   -0.407</td>
+</tr>
+<tr>
+  <th>Longitude</th>  <td>   -0.4345</td> <td>    0.008</td> <td>  -57.682</td> <td> 0.000</td> <td>   -0.449</td> <td>   -0.420</td>
+</tr>
+</tbody></table>
+<table class="simpletable">
+<tbody><tr>
+  <th>Omnibus:</th>       <td>4393.650</td> <th>  Durbin-Watson:     </th> <td>   0.885</td> 
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th>  <td> 0.000</td>  <th>  Jarque-Bera (JB):  </th> <td>14087.596</td>
+</tr>
+<tr>
+  <th>Skew:</th>           <td> 1.082</td>  <th>  Prob(JB):          </th> <td>    0.00</td> 
+</tr>
+<tr>
+  <th>Kurtosis:</th>       <td> 6.420</td>  <th>  Cond. No.          </th> <td>2.38e+05</td> 
+</tr>
+</tbody></table><br><br>Notes:<br>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br>[2] The condition number is large, 2.38e+05. This might indicate that there are<br>strong multicollinearity or other numerical problems.
+</div>
+</div>
+<div class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot y against the predictors from model 1</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, feature <span class="kw">in</span> <span class="bu">enumerate</span>(X.columns[dic_models[sorted_aic[<span class="dv">0</span>][<span class="dv">0</span>]]]):</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    plt.figure()</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    sns.regplot(x<span class="op">=</span>X[feature], y<span class="op">=</span>y, scatter_kws<span class="op">=</span>{<span class="st">'alpha'</span>: <span class="fl">0.1</span>}, line_kws<span class="op">=</span>{<span class="st">'color'</span>: <span class="st">'red'</span>})</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f'</span><span class="sc">{</span>feature<span class="sc">}</span><span class="ss"> vs. Median Home Value'</span>)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(feature)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'Median Home Value ($1000s)'</span>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-22-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-22-output-3.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-22-output-4.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-22-output-5.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-22-output-6.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-22-output-7.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="3.3_prueba_hipotesis_lineal_Vpython_files/figure-html/cell-22-output-8.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="selección-de-variables-con-stepwise-regression-regresión-por-pasos" class="level2">
+<h2 class="anchored" data-anchor-id="selección-de-variables-con-stepwise-regression-regresión-por-pasos">Selección de variables con stepwise regression (regresión por pasos)</h2>
+<p>El método de selección de variables por pasos se utiliza para seleccionar un subconjunto de variables predictoras para incluir en un modelo. Comienza con un modelo que contiene todas las variables predictoras y luego se eliminan o agregan variables predictoras de acuerdo con un criterio predefinido. El criterio más común es el criterio de información de Akaike (AIC).</p>
+<p>Existen dos formas de llevar a cabo la selección de variables por pasos: hacia adelante y hacia atrás. En la selección de variables por pasos hacia adelante, comenzamos con un modelo que contiene una sola variable predictora y luego agregamos variables predictoras de acuerdo con un criterio predefinido. En la selección de variables por pasos hacia atrás, comenzamos con un modelo que contiene todas las variables predictoras y luego eliminamos variables predictoras de acuerdo con un criterio predefinido.</p>
+<p>Ambas formas pueden dar resultados diferentes, por lo que es una buena idea probar ambos métodos.</p>
+<div class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forward stepwise selection</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> forward_stepwise_selection(y, X, threshold_in<span class="op">=</span><span class="fl">0.001</span>):</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    remaining_predictors <span class="op">=</span> <span class="bu">list</span>(X.columns)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    selected_predictors <span class="op">=</span> []</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    current_score, best_new_score <span class="op">=</span> np.inf, np.inf</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> remaining_predictors <span class="kw">and</span> current_score <span class="op">==</span> best_new_score:</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>        scores_with_predictors <span class="op">=</span> []</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> predictor <span class="kw">in</span> remaining_predictors:</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>            model <span class="op">=</span> sm.OLS(y, sm.add_constant(pd.DataFrame(X[selected_predictors <span class="op">+</span> [predictor]]))).fit()</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>            score <span class="op">=</span> model.aic</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>            scores_with_predictors.append((score, predictor))</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>        scores_with_predictors.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>        best_new_score, best_predictor <span class="op">=</span> scores_with_predictors.pop()</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> best_new_score <span class="op">&lt;</span> current_score <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> threshold_in):</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>            remaining_predictors.remove(best_predictor)</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>            selected_predictors.append(best_predictor)</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>            current_score <span class="op">=</span> best_new_score</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> selected_predictors, current_score</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>selected_predictors <span class="op">=</span> forward_stepwise_selection(y, X)</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a><span class="co"># print the selected predictors and the AIC</span></span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Selected predictors: </span><span class="sc">{</span>selected_predictors[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'AIC: </span><span class="sc">{</span>selected_predictors[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Selected predictors: ['MedInc', 'HouseAge', 'Latitude', 'Longitude', 'AveBedrms', 'AveRooms', 'AveOccup']
+AIC: 45264.24</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Backward elimination using AIC</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> backward_elimination(y, X, threshold_out<span class="op">=</span><span class="fl">0.001</span>):</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    remaining_predictors <span class="op">=</span> <span class="bu">list</span>(X.columns)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    best_score <span class="op">=</span> np.inf</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    selected_predictors <span class="op">=</span> remaining_predictors.copy()</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>        scores_with_predictors <span class="op">=</span> []</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> predictor <span class="kw">in</span> remaining_predictors:</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>            temp_predictors <span class="op">=</span> remaining_predictors.copy()</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>            temp_predictors.remove(predictor)</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>            model <span class="op">=</span> sm.OLS(y, sm.add_constant(pd.DataFrame(X[temp_predictors]))).fit()</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>            score <span class="op">=</span> model.aic</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>            scores_with_predictors.append((score, predictor))</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>        scores_with_predictors.sort()</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>        current_best_score, worst_predictor <span class="op">=</span> scores_with_predictors[<span class="dv">0</span>]</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> current_best_score <span class="op">&lt;</span> best_score <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> threshold_out):</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>            remaining_predictors.remove(worst_predictor)</span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>            best_score <span class="op">=</span> current_best_score</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> remaining_predictors, best_score</span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>selected_predictors <span class="op">=</span> backward_elimination(y, X)</span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Selected predictors: </span><span class="sc">{</span>selected_predictors[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'AIC: </span><span class="sc">{</span>selected_predictors[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Selected predictors: ['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'AveOccup', 'Latitude', 'Longitude']
+AIC: 45264.24</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run model with selected predictors</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y, sm.add_constant(pd.DataFrame(X[selected_predictors[<span class="dv">0</span>]]))).fit()</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="69">
+
+<table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tbody><tr>
+  <th>Dep. Variable:</th>       <td>MedHouseVal</td>   <th>  R-squared:         </th> <td>   0.606</td> 
+</tr>
+<tr>
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.606</td> 
+</tr>
+<tr>
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   4538.</td> 
+</tr>
+<tr>
+  <th>Date:</th>             <td>Tue, 18 Apr 2023</td> <th>  Prob (F-statistic):</th>  <td>  0.00</td>  
+</tr>
+<tr>
+  <th>Time:</th>                 <td>21:12:11</td>     <th>  Log-Likelihood:    </th> <td> -22624.</td> 
+</tr>
+<tr>
+  <th>No. Observations:</th>      <td> 20640</td>      <th>  AIC:               </th> <td>4.526e+04</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>          <td> 20632</td>      <th>  BIC:               </th> <td>4.533e+04</td>
+</tr>
+<tr>
+  <th>Df Model:</th>              <td>     7</td>      <th>                     </th>     <td> </td>    
+</tr>
+<tr>
+  <th>Covariance Type:</th>      <td>nonrobust</td>    <th>                     </th>     <td> </td>    
+</tr>
+</tbody></table>
+<table class="simpletable">
+<tbody><tr>
+      <td></td>         <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P&gt;|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>const</th>     <td>  -36.9175</td> <td>    0.658</td> <td>  -56.085</td> <td> 0.000</td> <td>  -38.208</td> <td>  -35.627</td>
+</tr>
+<tr>
+  <th>MedInc</th>    <td>    0.4368</td> <td>    0.004</td> <td>  104.089</td> <td> 0.000</td> <td>    0.429</td> <td>    0.445</td>
+</tr>
+<tr>
+  <th>HouseAge</th>  <td>    0.0096</td> <td>    0.000</td> <td>   22.602</td> <td> 0.000</td> <td>    0.009</td> <td>    0.010</td>
+</tr>
+<tr>
+  <th>AveRooms</th>  <td>   -0.1071</td> <td>    0.006</td> <td>  -18.217</td> <td> 0.000</td> <td>   -0.119</td> <td>   -0.096</td>
+</tr>
+<tr>
+  <th>AveBedrms</th> <td>    0.6449</td> <td>    0.028</td> <td>   22.922</td> <td> 0.000</td> <td>    0.590</td> <td>    0.700</td>
+</tr>
+<tr>
+  <th>AveOccup</th>  <td>   -0.0038</td> <td>    0.000</td> <td>   -7.861</td> <td> 0.000</td> <td>   -0.005</td> <td>   -0.003</td>
+</tr>
+<tr>
+  <th>Latitude</th>  <td>   -0.4207</td> <td>    0.007</td> <td>  -58.763</td> <td> 0.000</td> <td>   -0.435</td> <td>   -0.407</td>
+</tr>
+<tr>
+  <th>Longitude</th> <td>   -0.4340</td> <td>    0.008</td> <td>  -57.782</td> <td> 0.000</td> <td>   -0.449</td> <td>   -0.419</td>
+</tr>
+</tbody></table>
+<table class="simpletable">
+<tbody><tr>
+  <th>Omnibus:</th>       <td>4406.193</td> <th>  Durbin-Watson:     </th> <td>   0.885</td> 
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th>  <td> 0.000</td>  <th>  Jarque-Bera (JB):  </th> <td>14155.786</td>
+</tr>
+<tr>
+  <th>Skew:</th>           <td> 1.084</td>  <th>  Prob(JB):          </th> <td>    0.00</td> 
+</tr>
+<tr>
+  <th>Kurtosis:</th>       <td> 6.429</td>  <th>  Cond. No.          </th> <td>1.68e+04</td> 
+</tr>
+</tbody></table><br><br>Notes:<br>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br>[2] The condition number is large, 1.68e+04. This might indicate that there are<br>strong multicollinearity or other numerical problems.
+</div>
 </div>
 </section>
 </section>

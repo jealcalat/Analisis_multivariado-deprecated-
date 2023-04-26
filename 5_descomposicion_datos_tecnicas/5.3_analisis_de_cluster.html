@@ -142,80 +142,142 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[
   \min_{C_1,\dots, C_k } \left \{ \sum_{k=1}^K \sum_{x_i\in C_k}(x_{ij}-\bar x_k)^2 \right \}\tag{3}
 \]</span></p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="38">
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cargar algunas funciones que se utilizarán</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"../r_scripts/utilities.r"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   1.0.1 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.3.0      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+✖ purrr::map()    masks mclust::map()</code></pre>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">7</span>, <span class="at">repr.plot.height =</span> <span class="dv">6</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">4</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), <span class="at">ncol =</span> <span class="dv">2</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">12</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), <span class="at">ncol =</span> <span class="dv">2</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), <span class="at">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  x[, <span class="dv">1</span>], x[, <span class="dv">2</span>],</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dos formas diferentes de anotaciones matemáticas</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> red_light, <span class="at">fill =</span> blue_light</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>df_xbiv <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x1 =</span> x[, <span class="dv">1</span>], <span class="at">x2 =</span> x[, <span class="dv">2</span>])</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df_xbiv, <span class="st">"cluster_bivariado.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simular en r un conjunto de datos con 3 grupos en 2D normalmente distribuidos</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvtnorm)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>mu3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rmvnorm</span>(n, mu1, sigma)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rmvnorm</span>(n, mu2, sigma)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rmvnorm</span>(n, mu3, sigma)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rbind</span>(x1, x2, x3)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), <span class="fu">rep</span>(<span class="dv">2</span>, n), <span class="fu">rep</span>(<span class="dv">3</span>, n))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x, y)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"y"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'mvtnorm'
+
+
+The following object is masked from 'package:mclust':
+
+    dmvnorm
+
+</code></pre>
+</div>
 <div class="cell-output cell-output-display">
-<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
+
+<table class="dataframe table table-sm table-striped">
+<caption>A data.frame: 6 × 3</caption>
+<thead>
+    <tr><th></th><th scope="col">x1</th><th scope="col">x2</th><th scope="col">y</th></tr>
+    <tr><th></th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th><th scope="col">&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">1</th><td>-0.5604756</td><td>-0.23017749</td><td>1</td></tr>
+    <tr><th scope="row">2</th><td> 1.5587083</td><td> 0.07050839</td><td>1</td></tr>
+    <tr><th scope="row">3</th><td> 0.1292877</td><td> 1.71506499</td><td>1</td></tr>
+    <tr><th scope="row">4</th><td> 0.4609162</td><td>-1.26506123</td><td>1</td></tr>
+    <tr><th scope="row">5</th><td>-0.6868529</td><td>-0.44566197</td><td>1</td></tr>
+    <tr><th scope="row">6</th><td> 1.2240818</td><td> 0.35981383</td><td>1</td></tr>
+</tbody>
+</table>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>km3 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x, <span class="dv">3</span>, <span class="at">iter.max =</span> <span class="dv">2000</span>, <span class="at">nstart =</span> <span class="dv">3</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df_xbiv<span class="sc">$</span>cls <span class="ot">&lt;-</span> km3<span class="sc">$</span>cluster</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  x[, <span class="dv">1</span>], x[, <span class="dv">2</span>],</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dos formas diferentes de anotaciones matemáticas</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> df_xbiv<span class="sc">$</span>cls <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(km3<span class="sc">$</span>centers[, <span class="dv">1</span>], km3<span class="sc">$</span>centers[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">7</span>, <span class="at">repr.plot.height =</span> <span class="dv">6</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>x1, df<span class="sc">$</span>x2,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dos formas diferentes de anotaciones matemáticas</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> red_light, <span class="at">fill =</span> blue_light</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>df_xbiv <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x1 =</span> x[, <span class="dv">1</span>], <span class="at">x2 =</span> x[, <span class="dv">2</span>])</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df_xbiv, <span class="st">"cluster_bivariado.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="5.3_analisis_de_cluster_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># número de clústers</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># obtener centroides a partir de los datos, pero puede ser cualquier centroide</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>centroids_k <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(<span class="fu">dim</span>(x)[<span class="dv">1</span>], k)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>centroids <span class="ot">&lt;-</span> x[centroids_k, ] <span class="sc">|&gt;</span> <span class="fu">as.matrix</span>()</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># prealojar espacio para matriz de distancias</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>dist_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(x), <span class="at">ncol =</span> k)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># obtener las distancias</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x)) {</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    dist_mat[i, j] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((x[i, ] <span class="sc">-</span> centroids[j, ])<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># matriz de distancias</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dist_mat)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># MARGIN es similar a axis en numpy; 1 es para las filas: la función entonces por</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># fila selecciona la columna con la distancia mínima; retorna un vector del mismo</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># tamaño que la matriz de datos, por lo que en este punto es equivalente</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># a asignar la observación x_i al cluster k</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>cluster <span class="ot">&lt;-</span> <span class="fu">apply</span>(<span class="at">X =</span> dist_mat, <span class="at">MARGIN =</span> <span class="dv">1</span>, <span class="at">FUN =</span> which.min)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>cluster</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">12</span>, <span class="at">repr.plot.height =</span> <span class="dv">6</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>km3 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x, <span class="dv">3</span>, <span class="at">iter.max =</span> <span class="dv">2000</span>, <span class="at">nstart =</span> <span class="dv">3</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>cls <span class="ot">&lt;-</span> km3<span class="sc">$</span>cluster</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>x1, df<span class="sc">$</span>x2,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> df<span class="sc">$</span>y <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Real"</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>x1, df<span class="sc">$</span>x2,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> df<span class="sc">$</span>cls <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"K-means"</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(km3<span class="sc">$</span>centers[, <span class="dv">1</span>], km3<span class="sc">$</span>centers[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">'blue'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># número de clústers</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># obtener centroides a partir de los datos, pero puede ser cualquier centroide</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>centroids_k <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(<span class="fu">dim</span>(x)[<span class="dv">1</span>], k)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>centroids <span class="ot">&lt;-</span> x[centroids_k, ] <span class="sc">|&gt;</span> <span class="fu">as.matrix</span>()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># prealojar espacio para matriz de distancias</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>dist_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(x), <span class="at">ncol =</span> k)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># obtener las distancias</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x)) {</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    dist_mat[i, j] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((x[i, ] <span class="sc">-</span> centroids[j, ])<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># matriz de distancias</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dist_mat)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># MARGIN es similar a axis en numpy; 1 es para las filas: la función entonces por</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># fila selecciona la columna con la distancia mínima; retorna un vector del mismo</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># tamaño que la matriz de datos, por lo que en este punto es equivalente</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># a asignar la observación x_i al cluster k</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>cluster <span class="ot">&lt;-</span> <span class="fu">apply</span>(<span class="at">X =</span> dist_mat, <span class="at">MARGIN =</span> <span class="dv">1</span>, <span class="at">FUN =</span> which.min)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>cluster</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
 <table class="dataframe table table-sm table-striped">
 <caption>A matrix: 6 × 3 of type dbl</caption>
 <tbody>
-    <tr><td>9.126487</td><td>9.445699</td><td>8.703904</td></tr>
-    <tr><td>8.680629</td><td>8.993971</td><td>8.242606</td></tr>
-    <tr><td>8.593751</td><td>8.913768</td><td>8.174146</td></tr>
-    <tr><td>9.209952</td><td>9.523851</td><td>8.773055</td></tr>
-    <tr><td>8.139635</td><td>8.454996</td><td>7.706238</td></tr>
-    <tr><td>9.080333</td><td>9.396593</td><td>8.649039</td></tr>
+    <tr><td>0.8382737</td><td>1.1842585</td><td>6.178024</td></tr>
+    <tr><td>2.2006933</td><td>1.6334960</td><td>4.312767</td></tr>
+    <tr><td>1.3123193</td><td>2.7309904</td><td>4.735589</td></tr>
+    <tr><td>2.1405761</td><td>0.2871484</td><td>6.032991</td></tr>
+    <tr><td>1.0595102</td><td>1.1640970</td><td>6.400697</td></tr>
+    <tr><td>1.8164588</td><td>1.6332157</td><td>4.376201</td></tr>
 </tbody>
 </table>
 </div>
@@ -225,43 +287,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 .list-inline>li {display: inline-block}
 .list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
 </style>
-<ol class="list-inline"><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>3</li><li>2</li><li>1</li><li>1</li><li>1</li><li>1</li><li>2</li><li>2</li><li>3</li><li>3</li><li>2</li><li>1</li><li>2</li><li>3</li><li>1</li><li>2</li><li>1</li><li>1</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>1</li><li>1</li><li>3</li><li>2</li><li>2</li><li>1</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>1</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>1</li><li>3</li></ol>
+<ol class="list-inline"><li>1</li><li>2</li><li>1</li><li>2</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>2</li><li>1</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>1</li><li>1</li><li>1</li><li>1</li><li>2</li><li>2</li><li>1</li><li>2</li><li>1</li><li>2</li><li>2</li><li>1</li><li>2</li><li>2</li><li>1</li><li>1</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>2</li><li>1</li><li>2</li><li>1</li><li>2</li><li>1</li><li>2</li><li>1</li><li>1</li><li>1</li><li>1</li><li>2</li><li>2</li><li>2</li><li>1</li><li>2</li><li>1</li><li>1</li><li>2</li><li>2</li><li>1</li><li>1</li><li>2</li><li>2</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>2</li><li>1</li><li>1</li><li>2</li><li>1</li><li>1</li><li>1</li><li>2</li><li>1</li><li>2</li><li>1</li><li>2</li><li>1</li><li>2</li><li>2</li><li>2</li><li>2</li><li>1</li><li>2</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>1</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>3</li><li>2</li><li>3</li><li>3</li><li>3</li><li>3</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li><li>1</li></ol>
 </div>
 </div>
 <p>Calculamos ahora el resultado de la ecuación (3), que podríamos definir como la suma total de <span class="math inline">\(W(C_k)\)</span>, o <code>total_WCSS</code> (total within-cluster sum of squares).</p>
 <p><span class="math display">\[
   W_{\text{total}}(C_k) = \sum_{k=1}^K \sum_{x_i\in C_k}(x_{ij}-\bar x_k)^2\tag{4}
 \]</span></p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calcular eq 4</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dist_mat_cluster <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># para clusters de 1 a k</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># retornar la suma de cuadrados en el cluster i minimizado;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># elevamos al cuadrado nuevamente la distancia euclideana</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  dist_mat_cluster[[i]] <span class="ot">&lt;-</span> dist_mat[<span class="fu">which</span>(cluster <span class="sc">==</span> i), i]<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># obtener la suma de cuadrados intra-cluster</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>within_cluster_ss <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(dist_mat_cluster, sum))</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># obtener la suma de cuadrados intracluster total</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>total_WCSS <span class="ot">=</span> <span class="fu">sum</span>(within_cluster_ss)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Total within-cluster sum of squares:"</span>, total_WCSS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calcular eq 4</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dist_mat_cluster <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># para clusters de 1 a k</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># retornar la suma de cuadrados en el cluster i minimizado;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># elevamos al cuadrado nuevamente la distancia euclideana</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  dist_mat_cluster[[i]] <span class="ot">&lt;-</span> dist_mat[<span class="fu">which</span>(cluster <span class="sc">==</span> i), i]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># obtener la suma de cuadrados intra-cluster</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>within_cluster_ss <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(dist_mat_cluster, sum))</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># obtener la suma de cuadrados intracluster total</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>total_WCSS <span class="ot">=</span> <span class="fu">sum</span>(within_cluster_ss)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Total within-cluster sum of squares:"</span>, total_WCSS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Total within-cluster sum of squares: 3686.696</code></pre>
+Total within-cluster sum of squares: 1761.809</code></pre>
 </div>
 </div>
 <p>Una vez que minimizamos las distancias y encontramos los clústers en la iteración 1, recalculamos los centroides. Los nuevos centroides serán el promedio <span class="math inline">\(\bar x_k\)</span> de cada clúster (y, recordar, estos nuevos clústers se encontraron minimizando <span class="math inline">\(W(C_k)\)</span>, por lo que los nuevos centroides en el paso <span class="math inline">\(t+1\)</span> mejoraron la distancia intraclúster).</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>new_centroid <span class="ot">&lt;-</span> x <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(<span class="at">Clusters =</span> cluster) <span class="sc">%&gt;%</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Clusters) <span class="sc">%&gt;%</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(mean)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>new_centroid_points <span class="ot">&lt;-</span> new_centroid[, <span class="sc">-</span><span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># centroides después de primera iteración</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>new_centroid_points</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>new_centroid <span class="ot">&lt;-</span> x <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(<span class="at">Clusters =</span> cluster) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Clusters) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(mean)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>new_centroid_points <span class="ot">&lt;-</span> new_centroid[, <span class="sc">-</span><span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># centroides después de primera iteración</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>new_centroid_points</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
 <table class="dataframe table table-sm table-striped">
@@ -270,87 +332,93 @@ Total within-cluster sum of squares: 3686.696</code></pre>
     <tr><th scope="col">V1</th><th scope="col">V2</th></tr>
 </thead>
 <tbody>
-    <tr><td>10.225188</td><td> 9.972889</td></tr>
-    <tr><td>11.711079</td><td>11.715939</td></tr>
-    <tr><td> 5.808081</td><td> 5.949712</td></tr>
+    <tr><td>-1.9892948</td><td> 2.2038241</td></tr>
+    <tr><td> 0.4004146</td><td>-0.6410541</td></tr>
+    <tr><td> 3.1914786</td><td> 2.9947752</td></tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  x[, <span class="dv">1</span>], x[, <span class="dv">2</span>],</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dos formas diferentes de anotaciones matemáticas</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="dv">1</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(centroids[, <span class="dv">1</span>], centroids[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">7</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># nuevos centroides</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(new_centroid_points[, <span class="dv">1</span>], new_centroid_points[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">6</span>)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"topleft"</span>,</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Data"</span>, <span class="st">"1st Iter"</span>, <span class="st">"2nd Iter"</span>),</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">6</span>),</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="fu">list</span>(<span class="dv">16</span>, <span class="dv">3</span>, <span class="dv">3</span>),</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">pt.cex =</span> <span class="dv">1</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>x1, df<span class="sc">$</span>x2,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dos formas diferentes de anotaciones matemáticas</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="dv">1</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(centroids[, <span class="dv">1</span>], centroids[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">7</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># nuevos centroides</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(new_centroid_points[, <span class="dv">1</span>], new_centroid_points[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">6</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"topleft"</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Data"</span>, <span class="st">"1st Iter"</span>, <span class="st">"2nd Iter"</span>),</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">6</span>),</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="fu">list</span>(<span class="dv">16</span>, <span class="dv">3</span>, <span class="dv">3</span>),</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">pt.cex =</span> <span class="dv">1</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Juntando todo</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>k_means <span class="ot">&lt;-</span> <span class="cf">function</span>(df, k, iters) {</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># iniciar centroides</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  centroids_k <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(<span class="fu">dim</span>(df)[<span class="dv">1</span>], k)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  centroids <span class="ot">&lt;-</span> df[centroids_k, ] <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  data_mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(df)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># iniciar within-cluster sum of squares</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  within_cluster_ss <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  total_WCSS <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>iters) {</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    dist_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(data_mat), <span class="at">ncol =</span> k)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) { <span class="co"># para cada j en 1 hasta k</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data_mat)) { <span class="co"># para cada i en i hasta n</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># suma de cuadrados x_i - x_media_k</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        dist_mat[i, j] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>          <span class="fu">sum</span>((data_mat[i, ] <span class="sc">-</span> centroids[j, ])<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># obtener clusters con los índices que minimicen la distancia</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    cluster <span class="ot">&lt;-</span> <span class="fu">apply</span>(dist_mat, <span class="dv">1</span>, which.min)</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    dist_mat_cluster <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>      dist_mat_cluster[[i]] <span class="ot">&lt;-</span> dist_mat[<span class="fu">which</span>(cluster <span class="sc">==</span> i), i]<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    within_cluster_ss_temp <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(dist_mat_cluster, sum))</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    within_cluster_ss <span class="ot">&lt;-</span> <span class="fu">append</span>(within_cluster_ss, within_cluster_ss_temp)</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    total_WCSS <span class="ot">&lt;-</span> <span class="fu">append</span>(total_WCSS, <span class="fu">sum</span>(within_cluster_ss_temp))</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># recalcular centroides</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    new_centroid <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cbind</span>(<span class="at">Clusters =</span> cluster) <span class="sc">%&gt;%</span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(Clusters) <span class="sc">%&gt;%</span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_all</span>(mean)</span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    centroids <span class="ot">&lt;-</span> new_centroid[, <span class="sc">-</span><span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  within_cluster_ss <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">array</span>(within_cluster_ss, <span class="at">dim =</span> <span class="fu">c</span>(k, iters)))</span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># retornar</span></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cluster =</span> cluster,</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">WCSS =</span> within_cluster_ss,</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">centroids =</span> centroids,</span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_WCSS =</span> total_WCSS</span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>k_means <span class="ot">&lt;-</span> <span class="cf">function</span>(df, k, iters) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># iniciar centroides</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  centroids_k <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(<span class="fu">dim</span>(df)[<span class="dv">1</span>], k)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  centroids <span class="ot">&lt;-</span> df[centroids_k, ] <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  data_mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(df)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># iniciar within-cluster sum of squares y total WCSS</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  within_cluster_ss <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  total_WCSS <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># iterar</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>iters) {</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># prealojar espacio para matriz de distancias</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    dist_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(data_mat), <span class="at">ncol =</span> k)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) { <span class="co"># para cada j en 1 hasta k</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data_mat)) { <span class="co"># para cada i en i hasta n</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># suma de cuadrados x_i - x_media_k</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        dist_mat[i, j] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>          <span class="fu">sum</span>((data_mat[i, ] <span class="sc">-</span> centroids[j, ])<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># obtener clusters con los índices que minimicen la distancia</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># axis = 1 es por fila, FUN = which.min retorna el índice del mínimo</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    cluster <span class="ot">&lt;-</span> <span class="fu">apply</span>(dist_mat, <span class="dv">1</span>, which.min)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    dist_mat_cluster <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Obtener distancia euclideana cuadrada</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>      dist_mat_cluster[[i]] <span class="ot">&lt;-</span> dist_mat[<span class="fu">which</span>(cluster <span class="sc">==</span> i), i]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># obtener la suma de cuadrados intra-cluster</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    within_cluster_ss_temp <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(dist_mat_cluster, sum))</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># obtener la suma de cuadrados intracluster total</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>    within_cluster_ss <span class="ot">&lt;-</span> <span class="fu">append</span>(within_cluster_ss, within_cluster_ss_temp)</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    total_WCSS <span class="ot">&lt;-</span> <span class="fu">append</span>(total_WCSS, <span class="fu">sum</span>(within_cluster_ss_temp))</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># recalcular centroides</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>    new_centroid <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cbind</span>(<span class="at">Clusters =</span> cluster) <span class="sc">%&gt;%</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(Clusters) <span class="sc">%&gt;%</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise_all</span>(mean)</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># -1 para eliminar la columna de clusters y dejar solo los centroides</span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>    centroids <span class="ot">&lt;-</span> new_centroid[, <span class="sc">-</span><span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">as.matrix</span>()</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>  within_cluster_ss <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">array</span>(within_cluster_ss, <span class="at">dim =</span> <span class="fu">c</span>(k, iters)))</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># retornar</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cluster =</span> cluster,</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">WCSS =</span> within_cluster_ss,</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">centroids =</span> centroids,</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_WCSS =</span> total_WCSS</span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>kmeans_scratch <span class="ot">&lt;-</span> <span class="fu">k_means</span>(x, <span class="dv">3</span>, <span class="dv">250</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>kmeans_scratch<span class="sc">$</span>centroids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>kmeans_scratch <span class="ot">&lt;-</span> <span class="fu">k_means</span>(x, <span class="dv">3</span>, <span class="dv">250</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>kmeans_scratch<span class="sc">$</span>centroids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
 <table class="dataframe table table-sm table-striped">
@@ -359,87 +427,169 @@ Total within-cluster sum of squares: 3686.696</code></pre>
     <tr><th scope="col">V1</th><th scope="col">V2</th></tr>
 </thead>
 <tbody>
-    <tr><td> 9.997902</td><td>10.020609</td></tr>
-    <tr><td>11.955684</td><td>11.928116</td></tr>
-    <tr><td> 3.908292</td><td> 4.037579</td></tr>
+    <tr><td>-2.79160201</td><td> 2.8959495</td></tr>
+    <tr><td> 3.11826753</td><td> 2.9425658</td></tr>
+    <tr><td> 0.02291773</td><td>-0.1252795</td></tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kmeans_scratch<span class="sc">$</span>total_WCSS, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">log =</span> <span class="st">'x'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># WCSS por iteración. Se puede ver que converge rápidamente alrededor de la iteración 4</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kmeans_scratch<span class="sc">$</span>total_WCSS, <span class="at">type =</span> <span class="st">'l'</span>, <span class="at">log =</span> <span class="st">'x'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  x[, <span class="dv">1</span>], x[, <span class="dv">2</span>],</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dos formas diferentes de anotaciones matemáticas</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> kmeans_scratch<span class="sc">$</span>Cluster <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(centroids[, <span class="dv">1</span>], centroids[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">7</span>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># nuevos centroides</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  kmeans_scratch<span class="sc">$</span>centroids[, <span class="dv">1</span>],</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  kmeans_scratch<span class="sc">$</span>centroids[, <span class="dv">2</span>],</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span>  <span class="dv">1</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># con función kmeans</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(km3<span class="sc">$</span>centers[, <span class="dv">1</span>], km3<span class="sc">$</span>centers[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="st">"-"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">5</span>)</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>km3<span class="sc">$</span>centers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="111">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>kmeans_scratch<span class="sc">$</span>WCSS</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<table class="dataframe table table-sm table-striped">
+<caption>A matrix: 250 × 3 of type dbl</caption>
+<tbody>
+    <tr><td>1708.3103</td><td>227.4304</td><td>841.6479</td></tr>
+    <tr><td> 710.4625</td><td>177.6116</td><td>369.8654</td></tr>
+    <tr><td> 383.8987</td><td>191.9531</td><td>283.8254</td></tr>
+    <tr><td> 189.6463</td><td>198.9403</td><td>145.4515</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td> 186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>⋮</td><td>⋮</td><td>⋮</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+    <tr><td>186.9627</td><td>198.8025</td><td>143.1972</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>x1, df<span class="sc">$</span>x2,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dos formas diferentes de anotaciones matemáticas</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> kmeans_scratch<span class="sc">$</span>Cluster <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(centroids[, <span class="dv">1</span>], centroids[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">7</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># nuevos centroides</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  kmeans_scratch<span class="sc">$</span>centroids[, <span class="dv">1</span>],</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  kmeans_scratch<span class="sc">$</span>centroids[, <span class="dv">2</span>],</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span>  <span class="dv">1</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># con función kmeans, color cyan</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(km3<span class="sc">$</span>centers[, <span class="dv">1</span>], km3<span class="sc">$</span>centers[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="st">"-"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">5</span>)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"topleft"</span>,</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"1st Iter"</span>, <span class="st">"From Scratcth"</span>, <span class="st">"From K-means R"</span>),</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">5</span>),</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="fu">c</span>(<span class="st">"+"</span>, <span class="st">"+"</span>, <span class="st">"-"</span>),</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">pt.cex =</span> <span class="dv">2</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>km3<span class="sc">$</span>centers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 
 <table class="dataframe table table-sm table-striped">
 <caption>A matrix: 3 × 2 of type dbl</caption>
 <tbody>
-    <tr><th scope="row">1</th><td> 9.997902</td><td>10.020609</td></tr>
-    <tr><th scope="row">2</th><td> 3.908292</td><td> 4.037579</td></tr>
-    <tr><th scope="row">3</th><td>11.955684</td><td>11.928116</td></tr>
+    <tr><th scope="row">1</th><td>-2.79160201</td><td> 2.895949</td></tr>
+    <tr><th scope="row">2</th><td> 3.09673812</td><td> 2.933816</td></tr>
+    <tr><th scope="row">3</th><td> 0.01345089</td><td>-0.148178</td></tr>
 </tbody>
 </table>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-12-output-2.png" class="img-fluid"></p>
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(iris[, <span class="dv">3</span>], iris[, <span class="dv">4</span>], <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> iris<span class="sc">$</span>Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_iris <span class="ot">&lt;-</span> iris <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>iris_km_scratch <span class="ot">&lt;-</span> <span class="fu">k_means</span>(df_iris, <span class="dv">3</span>, <span class="dv">150</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(iris[, <span class="dv">3</span>], iris[, <span class="dv">4</span>], <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> iris<span class="sc">$</span>Species)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  iris_km_scratch<span class="sc">$</span>centroids[, <span class="dv">1</span>],</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  iris_km_scratch<span class="sc">$</span>centroids[, <span class="dv">2</span>],</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">6</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(iris[, <span class="dv">3</span>], iris[, <span class="dv">4</span>], <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> iris<span class="sc">$</span>Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="5.3_analisis_de_cluster_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>¿Cómo decidir el número de clústers?</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>k_vec <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>tot_within_ss <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(k_vec))</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> k_vec) {</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  km_iris <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df_iris, i, <span class="at">iter.max =</span> <span class="dv">150</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  tot_within_ss[i] <span class="ot">&lt;-</span> km_iris<span class="sc">$</span>tot.withinss</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(k_vec, tot_within_ss, <span class="at">type =</span> <span class="st">'b'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df_iris <span class="ot">&lt;-</span> iris <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>iris_km_scratch <span class="ot">&lt;-</span> <span class="fu">k_means</span>(df_iris, <span class="dv">3</span>, <span class="dv">150</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(iris[, <span class="dv">3</span>], iris[, <span class="dv">4</span>], <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> iris<span class="sc">$</span>Species)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  iris_km_scratch<span class="sc">$</span>centroids[, <span class="dv">1</span>],</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  iris_km_scratch<span class="sc">$</span>centroids[, <span class="dv">2</span>],</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">6</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-16-output-1.png" class="img-fluid"></p>
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>¿Cómo decidir el número de clústers?</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>k_vec <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>tot_within_ss <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(k_vec))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> k_vec) {</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  km_iris <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(df_iris, i, <span class="at">iter.max =</span> <span class="dv">150</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  tot_within_ss[i] <span class="ot">&lt;-</span> km_iris<span class="sc">$</span>tot.withinss</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(k_vec, tot_within_ss, <span class="at">type =</span> <span class="st">'b'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p><strong>Número de clústers usando el estadístico Gap</strong></p>
@@ -451,162 +601,311 @@ Total within-cluster sum of squares: 3686.696</code></pre>
   \text{Gap}_n(k) = \text{E}^*_n[\log(W_k)] - \log(W_k)
 \]</span></p>
 <p>En donde <span class="math inline">\(\text{E}^*_n\)</span> denota el valor esperado bajo una muestra de tamaño <span class="math inline">\(n\)</span> de la distribución de referencia. Nuestro <span class="math inline">\(\hat k\)</span> óptimo será aquel que maximice $ _n(k)$</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">14</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>referencia <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>km_ref <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(referencia, <span class="dv">6</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(referencia,<span class="at">col =</span> km_ref<span class="sc">$</span>cluster, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">14</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>referencia <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>km_ref <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(referencia, <span class="dv">6</span>, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(referencia,<span class="at">col =</span> km_ref<span class="sc">$</span>cluster, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Siguiendo la lógica del gráfico de <span class="math inline">\(W_k\)</span> como función de <span class="math inline">\(k\)</span>, variamos de 1 a 15 para ver cómo se comporta.</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>k_vec <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>tot_within_ss <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(k_vec))</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> k_vec) {</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  km_iris <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(referencia, i, <span class="at">iter.max =</span> <span class="dv">150</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  tot_within_ss[i] <span class="ot">&lt;-</span> km_iris<span class="sc">$</span>tot.withinss</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(k_vec, tot_within_ss, <span class="at">type =</span> <span class="st">'b'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<p>Pareciera que el número óptimo está entre 3 y 4. Pero ¿es razonable?</p>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df_ref <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">rows =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(referencia), <span class="at">referencia =</span> referencia)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>gap_stat <span class="ot">&lt;-</span> <span class="fu">clusGap</span>(df_ref, <span class="at">FUN =</span> kmeans, <span class="at">nstart =</span> <span class="dv">25</span>, <span class="at">K.max =</span> <span class="dv">15</span>, <span class="at">B =</span> <span class="dv">100</span>, <span class="at">method =</span> <span class="st">"globalmax"</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># otros métodos disponibles son</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># firstmax: da el k del primer máximo local encontrado</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Tibs2001SEmax: usa el criterio de Tibshirani et al 2001. Encuentra el k menor</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#                tal que Gap(k) &gt;= Gap(k+1) - SE(k+1), tal que considera el error</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                (efectivamente el k escogido es mayor que el límite inferior de Gap(k+1))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error in FUNcluster(X, kk, ...): unused argument (method = "globalmax")</code></pre>
-</div>
-</div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gap_stat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>k_vec <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>tot_within_ss <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">length</span>(k_vec))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> k_vec) {</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  km_iris <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(referencia, i, <span class="at">iter.max =</span> <span class="dv">150</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  tot_within_ss[i] <span class="ot">&lt;-</span> km_iris<span class="sc">$</span>tot.withinss</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(k_vec, tot_within_ss, <span class="at">type =</span> <span class="st">'b'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="5.3_analisis_de_cluster_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
 </div>
 </div>
+<p>Pareciera que el número óptimo está entre 3 y 4. Pero ¿es razonable?</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df_ref <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">rows =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(referencia), <span class="at">referencia =</span> referencia)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>gap_stat <span class="ot">&lt;-</span> <span class="fu">clusGap</span>(df_ref, <span class="at">FUN =</span> kmeans, <span class="at">nstart =</span> <span class="dv">25</span>, <span class="at">K.max =</span> <span class="dv">15</span>, <span class="at">B =</span> <span class="dv">100</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># otros métodos disponibles son</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># firstmax: da el k del primer máximo local encontrado</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Tibs2001SEmax: usa el criterio de Tibshirani et al 2001. Encuentra el k menor</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#                tal que Gap(k) &gt;= Gap(k+1) - SE(k+1), tal que considera el error</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                (efectivamente el k escogido es mayor que el límite inferior de Gap(k+1))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df_iris <span class="ot">&lt;-</span> iris <span class="sc">|&gt;</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>gap_iris <span class="ot">&lt;-</span> <span class="fu">clusGap</span>(df_iris, <span class="at">FUN =</span> kmeans, <span class="at">nstart =</span> <span class="dv">25</span>, <span class="at">K.max =</span> <span class="dv">10</span>, <span class="at">B =</span> <span class="dv">200</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error in stopifnot((K &lt;- length(f)) &gt;= 1, K == length(SE.f), SE.f &gt;= 0, : argument "f" is missing, with no default</code></pre>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gap_stat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gap_iris)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gap_iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>df_iris <span class="ot">&lt;-</span> iris <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>gap_iris <span class="ot">&lt;-</span> <span class="fu">clusGap</span>(df_iris, <span class="at">FUN =</span> kmeans, <span class="at">nstart =</span> <span class="dv">25</span>, <span class="at">K.max =</span> <span class="dv">10</span>, <span class="at">B =</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gap_iris)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gap_iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 'clusGap'
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-22-output-2.png" class="img-fluid"></p>
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-24-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gap_iris, <span class="at">method=</span><span class="st">"Tibs2001SEmax"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gap_iris, <span class="at">method=</span><span class="st">"Tibs2001SEmax"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Clustering Gap statistic ["clusGap"] from call:
 clusGap(x = df_iris, FUNcluster = kmeans, K.max = 10, B = 200, nstart = 25)
 B=200 simulated reference sets, k = 1..10; spaceH0="scaledPCA"
  --&gt; Number of clusters (method 'Tibs2001SEmax', SE.factor=1): 3
           logW   E.logW          gap     SE.sim
- [1,] 4.399580 4.392177 -0.007403292 0.03738783
- [2,] 3.410001 3.766557  0.356555971 0.03066725
- [3,] 2.949827 3.436735  0.486907376 0.02867302
- [4,] 2.730474 3.230759  0.500285162 0.02507507
- [5,] 2.598849 3.091065  0.492216194 0.02502116
- [6,] 2.476060 2.987303  0.511242889 0.02695796
- [7,] 2.413556 2.904713  0.491157249 0.02691682
- [8,] 2.308265 2.831235  0.522969994 0.02790136
- [9,] 2.234325 2.763507  0.529182274 0.02814243
-[10,] 2.143673 2.699124  0.555451099 0.02877833</code></pre>
+ [1,] 4.399580 4.392879 -0.006700832 0.03481143
+ [2,] 3.410001 3.766378  0.356376965 0.02922042
+ [3,] 2.949827 3.435481  0.485653643 0.02593069
+ [4,] 2.730474 3.230317  0.499842615 0.02513356
+ [5,] 2.598849 3.089189  0.490339958 0.02500122
+ [6,] 2.476060 2.985907  0.509847079 0.02479878
+ [7,] 2.385625 2.904148  0.518523202 0.02538538
+ [8,] 2.308265 2.831096  0.522830920 0.02688408
+ [9,] 2.234325 2.764006  0.529680453 0.02784533
+[10,] 2.143673 2.700116  0.556443342 0.02912414</code></pre>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="56">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(iris[, <span class="dv">3</span>], iris[, <span class="dv">4</span>], <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> iris<span class="sc">$</span>Species)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  iris_km_scratch<span class="sc">$</span>centroids[, <span class="dv">1</span>],</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  iris_km_scratch<span class="sc">$</span>centroids[, <span class="dv">2</span>],</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">6</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(iris[, <span class="dv">3</span>], iris[, <span class="dv">4</span>], <span class="at">color =</span> <span class="dv">1</span>, <span class="at">fill =</span> iris<span class="sc">$</span>Species)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  iris_km_scratch<span class="sc">$</span>centroids[, <span class="dv">1</span>],</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  iris_km_scratch<span class="sc">$</span>centroids[, <span class="dv">2</span>],</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="st">"+"</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="dv">6</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-24-output-1.png" class="img-fluid"></p>
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="94">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">4</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), <span class="at">ncol =</span> <span class="dv">2</span>),</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">12</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), <span class="at">ncol =</span> <span class="dv">2</span>),</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), <span class="at">ncol =</span> <span class="dv">2</span>),</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">15</span>, <span class="dv">20</span>), <span class="at">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  x[, <span class="dv">1</span>], x[, <span class="dv">2</span>],</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dos formas diferentes de anotaciones matemáticas</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> red_light, <span class="at">fill =</span> blue_light</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="100">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>gap_x <span class="ot">&lt;-</span> <span class="fu">clusGap</span>(x, <span class="at">FUN =</span> pam, <span class="at">metric =</span> <span class="st">'manhattan'</span>,  <span class="at">nstart =</span> <span class="dv">25</span>, <span class="at">K.max =</span> <span class="dv">10</span>, <span class="at">B =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="101">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gap_x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">4</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), <span class="at">ncol =</span> <span class="dv">2</span>),</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">12</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), <span class="at">ncol =</span> <span class="dv">2</span>),</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="fl">0.3</span>), <span class="at">ncol =</span> <span class="dv">2</span>),</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">15</span>, <span class="dv">20</span>), <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  x[, <span class="dv">1</span>], x[, <span class="dv">2</span>],</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dos formas diferentes de anotaciones matemáticas</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> red_light, <span class="at">fill =</span> blue_light</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="5.3_analisis_de_cluster_files/figure-html/cell-27-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="102">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gap_x, <span class="at">method =</span> <span class="st">'Tibs2001SEmax'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>gap_x <span class="ot">&lt;-</span> <span class="fu">clusGap</span>(x, <span class="at">FUN =</span> pam, <span class="at">metric =</span> <span class="st">'manhattan'</span>,  <span class="at">nstart =</span> <span class="dv">25</span>, <span class="at">K.max =</span> <span class="dv">10</span>, <span class="at">B =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gap_x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gap_x, <span class="at">method =</span> <span class="st">'Tibs2001SEmax'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Clustering Gap statistic ["clusGap"] from call:
 clusGap(x = x, FUNcluster = pam, K.max = 10, B = 10, metric = "manhattan", nstart = 25)
 B=10 simulated reference sets, k = 1..10; spaceH0="scaledPCA"
- --&gt; Number of clusters (method 'Tibs2001SEmax', SE.factor=1): 7
+ --&gt; Number of clusters (method 'Tibs2001SEmax', SE.factor=1): 6
           logW   E.logW        gap     SE.sim
- [1,] 5.985869 6.027678 0.04180957 0.03081980
- [2,] 5.328096 5.464201 0.13610441 0.02322687
- [3,] 4.432942 5.193940 0.76099857 0.02528755
- [4,] 4.009860 5.034184 1.02432351 0.01824827
- [5,] 3.786113 4.935393 1.14928064 0.01871117
- [6,] 3.660752 4.847254 1.18650203 0.02616058
- [7,] 3.505695 4.766862 1.26116693 0.02576164
- [8,] 3.436719 4.682975 1.24625555 0.03063070
- [9,] 3.370360 4.603945 1.23358502 0.03557637
-[10,] 3.316769 4.541918 1.22514918 0.03069241</code></pre>
+ [1,] 5.963955 5.976091 0.01213579 0.03013187
+ [2,] 5.293596 5.386673 0.09307711 0.02733498
+ [3,] 4.351101 5.101864 0.75076266 0.02844440
+ [4,] 3.889727 4.920557 1.03082932 0.03220487
+ [5,] 3.733297 4.798797 1.06549959 0.02688223
+ [6,] 3.609884 4.708694 1.09881045 0.02809873
+ [7,] 3.527840 4.630619 1.10277914 0.02455028
+ [8,] 3.462930 4.553796 1.09086632 0.02797929
+ [9,] 3.384242 4.478644 1.09440183 0.02266132
+[10,] 3.335537 4.411578 1.07604139 0.01872061</code></pre>
 </div>
 </div>
-<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="99">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>kmeanxx <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x, <span class="dv">7</span>, <span class="dv">100</span>, <span class="dv">25</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  x[, <span class="dv">1</span>], x[, <span class="dv">2</span>],</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dos formas diferentes de anotaciones matemáticas</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> red_light, <span class="at">fill =</span> kmeanxx<span class="sc">$</span>cluster</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>kmeanxx <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(x, <span class="dv">7</span>, <span class="dv">100</span>, <span class="dv">25</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter_plot</span>(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  x[, <span class="dv">1</span>], x[, <span class="dv">2</span>],</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dos formas diferentes de anotaciones matemáticas</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="fu">parse</span>(<span class="at">text =</span> <span class="st">"x[1]"</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(x[<span class="dv">2</span>]),</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> red_light, <span class="at">fill =</span> kmeanxx<span class="sc">$</span>cluster</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-31-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="soft-clustering-con-gmm" class="level3">
+<h3 class="anchored" data-anchor-id="soft-clustering-con-gmm">Soft-clustering con GMM</h3>
+<p>El algoritmo K-means es un algoritmo de clústering duro. Esto significa que cada observación pertenece a un único clúster. En ocasiones, es más razonable pensar que una observación puede pertenecer a más de un clúster. Por ejemplo, si estamos segmentando clientes de un banco, es posible que un cliente pertenezca a más de un segmento. Los modelos de mezcla de Gaussianas (GMM) son una generalización del K-means que permiten que una observación pertenezca a más de un clúster. Matemáticamente, se puede formular de la siguiente manera:</p>
+<p><span class="math display">\[
+  p(x) = \sum_{k=1}^K \pi_k \phi(x|\mu_k, \Sigma_k)
+\]</span></p>
+<p>En donde <span class="math inline">\(x\)</span> es una observación, <span class="math inline">\(\pi_k\)</span> es la probabilidad de que una observación pertenezca al clúster <span class="math inline">\(k\)</span>, y <span class="math inline">\(\sum_{k=1}^K \pi_k = 1\)</span>; <span class="math inline">\(\phi(x|\mu_k, \Sigma_k)\)</span> es la función de densidad de una distribución normal multivariada con media <span class="math inline">\(\mu_k\)</span> y matriz de covarianza <span class="math inline">\(\Sigma_k\)</span>. La función de densidad de una distribución normal multivariada es:</p>
+<p><span class="math display">\[
+  \phi(x|\mu_k, \Sigma_k) = \frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}\exp\left(-\frac{1}{2}(x-\mu_k)^T\Sigma_k^{-1}(x-\mu_k)\right)
+\]</span></p>
+<p>Si, por ejemplo, <span class="math inline">\(k=3\)</span> y <span class="math inline">\(\pi_1=0.5\)</span>, <span class="math inline">\(\pi_2=0.3\)</span> y <span class="math inline">\(\pi_3=0.2\)</span>, entonces la probabilidad de que una observación <span class="math inline">\(x\)</span> pertenezca al clúster 1 es 0.5, al clúster 2 es 0.3 y al clúster 3 es 0.2.</p>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ejemplo anterior usando GMM del paquete mclust</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a bivariate dataset with two clusters</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mclust) <span class="co"># install.packages("mclust")</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">rmvnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">sigma =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">nrow =</span> <span class="dv">2</span>))</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rmvnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>), <span class="at">sigma =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">nrow =</span> <span class="dv">2</span>))</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rbind</span>(X1, X2)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the dataset</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(X, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">pch =</span> <span class="dv">20</span>)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a Gaussian Mixture Model with two components to the dataset</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">Mclust</span>(X, <span class="at">G =</span> <span class="dv">2</span>)</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the Gaussian Mixture Model</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model, <span class="at">what =</span> <span class="st">"classification"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-32-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-32-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a Gaussian Mixture Model with two components to the dataset</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> df[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)]</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">Mclust</span>(X, <span class="at">G =</span> <span class="dv">3</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the Gaussian Mixture Model</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model, <span class="at">what =</span> <span class="st">"classification"</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>---------------------------------------------------- 
+Gaussian finite mixture model fitted by EM algorithm 
+---------------------------------------------------- 
+
+Mclust EII (spherical, equal volume) model with 3 components: 
+
+ log-likelihood   n df       BIC       ICL
+      -1137.321 300  9 -2325.976 -2337.653
+
+Clustering table:
+  1   2   3 
+ 96 103 101 </code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-33-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>parameters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<dl>
+    <dt>$pro</dt>
+        <dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class="list-inline"><li>0.32115691855368</li><li>0.34288741134094</li><li>0.33595567010538</li></ol>
+</dd>
+    <dt>$mean</dt>
+        <dd><table class="dataframe table table-sm table-striped">
+<caption>A matrix: 2 × 3 of type dbl</caption>
+<tbody>
+    <tr><th scope="row">x1</th><td> 0.02500176</td><td>-2.785444</td><td>3.112805</td></tr>
+    <tr><th scope="row">x2</th><td>-0.11006156</td><td> 2.889779</td><td>2.944818</td></tr>
+</tbody>
+</table>
+</dd>
+    <dt>$variance</dt>
+        <dd><dl>
+    <dt>$modelName</dt>
+        <dd>'EII'</dd>
+    <dt>$d</dt>
+        <dd>2</dd>
+    <dt>$G</dt>
+        <dd>3</dd>
+    <dt>$sigma</dt>
+        <dd><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class="list-inline"><li>0.907794432828985</li><li>0</li><li>0</li><li>0.907794432828985</li><li>0.907794432828985</li><li>0</li><li>0</li><li>0.907794432828985</li><li>0.907794432828985</li><li>0</li><li>0</li><li>0.907794432828985</li></ol>
+</dd>
+    <dt>$Sigma</dt>
+        <dd><table class="dataframe table table-sm table-striped">
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<thead>
+    <tr><th></th><th scope="col">x1</th><th scope="col">x2</th></tr>
+</thead>
+<tbody>
+    <tr><th scope="row">x1</th><td>0.9077944</td><td>0.0000000</td></tr>
+    <tr><th scope="row">x2</th><td>0.0000000</td><td>0.9077944</td></tr>
+</tbody>
+</table>
+</dd>
+    <dt>$sigmasq</dt>
+        <dd>0.907794432828985</dd>
+    <dt>$scale</dt>
+        <dd>0.907794432828985</dd>
+</dl>
+</dd>
+</dl>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># comparar con kmeans con GMM</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>km3 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(X, <span class="dv">3</span>, <span class="at">iter.max =</span> <span class="dv">2000</span>, <span class="at">nstart =</span> <span class="dv">3</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model, <span class="at">what =</span> <span class="st">"classification"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(model<span class="sc">$</span>parameters<span class="sc">$</span>mean[<span class="dv">1</span>, ], model<span class="sc">$</span>parameters<span class="sc">$</span>mean[<span class="dv">2</span>, ], <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">bg =</span> <span class="dv">2</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(km3<span class="sc">$</span>centers[, <span class="dv">1</span>], km3<span class="sc">$</span>centers[, <span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">bg =</span> <span class="st">"steelblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-35-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>model_den <span class="ot">&lt;-</span> <span class="fu">densityMclust</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-36-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_den, <span class="at">what =</span> <span class="st">"density"</span>, <span class="at">type =</span> <span class="st">"image"</span>, <span class="at">data =</span> X, <span class="at">points.cex =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-37-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># en 3d</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_den, <span class="at">what =</span> <span class="st">"density"</span>, <span class="at">type =</span> <span class="st">"persp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-38-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="cell" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}" data-execution_count="108">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">surfacePlot</span>(X, <span class="at">parameters =</span> model<span class="sc">$</span>parameters, <span class="at">grid =</span> <span class="dv">300</span>, <span class="at">type =</span> <span class="st">'persp'</span>, <span class="at">col =</span> <span class="st">'lightblue'</span>, <span class="at">theta =</span> <span class="dv">0</span>, <span class="at">phi =</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="5.3_analisis_de_cluster_files/figure-html/cell-39-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
